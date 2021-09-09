@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:king_game/models/menu_model.dart';
+import 'package:king_game/screens/settings_screen.dart';
+import 'package:king_game/services/contentService.dart';
 
 
 class MainMenu extends StatefulWidget{
@@ -8,36 +10,9 @@ class MainMenu extends StatefulWidget{
   _MainMenu createState() => _MainMenu();
 }
 
-String getText(String language, int index){
-  if(language == 'TR'){
-    return turkish[index].title;
-  }else if(language == 'EN'){
-    return english[index].title;
-  }else
-    return options[index - 1].title;
-}
-
-String getSubtitle(String language, int index){
-  if(language == 'TR'){
-    return turkish[index].subtitle;
-  }else if(language == 'EN'){
-    return english[index].subtitle;
-  }else
-    return options[index - 1].subtitle;
-}
-
-String getAppBarTitle(String language){
-  if(language == 'TR'){
-    return turkish[0].title;
-  }else if(language == 'EN'){
-    return english[0].title;
-  }else
-    return options[0].title;
-}
-
 class _MainMenu extends State<MainMenu>{
   int _selectedOption = 0;
-  String language = "TR", _mySelection = "";
+  String language = "TR", pageName = "menu";
   Image image = new Image.asset("./lib/assets/turkish_flag.png");
   @override
   Widget build(BuildContext context) {
@@ -47,7 +22,7 @@ class _MainMenu extends State<MainMenu>{
         backgroundColor: Colors.red,
         centerTitle: true,
         title: Text(
-          getAppBarTitle(language),
+          ContentService().getAppBarTitle(language, pageName),
             /*"King Skor Tablosu",*/
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -81,7 +56,7 @@ class _MainMenu extends State<MainMenu>{
                   leading: options[index - 1].icon,
                 //Image.asset("lib/assets/card_deck.png"),
                 title: Text(
-                  getText(language, index),
+                  ContentService().getMenuTitle(language, index),
                   /*options[index - 1].title,*/
                   style: TextStyle(
                     color: options[index - 1].textColor,
@@ -90,12 +65,17 @@ class _MainMenu extends State<MainMenu>{
                   ),
                 ),
                 subtitle: Text(
-                  getSubtitle(language, index),
+                    ContentService().getMenuSubtitle(language, index),
                   style: TextStyle(color: options[index - 1].textColor)
                 ),
                 selected: true, //icon showing active
                 onTap: () {
-                  setState(() {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => SettingsScreen()
+                    )
+                  );
+                    setState(() {
                     _selectedOption = index - 1;
                   });
                 },
