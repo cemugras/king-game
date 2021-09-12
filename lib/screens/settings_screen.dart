@@ -78,15 +78,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
         CustomSection(
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 22, bottom: 8),
+              /*Padding(
+                *//*padding: const EdgeInsets.only(top: 22, bottom: 8),
                 child: Image.asset(
                   'assets/settings.png',
                   height: 50,
                   width: 50,
                   color: Color(0xFF777777),
-                ),
-              ),
+                ),*//*
+              ),*/
               Text(
                 'Version: 1.0.0 (1)',
                 style: TextStyle(color: Color(0xFF777777)),

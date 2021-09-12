@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:king_game/services/contentService.dart';
+import 'package:king_game/services/cacheService.dart';
 
 class LanguagesScreen extends StatefulWidget {
   @override
@@ -9,10 +10,9 @@ class LanguagesScreen extends StatefulWidget {
 
 class _LanguagesScreenState extends State<LanguagesScreen> {
   int languageIndex = 0;
-  String language = "TR";
   String pageName = "language";
 
-  @override
+@override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFFAFAFA),
@@ -20,7 +20,7 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
         backgroundColor: Colors.red,
         centerTitle: true,
         title: Text(
-          ContentService().getAppBarTitle(language, pageName),
+          ContentService().getAppBarTitle(CacheService().getLanguage(), pageName),
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -35,14 +35,14 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
               title: "English",
               trailing: trailingWidget(0),
               onPressed: (BuildContext context) {
-                changeLanguage(0);
+                changeLanguage("EN" , 0);
               },
             ),
             SettingsTile(
               title: "Türkçe",
               trailing: trailingWidget(1),
               onPressed: (BuildContext context) {
-                changeLanguage(1);
+                changeLanguage("TR" , 1);
               },
             )
           ]),
@@ -57,9 +57,10 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
         : Icon(null);
   }
 
-  void changeLanguage(int index) {
+  void changeLanguage(String languagePref, int index) {
     setState(() {
       languageIndex = index;
     });
+    CacheService().setLanguage(languagePref);
   }
 }

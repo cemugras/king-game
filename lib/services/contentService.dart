@@ -21,19 +21,19 @@ class ContentService{
   }
 
   String getAppBarTitle(String language, String pageName){
-    if(language == 'TR' && pageName == "menu"){
+    if(language == "TR" && pageName == "menu"){
       return AppBarConstants.APPBAR_MENU_TR;
-    }else if(language == 'EN' && pageName == "menu"){
+    }else if(language == "EN" && pageName == "menu"){
       return AppBarConstants.APPBAR_MENU_EN;
-    }else if(language == 'TR' && pageName == "settings"){
+    }else if(language == "TR" && pageName == "settings"){
       return AppBarConstants.APPBAR_SETTINGS_TR;
-    }else if(language == 'EN' && pageName == "settings"){
+    }else if(language == "EN" && pageName == "settings"){
       return AppBarConstants.APPBAR_SETTINGS_EN;
-    }else if(language == 'TR' && pageName == "language"){
+    }else if(language == "TR" && pageName == "language"){
       return AppBarConstants.APPBAR_LANG_TR;
-    }else if(language == 'EN' && pageName == "language"){
+    }else if(language == "EN" && pageName == "language"){
       return AppBarConstants.APPBAR_LANG_EN;
     }else
-      return 'ErrorPageName';
+      return "ErrorPageName";
   }
 }
