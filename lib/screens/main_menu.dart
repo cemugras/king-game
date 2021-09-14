@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:king_game/models/menu_model.dart';
 import 'package:king_game/screens/settings_screen.dart';
 import 'package:king_game/services/contentService.dart';
-import 'package:king_game/services/cacheService.dart';
 
 
 class MainMenu extends StatefulWidget{
@@ -22,7 +21,8 @@ class _MainMenu extends State<MainMenu>{
         backgroundColor: Colors.red,
         centerTitle: true,
         title: Text(
-          ContentService().getAppBarTitle(CacheService().getLanguage(), pageName),
+          //ContentService().getAppBarTitle(CacheService().getLanguage(), pageName),
+          'Static',
             /*"King Skor Tablosu",*/
             textAlign: TextAlign.center,
             style: TextStyle(

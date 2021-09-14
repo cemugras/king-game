@@ -10,7 +10,32 @@ class LanguagesScreen extends StatefulWidget {
 
 class _LanguagesScreenState extends State<LanguagesScreen> {
   int languageIndex = 0;
-  String pageName = "language";
+  String pageName = "language", _language = "NULL";
+  String title = "null";
+
+  @override
+  void initState() {
+    super.initState();
+    _getLanguage();
+  }
+
+  void _changeLanguage(String languagePref, int index) {
+    setState(() {
+      languageIndex = index;
+      CacheService().setStringValue('language', languagePref);
+      _getLanguage();
+    });
+  }
+
+  void _getLanguage() async {
+    setState(() {
+      _language = CacheService().getStringValue("language").then((String value) {
+        setState(() {
+          title = ContentService().getAppBarTitle(value.toString(), pageName);
+        });
+      }) as String;
+    });
+  }
 
 @override
   Widget build(BuildContext context) {
@@ -20,7 +45,7 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
         backgroundColor: Colors.red,
         centerTitle: true,
         title: Text(
-          ContentService().getAppBarTitle(CacheService().getLanguage(), pageName),
+          '$title',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -35,14 +60,14 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
               title: "English",
               trailing: trailingWidget(0),
               onPressed: (BuildContext context) {
-                changeLanguage("EN" , 0);
+                _changeLanguage("EN" , 0);
               },
             ),
             SettingsTile(
               title: "Türkçe",
               trailing: trailingWidget(1),
               onPressed: (BuildContext context) {
-                changeLanguage("TR" , 1);
+                _changeLanguage("TR" , 1);
               },
             )
           ]),
@@ -57,10 +82,8 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
         : Icon(null);
   }
 
-  void changeLanguage(String languagePref, int index) {
-    setState(() {
-      languageIndex = index;
-    });
-    CacheService().setLanguage(languagePref);
-  }
+  /*String getLanguage(){
+    language = ContentService().getAppBarTitle(CacheService().getLanguage(), pageName);
+    return language;
+  }*/
 }

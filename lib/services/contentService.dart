@@ -1,7 +1,9 @@
 import 'package:king_game/models/menu_model.dart';
 import 'package:king_game/models/constants.dart';
+import 'package:king_game/services/cacheService.dart';
 
 class ContentService{
+
   String getMenuTitle(String language, int index){
     if(language == 'TR'){
       return turkish[index].title;
@@ -35,5 +37,9 @@ class ContentService{
       return AppBarConstants.APPBAR_LANG_EN;
     }else
       return "ErrorPageName";
+  }
+
+  String getLanguage() {
+    return CacheService().getStringValue("language") as String;
   }
 }

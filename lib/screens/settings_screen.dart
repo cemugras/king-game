@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:king_game/services/contentService.dart';
+import 'package:king_game/services/cacheService.dart';
 
 import 'languages_screen.dart';
 
@@ -11,8 +12,24 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool nightMode = false;
-  String language = "TR";
-  String pageName = "settings";
+  late String _language;
+  String pageName = "settings", title = "null";
+
+  @override
+  void initState() {
+    super.initState();
+    _getLanguage();
+  }
+
+  void _getLanguage() async {
+    setState(() {
+      _language = CacheService().getStringValue("language").then((String value) {
+        setState(() {
+          title = ContentService().getAppBarTitle(value.toString(), pageName);
+        });
+      }) as String;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +39,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         backgroundColor: Colors.red,
         centerTitle: true,
         title: Text(
-          ContentService().getAppBarTitle(language, pageName),
+          '$title',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
