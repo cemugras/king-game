@@ -23,7 +23,32 @@ class ContentService{
   }
 
   String getAppBarTitle(String language, String pageName){
-    if(language == "TR" && pageName == "menu"){
+
+    switch (language) {
+      case "TR":
+        if(pageName == "menu")
+          return AppBarConstants.APPBAR_MENU_TR;
+        else if(pageName == "settings")
+          return AppBarConstants.APPBAR_SETTINGS_TR;
+        else if(pageName == "language")
+          return AppBarConstants.APPBAR_LANG_TR;
+        else
+          return "ErrorPageName";
+      case "EN":
+        if(pageName == "menu")
+          return AppBarConstants.APPBAR_MENU_EN;
+        else if(pageName == "settings")
+          return AppBarConstants.APPBAR_SETTINGS_EN;
+        else if(pageName == "language")
+          return AppBarConstants.APPBAR_LANG_EN;
+        else
+          return "ErrorPageName";
+      case "null":
+        return getAppBarTitle("EN", pageName);
+      default:
+        return "ErrorPageName";
+    }
+    /*if(language == "TR" && pageName == "menu"){
       return AppBarConstants.APPBAR_MENU_TR;
     }else if(language == "EN" && pageName == "menu"){
       return AppBarConstants.APPBAR_MENU_EN;
@@ -35,8 +60,8 @@ class ContentService{
       return AppBarConstants.APPBAR_LANG_TR;
     }else if(language == "EN" && pageName == "language"){
       return AppBarConstants.APPBAR_LANG_EN;
-    }else
-      return "ErrorPageName";
+    }else if(language == "null")
+      return "ErrorPageName";*/
   }
 
   String getLanguage() {

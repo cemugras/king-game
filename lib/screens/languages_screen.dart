@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:king_game/services/contentService.dart';
 import 'package:king_game/services/cacheService.dart';
+import 'package:king_game/screens/settings_screen.dart';
 
 class LanguagesScreen extends StatefulWidget {
   @override
@@ -10,8 +11,8 @@ class LanguagesScreen extends StatefulWidget {
 
 class _LanguagesScreenState extends State<LanguagesScreen> {
   int languageIndex = 0;
-  String pageName = "language", _language = "NULL";
-  String title = "null";
+  String pageName = "language";
+  String _title = "null";
 
   @override
   void initState() {
@@ -24,16 +25,15 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
       languageIndex = index;
       CacheService().setStringValue('language', languagePref);
       _getLanguage();
+      SettingsScreen().languageChanges();
     });
   }
 
   void _getLanguage() async {
+    final language = await CacheService().getStringValue("language");
+    final title = ContentService().getAppBarTitle(language.toString(), pageName);
     setState(() {
-      _language = CacheService().getStringValue("language").then((String value) {
-        setState(() {
-          title = ContentService().getAppBarTitle(value.toString(), pageName);
-        });
-      }) as String;
+      _title = title;
     });
   }
 
@@ -45,7 +45,7 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
         backgroundColor: Colors.red,
         centerTitle: true,
         title: Text(
-          '$title',
+          '$_title',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,

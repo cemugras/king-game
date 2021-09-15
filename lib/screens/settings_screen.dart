@@ -8,12 +8,17 @@ import 'languages_screen.dart';
 class SettingsScreen extends StatefulWidget {
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
+
+  void languageChanges() async {
+    _SettingsScreenState()._getLanguage();
+  }
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool nightMode = false;
-  late String _language;
-  String pageName = "settings", title = "null";
+  String pageName = "settings";
+  String _title = "null";
+
 
   @override
   void initState() {
@@ -22,12 +27,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void _getLanguage() async {
+    final language = await CacheService().getStringValue("language");
+    final title = ContentService().getAppBarTitle(language.toString(), pageName);
     setState(() {
-      _language = CacheService().getStringValue("language").then((String value) {
-        setState(() {
-          title = ContentService().getAppBarTitle(value.toString(), pageName);
-        });
-      }) as String;
+      _title = title;
     });
   }
 
@@ -39,7 +42,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         backgroundColor: Colors.red,
         centerTitle: true,
         title: Text(
-          '$title',
+          '$_title',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
