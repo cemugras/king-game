@@ -10,10 +10,23 @@ class CacheService{
     prefs.setString(key, value);
   }
 
+  //Set boolean value for given title to cache
+  void setBooleanValue(String key, bool value) async {
+    prefs = await SharedPreferences.getInstance();
+    prefs.setBool(key, value);
+  }
+
   //Get string value for given key from cache
   Future<String> getStringValue(String key) async {
     final myPrefs = await SharedPreferences.getInstance();
-    String lang = myPrefs.getString(key) ?? "null";
-    return lang;
+    String value = myPrefs.getString(key) ?? "null";
+    return value;
+  }
+
+  //Get boolean value for given key from cache
+  Future<bool> getBooleanValue(String key) async {
+    final myPrefs = await SharedPreferences.getInstance();
+    bool value = myPrefs.getBool(key) ?? false;
+    return value;
   }
 }

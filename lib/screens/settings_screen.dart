@@ -8,10 +8,6 @@ import 'languages_screen.dart';
 class SettingsScreen extends StatefulWidget {
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
-
-  void languageChanges() async {
-    _SettingsScreenState()._getLanguage();
-  }
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
@@ -31,6 +27,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void initState() {
     super.initState();
     _getLanguage();
+    _getDarkTheme();
   }
 
   void _getLanguage() async {
@@ -58,6 +55,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
       _settingsSectionMisc = settingsSectionMisc;
       _versionTitle = versionTitle;
       _versionNumber = versionNumber;
+    });
+  }
+
+  void _getDarkTheme() async {
+    nightMode = await ContentService().getDarkTheme();
+  }
+
+  void _setTheme(bool value) async {
+    setState(() {
+      ContentService().setTheme(value);
+      _getDarkTheme();
     });
   }
 
@@ -130,7 +138,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               switchValue: nightMode,
               onToggle: (bool value) {
                 setState(() {
-                  nightMode = value;
+                  _setTheme(value);
                 });
               },
             ),

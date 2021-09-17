@@ -1,5 +1,6 @@
 import 'package:king_game/models/menu_model.dart';
 import 'package:king_game/models/constants.dart';
+import 'package:king_game/services/cacheService.dart';
 
 class ContentService{
 
@@ -50,7 +51,6 @@ class ContentService{
   }
 
   String getContent(String language, String contentName){
-
     switch (language) {
       case "TR":
         if(contentName == "langTitle")
@@ -103,6 +103,15 @@ class ContentService{
       default:
         return "ErrorContent";
     }
+  }
+
+  Future<bool> getDarkTheme() async {
+    final theme = await CacheService().getBooleanValue("theme");
+    return theme;
+  }
+
+  void setTheme(value) {
+    CacheService().setBooleanValue("theme",value);
   }
 
 }
