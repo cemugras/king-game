@@ -17,7 +17,15 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   bool nightMode = false;
   String pageName = "settings";
-  String _title = "null";
+  String _language = "null";
+  String _appBarTitle = "null",
+      _languageTitle = "null", _languageSubtitle = "null",
+      _nightModeTitle = "null",
+      _envTitle = "null", _envSubTitle = "null",
+      _devLicenceTitle = "null",
+      _settingsSectionCommon = "null", _settingsSectionMisc = "null",
+      _versionTitle = "null";
+  String _version = "null";
 
 
   @override
@@ -27,10 +35,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void _getLanguage() async {
-    final language = await CacheService().getStringValue("language");
-    final title = ContentService().getAppBarTitle(language.toString(), pageName);
+    _language = await CacheService().getStringValue("language");
+    final appBarTitle = ContentService().getAppBarTitle(_language.toString(), pageName);
+    final languageTitle = ContentService().getContent(_language.toString(), "langTitle");
+    final languageSubTitle = ContentService().getContent(_language.toString(), "langSubTitle");
+    final nightModeTitle = ContentService().getContent(_language.toString(), "nightModeTitle");
+    final envTitle = ContentService().getContent(_language.toString(), "envTitle");
+    final envSubTitle = ContentService().getContent(_language.toString(), "envSubTitle");
+    final devLicenceTitle = ContentService().getContent(_language.toString(), "devLicenceTitle");
+    final settingsSectionCommon = ContentService().getContent(_language.toString(), "settingsSectionCommon");
+    final settingsSectionMisc = ContentService().getContent(_language.toString(), "settingsSectionMisc");
+    final versionTitle = ContentService().getContent(_language.toString(), "versionTitle");
     setState(() {
-      _title = title;
+      _appBarTitle = appBarTitle;
+      _languageTitle = languageTitle;
+      _languageSubtitle = languageSubTitle;
+      _nightModeTitle = nightModeTitle;
+      _envTitle = envTitle;
+      _envSubTitle = envSubTitle;
+      _devLicenceTitle = devLicenceTitle;
+      _settingsSectionCommon = settingsSectionCommon;
+      _settingsSectionMisc = settingsSectionMisc;
+      _versionTitle = versionTitle;
     });
   }
 
@@ -42,7 +68,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         backgroundColor: Colors.red,
         centerTitle: true,
         title: Text(
-          '$_title',
+          '$_appBarTitle',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -58,20 +84,45 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return SettingsList(
       sections: [
         SettingsSection(
-          title: 'Common',
+          title: '$_settingsSectionCommon',
           tiles: [
             SettingsTile(
-              title: 'Language',
-              subtitle: 'Türkçe',
+              title: '$_languageTitle',
+              subtitle: '$_languageSubtitle',
               leading: Icon(Icons.language),
               onPressed: (context) {
-                Navigator.of(context).push(MaterialPageRoute(
+               /* Navigator.of(context).push(MaterialPageRoute(
                   builder: (_) => LanguagesScreen(),
-                ));
+                ));*/
+                Navigator.push(context, MaterialPageRoute(builder: (context) => LanguagesScreen())).then((value) async {
+                  _language = await CacheService().getStringValue("language");
+                  final appBarTitle = ContentService().getAppBarTitle(_language.toString(), pageName);
+                  final languageTitle = ContentService().getContent(_language.toString(), "langTitle");
+                  final languageSubTitle = ContentService().getContent(_language.toString(), "langSubTitle");
+                  final nightModeTitle = ContentService().getContent(_language.toString(), "nightModeTitle");
+                  final envTitle = ContentService().getContent(_language.toString(), "envTitle");
+                  final envSubTitle = ContentService().getContent(_language.toString(), "envSubTitle");
+                  final devLicenceTitle = ContentService().getContent(_language.toString(), "devLicenceTitle");
+                  final settingsSectionCommon = ContentService().getContent(_language.toString(), "settingsSectionCommon");
+                  final settingsSectionMisc = ContentService().getContent(_language.toString(), "settingsSectionMisc");
+                  final versionTitle = ContentService().getContent(_language.toString(), "versionTitle");
+                  setState(() {
+                    _appBarTitle = appBarTitle;
+                    _languageTitle = languageTitle;
+                    _languageSubtitle = languageSubTitle;
+                    _nightModeTitle = nightModeTitle;
+                    _envTitle = envTitle;
+                    _envSubTitle = envSubTitle;
+                    _devLicenceTitle = devLicenceTitle;
+                    _settingsSectionCommon = settingsSectionCommon;
+                    _settingsSectionMisc = settingsSectionMisc;
+                    _versionTitle = versionTitle;
+                  });
+                });
               },
             ),
             SettingsTile.switchTile(
-              title: 'Night Mode',
+              title: '$_nightModeTitle',
               leading: Icon(Icons.phonelink_lock),
               switchValue: nightMode,
               onToggle: (bool value) {
@@ -81,17 +132,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             SettingsTile(
-              title: 'Environment',
-              subtitle: 'Production',
+              title: '$_envTitle',
+              subtitle: '$_envSubTitle',
               leading: Icon(Icons.cloud_queue),
             ),
           ],
         ),
         SettingsSection(
-          title: 'Misc',
+          title: '$_settingsSectionMisc',
           tiles: [
             SettingsTile(
-                title: 'Developer licences',
+                title: '$_devLicenceTitle',
                 leading: Icon(Icons.collections_bookmark)),
           ],
         ),
@@ -108,7 +159,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),*//*
               ),*/
               Text(
-                'Version: 1.0.0 (1)',
+                '$_versionTitle : $_version',
                 style: TextStyle(color: Color(0xFF777777)),
               ),
             ],

@@ -1,6 +1,5 @@
 import 'package:king_game/models/menu_model.dart';
 import 'package:king_game/models/constants.dart';
-import 'package:king_game/services/cacheService.dart';
 
 class ContentService{
 
@@ -48,23 +47,58 @@ class ContentService{
       default:
         return "ErrorPageName";
     }
-    /*if(language == "TR" && pageName == "menu"){
-      return AppBarConstants.APPBAR_MENU_TR;
-    }else if(language == "EN" && pageName == "menu"){
-      return AppBarConstants.APPBAR_MENU_EN;
-    }else if(language == "TR" && pageName == "settings"){
-      return AppBarConstants.APPBAR_SETTINGS_TR;
-    }else if(language == "EN" && pageName == "settings"){
-      return AppBarConstants.APPBAR_SETTINGS_EN;
-    }else if(language == "TR" && pageName == "language"){
-      return AppBarConstants.APPBAR_LANG_TR;
-    }else if(language == "EN" && pageName == "language"){
-      return AppBarConstants.APPBAR_LANG_EN;
-    }else if(language == "null")
-      return "ErrorPageName";*/
   }
 
-  String getLanguage() {
-    return CacheService().getStringValue("language") as String;
+  String getContent(String language, String contentName){
+
+    switch (language) {
+      case "TR":
+        if(contentName == "langTitle")
+          return AppBarConstants.CONTENT_LANG_TITLE_TR;
+        else if(contentName == "langSubTitle")
+          return AppBarConstants.CONTENT_LANG_SUBTITLE_TR;
+        else if(contentName == "nightModeTitle")
+          return AppBarConstants.CONTENT_NIGHT_TITLE_TR;
+        else if(contentName == "envTitle")
+          return AppBarConstants.CONTENT_ENV_TITLE_TR;
+        else if(contentName == "envSubTitle")
+          return AppBarConstants.CONTENT_ENV_SUBTITLE_TR;
+        else if(contentName == "devLicenceTitle")
+          return AppBarConstants.CONTENT_DEV_LICENCE_TITLE_TR;
+        else if(contentName == "settingsSectionCommon")
+          return AppBarConstants.CONTENT_SETTINGS_SECTION_COMMON_TR;
+        else if(contentName == "settingsSectionMisc")
+          return AppBarConstants.CONTENT_SETTINGS_SECTION_MISC_TR;
+        else if(contentName == "versionTitle")
+          return AppBarConstants.CONTENT_VERSION_TR;
+        else
+          return "ErrorContent";
+      case "EN":
+        if(contentName == "langTitle")
+          return AppBarConstants.CONTENT_LANG_TITLE_EN;
+        else if(contentName == "langSubTitle")
+          return AppBarConstants.CONTENT_LANG_SUBTITLE_EN;
+        else if(contentName == "nightModeTitle")
+          return AppBarConstants.CONTENT_NIGHT_TITLE_EN;
+        else if(contentName == "envTitle")
+          return AppBarConstants.CONTENT_ENV_TITLE_EN;
+        else if(contentName == "envSubTitle")
+          return AppBarConstants.CONTENT_ENV_SUBTITLE_EN;
+        else if(contentName == "devLicenceTitle")
+          return AppBarConstants.CONTENT_DEV_LICENCE_TITLE_EN;
+        else if(contentName == "settingsSectionCommon")
+          return AppBarConstants.CONTENT_SETTINGS_SECTION_COMMON_EN;
+        else if(contentName == "settingsSectionMisc")
+          return AppBarConstants.CONTENT_SETTINGS_SECTION_MISC_EN;
+        else if(contentName == "versionTitle")
+          return AppBarConstants.CONTENT_VERSION_EN;
+        else
+          return "ErrorContent";
+      case "null":
+        return getAppBarTitle("EN", contentName);
+      default:
+        return "ErrorContent";
+    }
   }
+
 }

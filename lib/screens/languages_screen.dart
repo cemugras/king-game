@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:king_game/services/contentService.dart';
 import 'package:king_game/services/cacheService.dart';
-import 'package:king_game/screens/settings_screen.dart';
 
 class LanguagesScreen extends StatefulWidget {
   @override
@@ -25,12 +24,15 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
       languageIndex = index;
       CacheService().setStringValue('language', languagePref);
       _getLanguage();
-      SettingsScreen().languageChanges();
     });
   }
 
   void _getLanguage() async {
     final language = await CacheService().getStringValue("language");
+    if(language == "TR")
+      languageIndex = 1;
+    else
+      languageIndex = 0;
     final title = ContentService().getAppBarTitle(language.toString(), pageName);
     setState(() {
       _title = title;
@@ -81,9 +83,4 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
         ? Icon(Icons.check, color: Colors.blue)
         : Icon(null);
   }
-
-  /*String getLanguage(){
-    language = ContentService().getAppBarTitle(CacheService().getLanguage(), pageName);
-    return language;
-  }*/
 }
