@@ -63,6 +63,7 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
               trailing: trailingWidget(0),
               onPressed: (BuildContext context) {
                 _changeLanguage("EN" , 0);
+                Navigator.pop(context);
               },
             ),
             SettingsTile(
@@ -70,6 +71,7 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
               trailing: trailingWidget(1),
               onPressed: (BuildContext context) {
                 _changeLanguage("TR" , 1);
+                Navigator.pop(context);
               },
             )
           ]),

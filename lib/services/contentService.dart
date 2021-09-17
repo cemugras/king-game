@@ -71,6 +71,8 @@ class ContentService{
           return AppBarConstants.CONTENT_SETTINGS_SECTION_MISC_TR;
         else if(contentName == "versionTitle")
           return AppBarConstants.CONTENT_VERSION_TR;
+        else if(contentName == "versionNumber")
+          return AppBarConstants.CONTENT_VERSION;
         else
           return "ErrorContent";
       case "EN":
@@ -92,6 +94,8 @@ class ContentService{
           return AppBarConstants.CONTENT_SETTINGS_SECTION_MISC_EN;
         else if(contentName == "versionTitle")
           return AppBarConstants.CONTENT_VERSION_EN;
+        else if(contentName == "versionNumber")
+          return AppBarConstants.CONTENT_VERSION;
         else
           return "ErrorContent";
       case "null":

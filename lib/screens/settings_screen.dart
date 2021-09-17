@@ -24,8 +24,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       _envTitle = "null", _envSubTitle = "null",
       _devLicenceTitle = "null",
       _settingsSectionCommon = "null", _settingsSectionMisc = "null",
-      _versionTitle = "null";
-  String _version = "null";
+      _versionTitle = "null", _versionNumber = "null";
 
 
   @override
@@ -46,6 +45,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final settingsSectionCommon = ContentService().getContent(_language.toString(), "settingsSectionCommon");
     final settingsSectionMisc = ContentService().getContent(_language.toString(), "settingsSectionMisc");
     final versionTitle = ContentService().getContent(_language.toString(), "versionTitle");
+    final versionNumber = ContentService().getContent(_language.toString(), "versionNumber");
     setState(() {
       _appBarTitle = appBarTitle;
       _languageTitle = languageTitle;
@@ -57,6 +57,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       _settingsSectionCommon = settingsSectionCommon;
       _settingsSectionMisc = settingsSectionMisc;
       _versionTitle = versionTitle;
+      _versionNumber = versionNumber;
     });
   }
 
@@ -106,6 +107,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   final settingsSectionCommon = ContentService().getContent(_language.toString(), "settingsSectionCommon");
                   final settingsSectionMisc = ContentService().getContent(_language.toString(), "settingsSectionMisc");
                   final versionTitle = ContentService().getContent(_language.toString(), "versionTitle");
+                  final versionNumber = ContentService().getContent(_language.toString(), "versionNumber");
                   setState(() {
                     _appBarTitle = appBarTitle;
                     _languageTitle = languageTitle;
@@ -117,6 +119,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     _settingsSectionCommon = settingsSectionCommon;
                     _settingsSectionMisc = settingsSectionMisc;
                     _versionTitle = versionTitle;
+                    _versionNumber = versionNumber;
                   });
                 });
               },
@@ -159,7 +162,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),*//*
               ),*/
               Text(
-                '$_versionTitle : $_version',
+                '$_versionTitle : $_versionNumber',
                 style: TextStyle(color: Color(0xFF777777)),
               ),
             ],

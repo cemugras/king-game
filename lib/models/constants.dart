@@ -30,4 +30,6 @@ class AppBarConstants{
 
   static String CONTENT_VERSION_TR = "Versiyon";
   static String CONTENT_VERSION_EN = "Version";
+
+  static String CONTENT_VERSION = "1.0.0";
 }
