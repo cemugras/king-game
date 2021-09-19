@@ -1,3 +1,5 @@
+import 'dart:ui';
+import 'package:flutter/material.dart';
 import 'package:king_game/models/menu_model.dart';
 import 'package:king_game/models/constants.dart';
 import 'package:king_game/services/cacheService.dart';
@@ -112,6 +114,33 @@ class ContentService{
 
   void setTheme(value) {
     CacheService().setBooleanValue("theme",value);
+  }
+
+  Color getContentColor(String value, bool darkTheme){
+    switch (darkTheme){
+      case false:
+        if(value == "appBarBackground")
+          return Colors.red;
+        if(value == "bodyBackground")
+          return Colors.white;
+        if(value == "text")
+          return Colors.black;
+        if(value == "heading")
+          return Colors.blue;
+        break;
+      case true:
+        if(value == "appBarBackground")
+          return Colors.black54;
+        if(value == "bodyBackground")
+          return Colors.black45;
+        if(value == "text")
+          return Colors.white;
+        if(value == "heading")
+          return Colors.orangeAccent;
+        break;
+    }
+    return Colors.white;
+
   }
 
 }

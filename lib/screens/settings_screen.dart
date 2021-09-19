@@ -76,7 +76,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: _nightMode ? Colors.black38 : Colors.red,
+        backgroundColor: ContentService().getContentColor("appBarBackground", _nightMode),
         centerTitle: true,
         title: Text(
           '$_appBarTitle',
@@ -93,20 +93,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget buildSettingsList() {
     return SettingsList(
-      backgroundColor: _nightMode ? Color(0xFF555454) : Color(0xFFFAFAFA),
+      backgroundColor: ContentService().getContentColor("bodyBackground", _nightMode),
       sections: [
         SettingsSection(
           title: '$_settingsSectionCommon',
+          titleTextStyle: TextStyle(color:ContentService().getContentColor("heading", _nightMode), fontWeight: FontWeight.bold),
           tiles: [
             SettingsTile(
               title: '$_languageTitle',
-              titleTextStyle: TextStyle(color: _nightMode ? Colors.white : Colors.black,),
+              titleTextStyle: TextStyle(color:ContentService().getContentColor("text", _nightMode)),
               subtitle: '$_languageSubtitle',
-              leading: Icon(Icons.language),
+              subtitleTextStyle: TextStyle(color:ContentService().getContentColor("text", _nightMode)),
+              leading: Icon(Icons.language, color: ContentService().getContentColor("text", _nightMode)),
               onPressed: (context) {
-               /* Navigator.of(context).push(MaterialPageRoute(
-                  builder: (_) => LanguagesScreen(),
-                ));*/
                 Navigator.push(context, MaterialPageRoute(builder: (context) => LanguagesScreen())).then((value) async {
                   _language = await CacheService().getStringValue("language");
                   final appBarTitle = ContentService().getAppBarTitle(_language.toString(), pageName);
@@ -138,8 +137,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SettingsTile.switchTile(
               title: '$_nightModeTitle',
-              leading: Icon(Icons.phonelink_lock),
+              titleTextStyle: TextStyle(color:ContentService().getContentColor("text", _nightMode)),
+              leading: Icon(Icons.phonelink_lock, color: ContentService().getContentColor("text", _nightMode)),
               switchValue: _nightMode,
+              switchActiveColor: ContentService().getContentColor("heading", _nightMode),
               onToggle: (bool value) {
                 setState(() {
                   _setTheme(value);
@@ -148,34 +149,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SettingsTile(
               title: '$_envTitle',
+              titleTextStyle: TextStyle(color:ContentService().getContentColor("text", _nightMode)),
               subtitle: '$_envSubTitle',
-              leading: Icon(Icons.cloud_queue),
+              subtitleTextStyle: TextStyle(color:ContentService().getContentColor("text", _nightMode)),
+              leading: Icon(Icons.cloud_queue, color: ContentService().getContentColor("text", _nightMode)),
             ),
           ],
         ),
         SettingsSection(
           title: '$_settingsSectionMisc',
+          titleTextStyle: TextStyle(color:ContentService().getContentColor("heading", _nightMode), fontWeight: FontWeight.bold),
           tiles: [
             SettingsTile(
                 title: '$_devLicenceTitle',
-                leading: Icon(Icons.collections_bookmark)),
+                titleTextStyle: TextStyle(color:ContentService().getContentColor("text", _nightMode)),
+                leading: Icon(Icons.collections_bookmark, color: ContentService().getContentColor("text", _nightMode))),
           ],
         ),
         CustomSection(
           child: Column(
             children: [
-              /*Padding(
-                *//*padding: const EdgeInsets.only(top: 22, bottom: 8),
-                child: Image.asset(
-                  'assets/settings.png',
-                  height: 50,
-                  width: 50,
-                  color: Color(0xFF777777),
-                ),*//*
-              ),*/
               Text(
                 '$_versionTitle : $_versionNumber',
-                style: TextStyle(color: Color(0xFF777777)),
+                style: TextStyle(color:ContentService().getContentColor("text", _nightMode)),
               ),
             ],
           ),
