@@ -11,7 +11,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool nightMode = false;
+  bool _nightMode = false;
   String pageName = "settings";
   String _language = "null";
   String _appBarTitle = "null",
@@ -59,7 +59,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void _getDarkTheme() async {
-    nightMode = await ContentService().getDarkTheme();
+    final nightMode = await ContentService().getDarkTheme();
+    setState(() {
+      _nightMode = nightMode;
+    });
   }
 
   void _setTheme(bool value) async {
@@ -72,9 +75,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFAFAFA),
       appBar: AppBar(
-        backgroundColor: Colors.red,
+        backgroundColor: _nightMode ? Colors.black38 : Colors.red,
         centerTitle: true,
         title: Text(
           '$_appBarTitle',
@@ -91,12 +93,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget buildSettingsList() {
     return SettingsList(
+      backgroundColor: _nightMode ? Color(0xFF555454) : Color(0xFFFAFAFA),
       sections: [
         SettingsSection(
           title: '$_settingsSectionCommon',
           tiles: [
             SettingsTile(
               title: '$_languageTitle',
+              titleTextStyle: TextStyle(color: _nightMode ? Colors.white : Colors.black,),
               subtitle: '$_languageSubtitle',
               leading: Icon(Icons.language),
               onPressed: (context) {
@@ -135,7 +139,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             SettingsTile.switchTile(
               title: '$_nightModeTitle',
               leading: Icon(Icons.phonelink_lock),
-              switchValue: nightMode,
+              switchValue: _nightMode,
               onToggle: (bool value) {
                 setState(() {
                   _setTheme(value);
