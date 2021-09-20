@@ -13,14 +13,15 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   bool _nightMode = false;
   String pageName = "settings";
-  String _language = "null";
-  String _appBarTitle = "null",
-      _languageTitle = "null", _languageSubtitle = "null",
-      _nightModeTitle = "null",
-      _envTitle = "null", _envSubTitle = "null",
-      _devLicenceTitle = "null",
-      _settingsSectionCommon = "null", _settingsSectionMisc = "null",
-      _versionTitle = "null", _versionNumber = "null";
+  late String _language;
+  late String _appBarTitle,
+      _languageTitle, _languageSubtitle,
+      _nightModeTitle,
+      _envTitle, _envSubTitle,
+      _devLicenceTitle,
+      _settingsSectionCommon, _settingsSectionMisc,
+      _versionTitle, _versionNumber;
+  late Color _appBarBackground, _bodyBackground, _heading, _text;
 
 
   @override
@@ -32,29 +33,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   void _getLanguage() async {
     _language = await CacheService().getStringValue("language");
-    final appBarTitle = ContentService().getAppBarTitle(_language.toString(), pageName);
-    final languageTitle = ContentService().getContent(_language.toString(), "langTitle");
-    final languageSubTitle = ContentService().getContent(_language.toString(), "langSubTitle");
-    final nightModeTitle = ContentService().getContent(_language.toString(), "nightModeTitle");
-    final envTitle = ContentService().getContent(_language.toString(), "envTitle");
-    final envSubTitle = ContentService().getContent(_language.toString(), "envSubTitle");
-    final devLicenceTitle = ContentService().getContent(_language.toString(), "devLicenceTitle");
-    final settingsSectionCommon = ContentService().getContent(_language.toString(), "settingsSectionCommon");
-    final settingsSectionMisc = ContentService().getContent(_language.toString(), "settingsSectionMisc");
-    final versionTitle = ContentService().getContent(_language.toString(), "versionTitle");
-    final versionNumber = ContentService().getContent(_language.toString(), "versionNumber");
     setState(() {
-      _appBarTitle = appBarTitle;
-      _languageTitle = languageTitle;
-      _languageSubtitle = languageSubTitle;
-      _nightModeTitle = nightModeTitle;
-      _envTitle = envTitle;
-      _envSubTitle = envSubTitle;
-      _devLicenceTitle = devLicenceTitle;
-      _settingsSectionCommon = settingsSectionCommon;
-      _settingsSectionMisc = settingsSectionMisc;
-      _versionTitle = versionTitle;
-      _versionNumber = versionNumber;
+      _appBarTitle = ContentService().getAppBarTitle(_language.toString(), pageName);
+      _languageTitle = ContentService().getContent(_language.toString(), "langTitle");
+      _languageSubtitle = ContentService().getContent(_language.toString(), "langSubTitle");
+      _nightModeTitle = ContentService().getContent(_language.toString(), "nightModeTitle");
+      _envTitle = ContentService().getContent(_language.toString(), "envTitle");
+      _envSubTitle = ContentService().getContent(_language.toString(), "envSubTitle");
+      _devLicenceTitle = ContentService().getContent(_language.toString(), "devLicenceTitle");
+      _settingsSectionCommon = ContentService().getContent(_language.toString(), "settingsSectionCommon");
+      _settingsSectionMisc = ContentService().getContent(_language.toString(), "settingsSectionMisc");
+      _versionTitle = ContentService().getContent(_language.toString(), "versionTitle");
+      _versionNumber = ContentService().getContent(_language.toString(), "versionNumber");
     });
   }
 
@@ -62,6 +52,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final nightMode = await ContentService().getDarkTheme();
     setState(() {
       _nightMode = nightMode;
+      _appBarBackground = ContentService().getContentColor("appBarBackground", _nightMode);
+      _bodyBackground = ContentService().getContentColor("bodyBackground", _nightMode);
+      _heading = ContentService().getContentColor("heading", _nightMode);
+      _text = ContentService().getContentColor("text", _nightMode);
     });
   }
 
@@ -76,7 +70,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ContentService().getContentColor("appBarBackground", _nightMode),
+        backgroundColor: _appBarBackground,
         centerTitle: true,
         title: Text(
           '$_appBarTitle',
@@ -93,18 +87,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget buildSettingsList() {
     return SettingsList(
-      backgroundColor: ContentService().getContentColor("bodyBackground", _nightMode),
+      backgroundColor: _bodyBackground,
       sections: [
         SettingsSection(
           title: '$_settingsSectionCommon',
-          titleTextStyle: TextStyle(color:ContentService().getContentColor("heading", _nightMode), fontWeight: FontWeight.bold),
+          titleTextStyle: TextStyle(color:_heading, fontWeight: FontWeight.bold),
           tiles: [
             SettingsTile(
               title: '$_languageTitle',
-              titleTextStyle: TextStyle(color:ContentService().getContentColor("text", _nightMode), fontWeight: FontWeight.bold),
+              titleTextStyle: TextStyle(color: _text, fontWeight: FontWeight.bold),
               subtitle: '$_languageSubtitle',
-              subtitleTextStyle: TextStyle(color:ContentService().getContentColor("text", _nightMode)),
-              leading: Icon(Icons.language, color: ContentService().getContentColor("text", _nightMode)),
+              subtitleTextStyle: TextStyle(color: _text),
+              leading: Icon(Icons.language, color: _text),
               onPressed: (context) {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => LanguagesScreen())).then((value) async {
                   _getLanguage();
@@ -113,10 +107,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SettingsTile.switchTile(
               title: '$_nightModeTitle',
-              titleTextStyle: TextStyle(color:ContentService().getContentColor("text", _nightMode), fontWeight: FontWeight.bold),
-              leading: Icon(Icons.phonelink_lock, color: ContentService().getContentColor("text", _nightMode)),
+              titleTextStyle: TextStyle(color: _text, fontWeight: FontWeight.bold),
+              leading: Icon(Icons.phonelink_lock, color: _text),
               switchValue: _nightMode,
-              switchActiveColor: ContentService().getContentColor("heading", _nightMode),
+              switchActiveColor: _heading,
               onToggle: (bool value) {
                 setState(() {
                   _setTheme(value);
@@ -125,21 +119,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SettingsTile(
               title: '$_envTitle',
-              titleTextStyle: TextStyle(color:ContentService().getContentColor("text", _nightMode), fontWeight: FontWeight.bold),
+              titleTextStyle: TextStyle(color: _text, fontWeight: FontWeight.bold),
               subtitle: '$_envSubTitle',
-              subtitleTextStyle: TextStyle(color:ContentService().getContentColor("text", _nightMode)),
-              leading: Icon(Icons.cloud_queue, color: ContentService().getContentColor("text", _nightMode)),
+              subtitleTextStyle: TextStyle(color: _text),
+              leading: Icon(Icons.cloud_queue, color: _text),
             ),
           ],
         ),
         SettingsSection(
           title: '$_settingsSectionMisc',
-          titleTextStyle: TextStyle(color:ContentService().getContentColor("heading", _nightMode), fontWeight: FontWeight.bold),
+          titleTextStyle: TextStyle(color: _heading, fontWeight: FontWeight.bold),
           tiles: [
             SettingsTile(
                 title: '$_devLicenceTitle',
-                titleTextStyle: TextStyle(color:ContentService().getContentColor("text", _nightMode), fontWeight: FontWeight.bold),
-                leading: Icon(Icons.collections_bookmark, color: ContentService().getContentColor("text", _nightMode))),
+                titleTextStyle: TextStyle(color: _text, fontWeight: FontWeight.bold),
+                leading: Icon(Icons.collections_bookmark, color: _text)),
           ],
         ),
         CustomSection(
@@ -147,7 +141,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             children: [
               Text(
                 '$_versionTitle : $_versionNumber',
-                style: TextStyle(color:ContentService().getContentColor("text", _nightMode)),
+                style: TextStyle(color: _text),
               ),
             ],
           ),
