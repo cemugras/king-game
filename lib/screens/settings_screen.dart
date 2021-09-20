@@ -107,31 +107,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: Icon(Icons.language, color: ContentService().getContentColor("text", _nightMode)),
               onPressed: (context) {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => LanguagesScreen())).then((value) async {
-                  _language = await CacheService().getStringValue("language");
-                  final appBarTitle = ContentService().getAppBarTitle(_language.toString(), pageName);
-                  final languageTitle = ContentService().getContent(_language.toString(), "langTitle");
-                  final languageSubTitle = ContentService().getContent(_language.toString(), "langSubTitle");
-                  final nightModeTitle = ContentService().getContent(_language.toString(), "nightModeTitle");
-                  final envTitle = ContentService().getContent(_language.toString(), "envTitle");
-                  final envSubTitle = ContentService().getContent(_language.toString(), "envSubTitle");
-                  final devLicenceTitle = ContentService().getContent(_language.toString(), "devLicenceTitle");
-                  final settingsSectionCommon = ContentService().getContent(_language.toString(), "settingsSectionCommon");
-                  final settingsSectionMisc = ContentService().getContent(_language.toString(), "settingsSectionMisc");
-                  final versionTitle = ContentService().getContent(_language.toString(), "versionTitle");
-                  final versionNumber = ContentService().getContent(_language.toString(), "versionNumber");
-                  setState(() {
-                    _appBarTitle = appBarTitle;
-                    _languageTitle = languageTitle;
-                    _languageSubtitle = languageSubTitle;
-                    _nightModeTitle = nightModeTitle;
-                    _envTitle = envTitle;
-                    _envSubTitle = envSubTitle;
-                    _devLicenceTitle = devLicenceTitle;
-                    _settingsSectionCommon = settingsSectionCommon;
-                    _settingsSectionMisc = settingsSectionMisc;
-                    _versionTitle = versionTitle;
-                    _versionNumber = versionNumber;
-                  });
+                  _getLanguage();
                 });
               },
             ),
