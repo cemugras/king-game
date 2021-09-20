@@ -9,6 +9,7 @@ class LanguagesScreen extends StatefulWidget {
 }
 
 class _LanguagesScreenState extends State<LanguagesScreen> {
+  bool _nightMode = false;
   int languageIndex = 0;
   String pageName = "language";
   String _title = "null";
@@ -17,6 +18,7 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
   void initState() {
     super.initState();
     _getLanguage();
+    _getDarkTheme();
   }
 
   void _changeLanguage(String languagePref, int index) {
@@ -39,12 +41,18 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
     });
   }
 
+  void _getDarkTheme() async {
+    final nightMode = await ContentService().getDarkTheme();
+    setState(() {
+      _nightMode = nightMode;
+    });
+  }
+
 @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFAFAFA),
       appBar: AppBar(
-        backgroundColor: Colors.red,
+        backgroundColor: ContentService().getContentColor("appBarBackground", _nightMode),
         centerTitle: true,
         title: Text(
           '$_title',
@@ -56,10 +64,12 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
         ),
       ),
       body: SettingsList(
+        backgroundColor: ContentService().getContentColor("bodyBackground", _nightMode),
         sections: [
           SettingsSection(tiles: [
             SettingsTile(
               title: "English",
+              titleTextStyle: TextStyle(color:ContentService().getContentColor("text", _nightMode), fontWeight: FontWeight.bold),
               trailing: trailingWidget(0),
               onPressed: (BuildContext context) {
                 _changeLanguage("EN" , 0);
@@ -68,6 +78,7 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
             ),
             SettingsTile(
               title: "Türkçe",
+              titleTextStyle: TextStyle(color:ContentService().getContentColor("text", _nightMode), fontWeight: FontWeight.bold),
               trailing: trailingWidget(1),
               onPressed: (BuildContext context) {
                 _changeLanguage("TR" , 1);
@@ -82,7 +93,7 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
 
   Widget trailingWidget(int index) {
     return (languageIndex == index)
-        ? Icon(Icons.check, color: Colors.blue)
+        ? Icon(Icons.check, color: ContentService().getContentColor("heading", _nightMode))
         : Icon(null);
   }
 }

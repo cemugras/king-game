@@ -101,7 +101,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           tiles: [
             SettingsTile(
               title: '$_languageTitle',
-              titleTextStyle: TextStyle(color:ContentService().getContentColor("text", _nightMode)),
+              titleTextStyle: TextStyle(color:ContentService().getContentColor("text", _nightMode), fontWeight: FontWeight.bold),
               subtitle: '$_languageSubtitle',
               subtitleTextStyle: TextStyle(color:ContentService().getContentColor("text", _nightMode)),
               leading: Icon(Icons.language, color: ContentService().getContentColor("text", _nightMode)),
@@ -137,7 +137,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SettingsTile.switchTile(
               title: '$_nightModeTitle',
-              titleTextStyle: TextStyle(color:ContentService().getContentColor("text", _nightMode)),
+              titleTextStyle: TextStyle(color:ContentService().getContentColor("text", _nightMode), fontWeight: FontWeight.bold),
               leading: Icon(Icons.phonelink_lock, color: ContentService().getContentColor("text", _nightMode)),
               switchValue: _nightMode,
               switchActiveColor: ContentService().getContentColor("heading", _nightMode),
@@ -149,7 +149,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SettingsTile(
               title: '$_envTitle',
-              titleTextStyle: TextStyle(color:ContentService().getContentColor("text", _nightMode)),
+              titleTextStyle: TextStyle(color:ContentService().getContentColor("text", _nightMode), fontWeight: FontWeight.bold),
               subtitle: '$_envSubTitle',
               subtitleTextStyle: TextStyle(color:ContentService().getContentColor("text", _nightMode)),
               leading: Icon(Icons.cloud_queue, color: ContentService().getContentColor("text", _nightMode)),
@@ -162,7 +162,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           tiles: [
             SettingsTile(
                 title: '$_devLicenceTitle',
-                titleTextStyle: TextStyle(color:ContentService().getContentColor("text", _nightMode)),
+                titleTextStyle: TextStyle(color:ContentService().getContentColor("text", _nightMode), fontWeight: FontWeight.bold),
                 leading: Icon(Icons.collections_bookmark, color: ContentService().getContentColor("text", _nightMode))),
           ],
         ),
