@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:king_game/models/menu_model.dart';
 import 'package:king_game/screens/settings_screen.dart';
 import 'package:king_game/services/contentService.dart';
-
+import 'package:king_game/services/cacheService.dart';
 
 class MainMenu extends StatefulWidget{
   @override
@@ -11,8 +11,37 @@ class MainMenu extends StatefulWidget{
 }
 
 class _MainMenu extends State<MainMenu>{
-  int _selectedOption = 0;
-  String language = "TR", pageName = "menu";
+  bool _nightMode = false;
+  String pageName = "menu";
+  late String _language;
+  late String _appBarTitle;
+  late Color _appBarBackground, _bodyBackground, _heading, _text;
+
+  void _getLanguage() async {
+    _language = await CacheService().getStringValue("language");
+    setState(() {
+      _appBarTitle = ContentService().getAppBarTitle(_language.toString(), pageName);
+    });
+  }
+
+  void _getDarkTheme() async {
+    final nightMode = await ContentService().getDarkTheme();
+    setState(() {
+      _nightMode = nightMode;
+      _appBarBackground = ContentService().getContentColor("appBarBackground", _nightMode);
+      _bodyBackground = ContentService().getContentColor("bodyBackground", _nightMode);
+      _heading = ContentService().getContentColor("heading", _nightMode);
+      _text = ContentService().getContentColor("text", _nightMode);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getLanguage();
+    _getDarkTheme();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,15 +50,13 @@ class _MainMenu extends State<MainMenu>{
         backgroundColor: Colors.red,
         centerTitle: true,
         title: Text(
-          //ContentService().getAppBarTitle(CacheService().getLanguage(), pageName),
-          'Static',
-            /*"King Skor Tablosu",*/
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 28,
-            ),
+          '$_appBarTitle',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 28,
+          ),
         ),
       ),
     body: ListView.builder(
@@ -46,44 +73,36 @@ class _MainMenu extends State<MainMenu>{
             /*width: double.infinity,*/
             height: 70.0,
             decoration: BoxDecoration(
-                //color: Colors.red,
                 color: options[index - 1].backgroundColor,
                 borderRadius: BorderRadius.circular(45.0),
                 border: Border.all(color: Colors.black38)
-              //border: _selectedOption == index - 1 ? Border.all(color: Colors.black26) : null,
             ),
               child: ListTile(
                   leading: options[index - 1].icon,
-                //Image.asset("lib/assets/card_deck.png"),
                 title: Text(
-                  ContentService().getMenuTitle(language, index),
-                  /*options[index - 1].title,*/
+                  ContentService().getMenuTitle(_language, index),
                   style: TextStyle(
                     color: options[index - 1].textColor,
                     fontWeight: FontWeight.bold,
-                    //color: _selectedOption == index - 1 ? Colors.black : Colors.grey[600],
                   ),
                 ),
                 subtitle: Text(
-                    ContentService().getMenuSubtitle(language, index),
+                    ContentService().getMenuSubtitle(_language, index),
                   style: TextStyle(color: options[index - 1].textColor)
                 ),
                 selected: true, //icon showing active
                 onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => SettingsScreen()
-                    )
-                  );
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen())).then((value) async {
+                    _getLanguage();
+                  });
                     setState(() {
-                    _selectedOption = index - 1;
                   });
                 },
               ),
           );
         }
     ),
-      bottomSheet: Container(
+      /*bottomSheet: Container(
         width: double.infinity,
         height: 200.0,
         color: Colors.red,
@@ -109,7 +128,7 @@ class _MainMenu extends State<MainMenu>{
             ],
           ),
         ),
-      ),
+      ),*/
     );
   }
 }
