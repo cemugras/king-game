@@ -61,7 +61,7 @@ class ContentService{
         else
           return "ErrorContent";
       case "null":
-        return getMenuTitleContent("EN", contentName);
+        return getMenuSubtitleContent("EN", contentName);
       default:
         return "ErrorContent";
     }
@@ -203,7 +203,7 @@ class ContentService{
         else
           return "ErrorContent";
       case "null":
-        return getAppBarTitle("EN", contentName);
+        return getContent("EN", contentName);
       default:
         return "ErrorContent";
     }
