@@ -13,9 +13,9 @@ class MainMenu extends StatefulWidget{
 class _MainMenu extends State<MainMenu>{
   bool _nightMode = false;
   String pageName = "menu";
-  late String _language;
-  late String _appBarTitle;
-  late Color _appBarBackground, _bodyBackground, _heading, _text;
+  String _language = "EN";
+  String _appBarTitle = "";
+  Color _appBarBackground = Colors.red, _bodyBackground = Colors.white, _heading = Colors.blue, _text = Colors.black;
 
   void _getLanguage() async {
     _language = await CacheService().getStringValue("language");
@@ -45,9 +45,8 @@ class _MainMenu extends State<MainMenu>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFAFAFA),
       appBar: AppBar(
-        backgroundColor: Colors.red,
+        backgroundColor: _appBarBackground,
         centerTitle: true,
         title: Text(
           '$_appBarTitle',
@@ -94,6 +93,7 @@ class _MainMenu extends State<MainMenu>{
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen())).then((value) async {
                     _getLanguage();
+                    _getDarkTheme();
                   });
                     setState(() {
                   });

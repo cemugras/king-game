@@ -11,9 +11,9 @@ class LanguagesScreen extends StatefulWidget {
 class _LanguagesScreenState extends State<LanguagesScreen> {
   bool _nightMode = false;
   int languageIndex = 0;
-  String pageName = "language";
-  late String _appBarTitle;
-  late Color _appBarBackground, _bodyBackground, _heading, _text;
+  String pageName = "language",
+      _appBarTitle = "";
+  Color _appBarBackground = Colors.red, _bodyBackground = Colors.white, _heading = Colors.blue, _text = Colors.black;
 
   @override
   void initState() {

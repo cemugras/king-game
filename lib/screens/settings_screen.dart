@@ -14,14 +14,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool _nightMode = false;
   String pageName = "settings";
   late String _language;
-  late String _appBarTitle,
-      _languageTitle, _languageSubtitle,
-      _nightModeTitle,
-      _envTitle, _envSubTitle,
-      _devLicenceTitle,
-      _settingsSectionCommon, _settingsSectionMisc,
-      _versionTitle, _versionNumber;
-  late Color _appBarBackground, _bodyBackground, _heading, _text;
+  String _appBarTitle = "",
+      _languageTitle = "", _languageSubtitle = "",
+      _nightModeTitle = "",
+      _envTitle = "", _envSubTitle = "",
+      _devLicenceTitle = "",
+      _settingsSectionCommon = "", _settingsSectionMisc = "",
+      _versionTitle = "", _versionNumber = "";
+  Color _appBarBackground = Colors.red, _bodyBackground = Colors.white, _heading = Colors.blue, _text = Colors.black;
 
 
   @override
