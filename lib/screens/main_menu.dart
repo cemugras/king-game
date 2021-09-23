@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:king_game/models/menu_model.dart';
 import 'package:king_game/screens/settings_screen.dart';
 import 'package:king_game/services/contentService.dart';
 import 'package:king_game/services/cacheService.dart';
@@ -15,7 +14,8 @@ class _MainMenu extends State<MainMenu>{
   String pageName = "menu";
   String _language = "EN";
   String _appBarTitle = "";
-  Color _appBarBackground = Colors.red, _bodyBackground = Colors.white, _heading = Colors.blue, _text = Colors.black;
+  Color _appBarBackground = Colors.red, _bodyBackground = Colors.white, _text = Colors.black,
+      _newGameBackground = Colors.red, _lastGameBackground = Colors.orange, _rulesBackground = Colors.blueAccent, _settingsBackground = Colors.yellowAccent;
 
   void _getLanguage() async {
     _language = await CacheService().getStringValue("language");
@@ -30,8 +30,18 @@ class _MainMenu extends State<MainMenu>{
       _nightMode = nightMode;
       _appBarBackground = ContentService().getContentColor("appBarBackground", _nightMode);
       _bodyBackground = ContentService().getContentColor("mainBodyBackground", _nightMode);
-      _heading = ContentService().getContentColor("heading", _nightMode);
       _text = ContentService().getContentColor("text", _nightMode);
+      if (_nightMode == true){
+        _newGameBackground = _appBarBackground;
+        _lastGameBackground = _appBarBackground;
+        _rulesBackground = _appBarBackground;
+        _settingsBackground = _appBarBackground;
+      }else{
+        _newGameBackground = Colors.red;
+        _lastGameBackground = Colors.orange;
+        _rulesBackground = Colors.blueAccent;
+        _settingsBackground = Colors.yellowAccent;
+      }
     });
   }
 
@@ -59,8 +69,94 @@ class _MainMenu extends State<MainMenu>{
           ),
         ),
       ),
-    body: ListView.builder(
-        itemCount: options.length + 2,
+    body: ListView(
+      children: <Widget> [
+        Container(
+          height: 60,
+          margin: EdgeInsets.all(6.0),
+          decoration: BoxDecoration(
+              color: _newGameBackground,
+              borderRadius: BorderRadius.circular(45.0),
+              border: Border.all(color: Colors.black38)
+          ),
+          child: ListTile(
+            leading: new Image.asset("./lib/assets/card_deck.png"),
+            title: Text(
+              ContentService().getMenuTitle(_language, 1),
+              style: TextStyle(
+                color: _text,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+        Container(
+          height: 60,
+          margin: EdgeInsets.all(6.0),
+          decoration: BoxDecoration(
+              color: _lastGameBackground,
+              borderRadius: BorderRadius.circular(45.0),
+              border: Border.all(color: Colors.black38)
+          ),
+          child: ListTile(
+            leading: new Image.asset("./lib/assets/prev_game.png"),
+            title: Text(
+              ContentService().getMenuTitle(_language, 2),
+              style: TextStyle(
+                color: _text,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+        Container(
+          height: 60,
+          margin: EdgeInsets.all(6.0),
+          decoration: BoxDecoration(
+              color: _rulesBackground,
+              borderRadius: BorderRadius.circular(45.0),
+              border: Border.all(color: Colors.black38)
+          ),
+          child: ListTile(
+            leading: new Image.asset('./lib/assets/rules.png'),
+            title: Text(
+              ContentService().getMenuTitle(_language, 3),
+              style: TextStyle(
+                color: _text,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+        Container(
+          height: 60,
+          margin: EdgeInsets.all(6.0),
+          decoration: BoxDecoration(
+              color: _settingsBackground,
+              borderRadius: BorderRadius.circular(45.0),
+              border: Border.all(color: Colors.black38)
+          ),
+          child: ListTile(
+            leading: new Image.asset('./lib/assets/settings.png'),
+            title: Text(
+              ContentService().getMenuTitle(_language, 4),
+              style: TextStyle(
+                color: _text,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen())).then((value) async {
+                _getLanguage();
+                _getDarkTheme();
+              });
+              setState(() {
+              });
+            },
+          ),
+        ),
+      ]
+        /*itemCount: options.length + 2,
         itemBuilder: (BuildContext context, int index) {
           if (index == 0) {
             return SizedBox(height: 15.0);
@@ -70,7 +166,7 @@ class _MainMenu extends State<MainMenu>{
           return Container(
             alignment: Alignment.center,
             margin: EdgeInsets.all(4.0),
-            /*width: double.infinity,*/
+            *//*width: double.infinity,*//*
             height: 70.0,
             decoration: BoxDecoration(
                 color: options[index - 1].backgroundColor,
@@ -101,7 +197,7 @@ class _MainMenu extends State<MainMenu>{
                 },
               ),
           );
-        }
+        }*/
     ),
       /*bottomSheet: Container(
         width: double.infinity,
