@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:king_game/screens/rule_screen.dart';
 import 'package:king_game/screens/settings_screen.dart';
 import 'package:king_game/services/contentService.dart';
 import 'package:king_game/services/cacheService.dart';
@@ -89,7 +90,7 @@ class _MainMenu extends State<MainMenu>{
               ),
             ),
             subtitle: Text(
-                ContentService().getMenuSubtitle(_language, "newGameSubtitle"),
+                ContentService().getMenuSubtitleContent(_language, "newGameSubtitle"),
                 style: TextStyle(color: _whiteText)
             ),
           ),
@@ -112,7 +113,7 @@ class _MainMenu extends State<MainMenu>{
               ),
             ),
             subtitle: Text(
-                ContentService().getMenuSubtitle(_language, "lastGameSubtitle"),
+                ContentService().getMenuSubtitleContent(_language, "lastGameSubtitle"),
                 style: TextStyle(color: _text)
             ),
           ),
@@ -135,9 +136,17 @@ class _MainMenu extends State<MainMenu>{
               ),
             ),
             subtitle: Text(
-                ContentService().getMenuSubtitle(_language, "rulesSubtitle"),
+                ContentService().getMenuSubtitleContent(_language, "rulesSubtitle"),
                 style: TextStyle(color: _whiteText)
             ),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => RuleScreen())).then((value) async {
+                _getLanguage();
+                _getDarkTheme();
+              });
+              setState(() {
+              });
+            },
           ),
         ),
         Container(
@@ -158,7 +167,7 @@ class _MainMenu extends State<MainMenu>{
               ),
             ),
             subtitle: Text(
-                ContentService().getMenuSubtitle(_language, "settingsSubtitle"),
+                ContentService().getMenuSubtitleContent(_language, "settingsSubtitle"),
                 style: TextStyle(color: _text)
             ),
             onTap: () {

@@ -57,4 +57,46 @@ class AppBarConstants{
   static String CONTENT_VERSION_EN = "Version";
 
   static String CONTENT_VERSION = "1.0.0";
+
+  //Rules screen constants.
+  static String CONTENT_NOHAND_TR = "El Almaz";
+  static String CONTENT_NOHAND_EN = "No Tricks";
+  static String CONTENT_NOHAND_DESCR_TR = "- Bu oyunda amaç hiç el almamaktır.\n- Yerdeki en büyük kağıt eli alır.\n- Alınan her 4lü için ceza puanı yazılır.";
+  static String CONTENT_NOHAND_DESCR_EN = "- The goal in this game is to not win any hands.\n- The biggest card on the floor gets the hand.\n- Player gets penalty points for each trick taken.";
+
+  static String CONTENT_NOHEART_TR = "Kupa Almaz";
+  static String CONTENT_NOHEART_EN = "No Hearts";
+  static String CONTENT_NOHEART_DESCR_TR = "- Bu oyunda amaç kupa serisinden hiç kart almamaktır.\n- Yerdeki kart grubundan elinde olmayan oyuncu öncelikli olarak kupa serisinden kart atmalıdır."
+      "\n- Oyunda kupa grubundan bir kart atılana kadar kupa ile başlanmaz.\n- Alınan her bir kupa kartı için ceza puanı yazılır.";
+  static String CONTENT_NOHEART_DESCR_EN = "- The goal in this game is to not get any cards from the heart series.\n- The player who is out of hand from the set of cards on the floor must first discard the card from the series of heart."
+      "\n- The game does not start with the heart until a card from the heart group is discarded.\n- Player gets penalty points for each heart card taken.";
+
+  static String CONTENT_NOMAN_TR = "Erkek Almaz";
+  static String CONTENT_NOMAN_EN = "No Man";
+  static String CONTENT_NOMAN_DESCR_TR = "- Bu oyunda amaç seri fark etmeksizin papaz ve valeleri almamaktır.\n- Yerdeki kart grubundan elinde olmayan oyuncu öncelikli olarak seri fark etmeksizin papaz veya vale atmalıdır.";
+  static String CONTENT_NOMAN_DESCR_EN = "- The goal in this game is not to take any kings or jacks.\n- The player who is out of hand from the set of cards on the floor must first discard the king or the jack regardless of the series.";
+
+  static String CONTENT_NOQUEEN_TR = "Kız Almaz";
+  static String CONTENT_NOQUEEN_EN = "No Queen";
+  static String CONTENT_NOQUEEN_DESCR_TR = "- Bu oyunda amaç seri fark etmeksizin kız almamaktır.\n- Yerdeki kart grubundan elinde olmayan oyuncu öncelikli olarak seri fark etmeksizin kız atmalıdır.";
+  static String CONTENT_NOQUEEN_DESCR_EN = "- The goal in this game is not to take any queens.\n- The player who is out of hand from the set of cards on the floor must first discard the queen regardless of the series.";
+
+  static String CONTENT_NOLAST2_TR = "Son 2 Almaz";
+  static String CONTENT_NOLAST2_EN = "No Last 2 Tricks";
+  static String CONTENT_NOLAST2_DESCR_TR = "- Bu oyunda amaç son 2 eli almamaktır.";
+  static String CONTENT_NOLAST2_DESCR_EN = "- The goal in this game is not to take last 2 tricks.";
+
+  static String CONTENT_NOHEARTKING_TR = "Rıfkı";
+  static String CONTENT_NOHEARTKING_EN = "No King of Hearts";
+  static String CONTENT_NOHEARTKING_DESCR_TR = "- Bu oyunda amaç kupa papazını almamaktır.\n- Kupa Almaz oyunundaki gibi kupa serisi çıkılmadan kupa serisinden bir kart ile ele başlanılmaz."
+      "\n- Yerdeki kart grubundan elinde olmayan oyuncu öncelikli olarak kupa papazını atmalıdır.";
+  static String CONTENT_NOHEARTKING_DESCR_EN = "- The goal in this game is not to take king of hearts.\n- Like No Herts game; the game does not start with the heart until a card from the heart group is discarded."
+      "\n- The player who is out of hand from the set of cards on the floor must first discard the card of king of hearts.";
+
+  static String CONTENT_TRUMP_TR = "Koz";
+  static String CONTENT_TRUMP_EN = "Trump Game";
+  static String CONTENT_TRUMP_DESCR_TR = "- Bu oyunda amaç en fazla eli almaktır.\n- Koz serisini oyuna başlayan oyuncu belirler.\n- Yerdeki kart grubundan elinde olmayan oyuncu öncelikli olarak koz serisinden bir kart atmalıdır."
+      "\n- Koz yükseltmek zorunludur.\n- Koz serisinden bir kart çıkılmadan ele koz serisi ile başlanılmaz.";
+  static String CONTENT_TRUMP_DESCR_EN = "- The goal in this game is take maximum tricks.\n- Starting player determines the trump trick.\n- The player who is out of hand from the set of cards on the floor must first discard a card from trump trick."
+      "\n- Raising trump is mandatory.\n- The game does not start with a trump card until a card from the trump group is discarded.";
 }

@@ -36,7 +36,7 @@ class ContentService{
     }
   }
 
-  String getMenuSubtitle(String language, String contentName){
+  String getMenuSubtitleContent(String language, String contentName){
     switch (language) {
       case "TR":
         if(contentName == "newGameSubtitle")
@@ -65,20 +65,15 @@ class ContentService{
       default:
         return "ErrorContent";
     }
-    /*if(language == 'TR'){
-      return turkish[index].subtitle;
-    }else if(language == 'EN'){
-      return english[index].subtitle;
-    }else
-      return options[index - 1].subtitle;*/
   }
 
   String getAppBarTitle(String language, String pageName){
-
     switch (language) {
       case "TR":
         if(pageName == "menu")
           return AppBarConstants.APPBAR_MENU_TR;
+        else if(pageName == "rules")
+          return AppBarConstants.APPBAR_RULES_TR;
         else if(pageName == "settings")
           return AppBarConstants.APPBAR_SETTINGS_TR;
         else if(pageName == "language")
@@ -88,6 +83,8 @@ class ContentService{
       case "EN":
         if(pageName == "menu")
           return AppBarConstants.APPBAR_MENU_EN;
+        else if(pageName == "rules")
+          return AppBarConstants.APPBAR_RULES_EN;
         else if(pageName == "settings")
           return AppBarConstants.APPBAR_SETTINGS_EN;
         else if(pageName == "language")
@@ -124,6 +121,34 @@ class ContentService{
           return AppBarConstants.CONTENT_VERSION_TR;
         else if(contentName == "versionNumber")
           return AppBarConstants.CONTENT_VERSION;
+        else if(contentName == "noTricksTitle")
+          return AppBarConstants.CONTENT_NOHAND_TR;
+        else if(contentName == "noTricksDescr")
+          return AppBarConstants.CONTENT_NOHAND_DESCR_TR;
+        else if(contentName == "noHeartTitle")
+          return AppBarConstants.CONTENT_NOHEART_TR;
+        else if(contentName == "noHeartDescr")
+          return AppBarConstants.CONTENT_NOHEART_DESCR_TR;
+        else if(contentName == "noManTitle")
+          return AppBarConstants.CONTENT_NOMAN_TR;
+        else if(contentName == "noManDescr")
+          return AppBarConstants.CONTENT_NOMAN_DESCR_TR;
+        else if(contentName == "noQueenTitle")
+          return AppBarConstants.CONTENT_NOQUEEN_TR;
+        else if(contentName == "noQueenDescr")
+          return AppBarConstants.CONTENT_NOQUEEN_DESCR_TR;
+        else if(contentName == "noLast2Title")
+          return AppBarConstants.CONTENT_NOLAST2_TR;
+        else if(contentName == "noLast2Descr")
+          return AppBarConstants.CONTENT_NOLAST2_DESCR_TR;
+        else if(contentName == "noHeartKingTitle")
+          return AppBarConstants.CONTENT_NOHEARTKING_TR;
+        else if(contentName == "noHeartKingDescr")
+          return AppBarConstants.CONTENT_NOHEARTKING_DESCR_TR;
+        else if(contentName == "trumpTitle")
+          return AppBarConstants.CONTENT_TRUMP_TR;
+        else if(contentName == "trumpDescr")
+          return AppBarConstants.CONTENT_TRUMP_DESCR_TR;
         else
           return "ErrorContent";
       case "EN":
@@ -147,6 +172,34 @@ class ContentService{
           return AppBarConstants.CONTENT_VERSION_EN;
         else if(contentName == "versionNumber")
           return AppBarConstants.CONTENT_VERSION;
+        else if(contentName == "noTricksTitle")
+          return AppBarConstants.CONTENT_NOHAND_EN;
+        else if(contentName == "noTricksDescr")
+          return AppBarConstants.CONTENT_NOHAND_DESCR_EN;
+        else if(contentName == "noHeartTitle")
+          return AppBarConstants.CONTENT_NOHEART_EN;
+        else if(contentName == "noHeartDescr")
+          return AppBarConstants.CONTENT_NOHEART_DESCR_EN;
+        else if(contentName == "noManTitle")
+          return AppBarConstants.CONTENT_NOMAN_EN;
+        else if(contentName == "noManDescr")
+          return AppBarConstants.CONTENT_NOMAN_DESCR_EN;
+        else if(contentName == "noQueenTitle")
+          return AppBarConstants.CONTENT_NOQUEEN_EN;
+        else if(contentName == "noQueenDescr")
+          return AppBarConstants.CONTENT_NOQUEEN_DESCR_EN;
+        else if(contentName == "noLast2Title")
+          return AppBarConstants.CONTENT_NOLAST2_EN;
+        else if(contentName == "noLast2Descr")
+          return AppBarConstants.CONTENT_NOLAST2_DESCR_EN;
+        else if(contentName == "noHeartKingTitle")
+          return AppBarConstants.CONTENT_NOHEARTKING_EN;
+        else if(contentName == "noHeartKingDescr")
+          return AppBarConstants.CONTENT_NOHEARTKING_DESCR_EN;
+        else if(contentName == "trumpTitle")
+          return AppBarConstants.CONTENT_TRUMP_EN;
+        else if(contentName == "trumpDescr")
+          return AppBarConstants.CONTENT_TRUMP_DESCR_EN;
         else
           return "ErrorContent";
       case "null":
