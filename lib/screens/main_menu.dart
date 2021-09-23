@@ -29,7 +29,7 @@ class _MainMenu extends State<MainMenu>{
     setState(() {
       _nightMode = nightMode;
       _appBarBackground = ContentService().getContentColor("appBarBackground", _nightMode);
-      _bodyBackground = ContentService().getContentColor("bodyBackground", _nightMode);
+      _bodyBackground = ContentService().getContentColor("mainBodyBackground", _nightMode);
       _heading = ContentService().getContentColor("heading", _nightMode);
       _text = ContentService().getContentColor("text", _nightMode);
     });
@@ -45,6 +45,7 @@ class _MainMenu extends State<MainMenu>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: _bodyBackground,
       appBar: AppBar(
         backgroundColor: _appBarBackground,
         centerTitle: true,

@@ -127,6 +127,8 @@ class ContentService{
           return Colors.black;
         if(value == "heading")
           return Colors.blue;
+        if(value == "mainBodyBackground")
+          return Colors.white;
         break;
       case true:
         if(value == "appBarBackground")
@@ -137,6 +139,8 @@ class ContentService{
           return Colors.white;
         if(value == "heading")
           return Colors.orangeAccent;
+        if(value == "mainBodyBackground")
+          return Colors.grey;
         break;
     }
     return Colors.white;
