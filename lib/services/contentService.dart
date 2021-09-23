@@ -1,27 +1,76 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:king_game/models/menu_model.dart';
 import 'package:king_game/models/constants.dart';
 import 'package:king_game/services/cacheService.dart';
 
 class ContentService{
 
-  String getMenuTitle(String language, int index){
-    if(language == 'TR'){
-      return turkish[index].title;
-    }else if(language == 'EN'){
-      return english[index].title;
-    }else
-      return options[index - 1].title;
+  String getMenuTitleContent(String language, String contentName){
+    switch (language) {
+      case "TR":
+        if(contentName == "newGameTitle")
+          return AppBarConstants.CONTENT_NEWGAME_TITLE_TR;
+        else if(contentName == "lastGameTitle")
+          return AppBarConstants.CONTENT_LASTGAME_TITLE_TR;
+        else if(contentName == "rulesTitle")
+          return AppBarConstants.CONTENT_RULES_TITLE_TR;
+        else if(contentName == "settingsTitle")
+          return AppBarConstants.CONTENT_SETTINGS_TITLE_TR;
+        else
+          return "ErrorContent";
+      case "EN":
+        if(contentName == "newGameTitle")
+          return AppBarConstants.CONTENT_NEWGAME_TITLE_EN;
+        else if(contentName == "lastGameTitle")
+          return AppBarConstants.CONTENT_LASTGAME_TITLE_EN;
+        else if(contentName == "rulesTitle")
+          return AppBarConstants.CONTENT_RULES_TITLE_EN;
+        else if(contentName == "settingsTitle")
+          return AppBarConstants.CONTENT_SETTINGS_TITLE_EN;
+        else
+          return "ErrorContent";
+      case "null":
+        return getMenuTitleContent("EN", contentName);
+      default:
+        return "ErrorContent";
+    }
   }
 
-  String getMenuSubtitle(String language, int index){
-    if(language == 'TR'){
+  String getMenuSubtitle(String language, String contentName){
+    switch (language) {
+      case "TR":
+        if(contentName == "newGameSubtitle")
+          return AppBarConstants.CONTENT_NEWGAME_SUBTITLE_TR;
+        else if(contentName == "lastGameSubtitle")
+          return AppBarConstants.CONTENT_LASTGAME_SUBTITLE_TR;
+        else if(contentName == "rulesSubtitle")
+          return AppBarConstants.CONTENT_RULES_SUBTITLE_TR;
+        else if(contentName == "settingsSubtitle")
+          return AppBarConstants.CONTENT_SETTINGS_SUBTITLE_TR;
+        else
+          return "ErrorContent";
+      case "EN":
+        if(contentName == "newGameSubtitle")
+          return AppBarConstants.CONTENT_NEWGAME_SUBTITLE_EN;
+        else if(contentName == "lastGameSubtitle")
+          return AppBarConstants.CONTENT_LASTGAME_SUBTITLE_EN;
+        else if(contentName == "rulesSubtitle")
+          return AppBarConstants.CONTENT_RULES_SUBTITLE_EN;
+        else if(contentName == "settingsSubtitle")
+          return AppBarConstants.CONTENT_SETTINGS_SUBTITLE_EN;
+        else
+          return "ErrorContent";
+      case "null":
+        return getMenuTitleContent("EN", contentName);
+      default:
+        return "ErrorContent";
+    }
+    /*if(language == 'TR'){
       return turkish[index].subtitle;
     }else if(language == 'EN'){
       return english[index].subtitle;
     }else
-      return options[index - 1].subtitle;
+      return options[index - 1].subtitle;*/
   }
 
   String getAppBarTitle(String language, String pageName){

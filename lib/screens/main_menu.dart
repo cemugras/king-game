@@ -14,7 +14,7 @@ class _MainMenu extends State<MainMenu>{
   String pageName = "menu";
   String _language = "EN";
   String _appBarTitle = "";
-  Color _appBarBackground = Colors.red, _bodyBackground = Colors.white, _text = Colors.black,
+  Color _appBarBackground = Colors.red, _bodyBackground = Colors.white, _text = Colors.black, _whiteText = Colors.white,
       _newGameBackground = Colors.red, _lastGameBackground = Colors.orange, _rulesBackground = Colors.blueAccent, _settingsBackground = Colors.yellowAccent;
 
   void _getLanguage() async {
@@ -72,7 +72,7 @@ class _MainMenu extends State<MainMenu>{
     body: ListView(
       children: <Widget> [
         Container(
-          height: 60,
+          height: 70,
           margin: EdgeInsets.all(6.0),
           decoration: BoxDecoration(
               color: _newGameBackground,
@@ -82,16 +82,20 @@ class _MainMenu extends State<MainMenu>{
           child: ListTile(
             leading: new Image.asset("./lib/assets/card_deck.png"),
             title: Text(
-              ContentService().getMenuTitle(_language, 1),
+              ContentService().getMenuTitleContent(_language, "newGameTitle"),
               style: TextStyle(
-                color: _text,
+                color: _whiteText,
                 fontWeight: FontWeight.bold,
               ),
+            ),
+            subtitle: Text(
+                ContentService().getMenuSubtitle(_language, "newGameSubtitle"),
+                style: TextStyle(color: _whiteText)
             ),
           ),
         ),
         Container(
-          height: 60,
+          height: 70,
           margin: EdgeInsets.all(6.0),
           decoration: BoxDecoration(
               color: _lastGameBackground,
@@ -101,16 +105,20 @@ class _MainMenu extends State<MainMenu>{
           child: ListTile(
             leading: new Image.asset("./lib/assets/prev_game.png"),
             title: Text(
-              ContentService().getMenuTitle(_language, 2),
+              ContentService().getMenuTitleContent(_language, "lastGameTitle"),
               style: TextStyle(
                 color: _text,
                 fontWeight: FontWeight.bold,
               ),
             ),
+            subtitle: Text(
+                ContentService().getMenuSubtitle(_language, "lastGameSubtitle"),
+                style: TextStyle(color: _text)
+            ),
           ),
         ),
         Container(
-          height: 60,
+          height: 70,
           margin: EdgeInsets.all(6.0),
           decoration: BoxDecoration(
               color: _rulesBackground,
@@ -120,16 +128,20 @@ class _MainMenu extends State<MainMenu>{
           child: ListTile(
             leading: new Image.asset('./lib/assets/rules.png'),
             title: Text(
-              ContentService().getMenuTitle(_language, 3),
+              ContentService().getMenuTitleContent(_language, "rulesTitle"),
               style: TextStyle(
-                color: _text,
+                color: _whiteText,
                 fontWeight: FontWeight.bold,
               ),
+            ),
+            subtitle: Text(
+                ContentService().getMenuSubtitle(_language, "rulesSubtitle"),
+                style: TextStyle(color: _whiteText)
             ),
           ),
         ),
         Container(
-          height: 60,
+          height: 70,
           margin: EdgeInsets.all(6.0),
           decoration: BoxDecoration(
               color: _settingsBackground,
@@ -139,11 +151,15 @@ class _MainMenu extends State<MainMenu>{
           child: ListTile(
             leading: new Image.asset('./lib/assets/settings.png'),
             title: Text(
-              ContentService().getMenuTitle(_language, 4),
+              ContentService().getMenuTitleContent(_language, "settingsTitle"),
               style: TextStyle(
                 color: _text,
                 fontWeight: FontWeight.bold,
               ),
+            ),
+            subtitle: Text(
+                ContentService().getMenuSubtitle(_language, "settingsSubtitle"),
+                style: TextStyle(color: _text)
             ),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen())).then((value) async {
