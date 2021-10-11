@@ -16,7 +16,8 @@ class _MainMenu extends State<MainMenu>{
   String _language = "EN";
   String _appBarTitle = "";
   Color _appBarBackground = Colors.red, _bodyBackground = Colors.white, _text = Colors.black, _whiteText = Colors.white,
-      _newGameBackground = Colors.red, _lastGameBackground = Colors.orange, _rulesBackground = Colors.blueAccent, _settingsBackground = Colors.yellowAccent;
+      _newGameBackground = Colors.red, _lastGameBackground = Colors.orange, _rulesBackground = Colors.blueAccent, _settingsBackground = Colors.yellowAccent,
+      _headingColor = Colors.blue, _heading = Colors.blue;
 
   void _getLanguage() async {
     _language = await CacheService().getStringValue("language");
@@ -32,16 +33,19 @@ class _MainMenu extends State<MainMenu>{
       _appBarBackground = ContentService().getContentColor("appBarBackground", _nightMode);
       _bodyBackground = ContentService().getContentColor("mainBodyBackground", _nightMode);
       _text = ContentService().getContentColor("text", _nightMode);
+      _heading = ContentService().getContentColor("heading", _nightMode);
       if (_nightMode == true){
         _newGameBackground = _appBarBackground;
         _lastGameBackground = _appBarBackground;
         _rulesBackground = _appBarBackground;
         _settingsBackground = _appBarBackground;
+        _headingColor = _heading;
       }else{
         _newGameBackground = Colors.red;
         _lastGameBackground = Colors.orange;
         _rulesBackground = Colors.blueAccent;
         _settingsBackground = Colors.yellowAccent;
+        _headingColor = Colors.blue;
       }
     });
   }
@@ -93,7 +97,134 @@ class _MainMenu extends State<MainMenu>{
                 ContentService().getMenuSubtitleContent(_language, "newGameSubtitle"),
                 style: TextStyle(color: _whiteText)
             ),
-          ),
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      backgroundColor: _bodyBackground,
+                      content: Stack(
+                        children: <Widget>[
+                          Positioned(
+                            right: -30.0,
+                            top: -30.0,
+                            child: InkResponse(
+                              onTap: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: CircleAvatar(
+                                child: Icon(Icons.close),
+                                backgroundColor: _bodyBackground,
+                              ),
+                            ),
+                          ),
+                          Form(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Container(
+                                    //width: 100.0,
+                                    height: 30,
+                                    child: TextField(
+                                        decoration: InputDecoration(
+                                          icon: Icon(Icons.account_circle),
+                                          isDense: true,
+                                          contentPadding: EdgeInsets.all(8),
+                                        ),
+                                        style: TextStyle(
+                                            fontSize: 20.0,
+                                            //height: 20,
+                                            color: Colors.black
+                                        )
+                                    )
+                                ),
+                                Container(
+                                  //width: 100.0,
+                                    height: 30,
+                                    child: TextField(
+                                        decoration: InputDecoration(
+                                          icon: Icon(Icons.account_circle),
+                                          isDense: true,
+                                          contentPadding: EdgeInsets.all(8),
+                                        ),
+                                        style: TextStyle(
+                                            fontSize: 20.0,
+                                            //height: 20,
+                                            color: Colors.black
+                                        )
+                                    )
+                                ),
+                                Container(
+                                  //width: 100.0,
+                                    height: 30,
+                                    child: TextField(
+                                        decoration: InputDecoration(
+                                          icon: Icon(Icons.account_circle),
+                                          isDense: true,
+                                          contentPadding: EdgeInsets.all(8),
+                                        ),
+                                        style: TextStyle(
+                                            fontSize: 20.0,
+                                            //height: 20,
+                                            color: Colors.black
+                                        )
+                                    )
+                                ),
+                                Container(
+                                  //width: 100.0,
+                                    height: 30,
+                                    child: TextField(
+                                        decoration: InputDecoration(
+                                          icon: Icon(Icons.account_circle),
+                                          isDense: true,
+                                          contentPadding: EdgeInsets.all(8),
+                                        ),
+                                        style: TextStyle(
+                                            fontSize: 20.0,
+                                            //height: 20,
+                                            color: Colors.black
+                                        )
+                                    )
+                                ),
+                                Wrap(
+                                  children: <Widget>[
+                                    ElevatedButton(
+                                      child: Text(ContentService().getMenuTitleContent(_language, "cancelTitle")),
+                                      style: ElevatedButton.styleFrom(
+                                        primary: _bodyBackground,
+                                          onPrimary: _newGameBackground,
+                                        shadowColor: _bodyBackground,
+                                        elevation: 0
+                                      ),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                    Container(
+                                      width: 5.0,
+                                    ),
+                                    ElevatedButton(
+                                      child: Text(ContentService().getMenuTitleContent(_language, "submitTitle")),
+                                      style: ElevatedButton.styleFrom(
+                                          primary: _bodyBackground,
+                                          onPrimary: _headingColor,
+                                          shadowColor: _bodyBackground,
+                                          elevation: 0
+                                      ),
+                                      onPressed: () {
+
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  });
+              }),
         ),
         Container(
           height: 70,

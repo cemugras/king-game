@@ -1,4 +1,4 @@
-class AppBarConstants{
+class Constants{
 
   static String TRUE = "true";
   static String FALSE = "false";
@@ -57,6 +57,12 @@ class AppBarConstants{
   static String CONTENT_VERSION_EN = "Version";
 
   static String CONTENT_VERSION = "1.0.0";
+
+  //New game form constants
+  static String FORM_SUBMIT_TR = "Tamam";
+  static String FORM_SUBMIT_EN = "Submit";
+  static String FORM_CANCEL_TR = "Geri";
+  static String FORM_CANCEL_EN = "Cancel";
 
   //Rules screen constants.
   static String CONTENT_NOHAND_TR = "El Almaz";
