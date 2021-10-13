@@ -4,6 +4,9 @@ import 'package:king_game/screens/rule_screen.dart';
 import 'package:king_game/screens/settings_screen.dart';
 import 'package:king_game/services/contentService.dart';
 import 'package:king_game/services/cacheService.dart';
+import 'package:king_game/services/gameService.dart';
+
+import 'game_screen.dart';
 
 class MainMenu extends StatefulWidget{
   @override
@@ -12,17 +15,22 @@ class MainMenu extends StatefulWidget{
 
 class _MainMenu extends State<MainMenu>{
   bool _nightMode = false;
-  String pageName = "menu";
+  String _pageName = "menu";
   String _language = "EN";
   String _appBarTitle = "";
   Color _appBarBackground = Colors.red, _bodyBackground = Colors.white, _text = Colors.black, _whiteText = Colors.white,
       _newGameBackground = Colors.red, _lastGameBackground = Colors.orange, _rulesBackground = Colors.blueAccent, _settingsBackground = Colors.yellowAccent,
       _headingColor = Colors.blue, _heading = Colors.blue;
+  String _playerOneName = "Player-1", _playerTwoName = "Player-2", _playerThreeName = "Player-3", _playerFourName = "Player-4";
+  TextEditingController _playerOne = new TextEditingController();
+  TextEditingController _playerTwo = new TextEditingController();
+  TextEditingController _playerThree = new TextEditingController();
+  TextEditingController _playerFour = new TextEditingController();
 
   void _getLanguage() async {
     _language = await CacheService().getStringValue("language");
     setState(() {
-      _appBarTitle = ContentService().getAppBarTitle(_language.toString(), pageName);
+      _appBarTitle = ContentService().getAppBarTitle(_language.toString(), _pageName);
     });
   }
 
@@ -47,6 +55,24 @@ class _MainMenu extends State<MainMenu>{
         _settingsBackground = Colors.yellowAccent;
         _headingColor = Colors.blue;
       }
+    });
+  }
+
+  void _setPlayerName() {
+    if(_playerOne.text!="")
+      _playerOneName = _playerOne.text;
+    if(_playerTwo.text!="")
+      _playerTwoName = _playerTwo.text;
+    if(_playerThree.text!="")
+      _playerThreeName = _playerThree.text;
+    if(_playerFour.text!="")
+      _playerFourName = _playerFour.text;
+    setState(() {
+      GameService().setPlayerName(_playerOneName, "playerOne");
+      GameService().setPlayerName(_playerTwoName, "playerTwo");
+      GameService().setPlayerName(_playerThreeName, "playerThree");
+      GameService().setPlayerName(_playerFourName, "playerFour");
+      GameService().setGameTrue();
     });
   }
 
@@ -126,14 +152,16 @@ class _MainMenu extends State<MainMenu>{
                                     //width: 100.0,
                                     height: 30,
                                     child: TextField(
+                                        controller: _playerOne,
+                                        maxLength: 10,
                                         decoration: InputDecoration(
                                           icon: Icon(Icons.account_circle),
                                           isDense: true,
                                           contentPadding: EdgeInsets.all(8),
+                                            counterText: ''
                                         ),
                                         style: TextStyle(
                                             fontSize: 20.0,
-                                            //height: 20,
                                             color: Colors.black
                                         )
                                     )
@@ -142,14 +170,16 @@ class _MainMenu extends State<MainMenu>{
                                   //width: 100.0,
                                     height: 30,
                                     child: TextField(
+                                        controller: _playerTwo,
+                                        maxLength: 10,
                                         decoration: InputDecoration(
                                           icon: Icon(Icons.account_circle),
                                           isDense: true,
                                           contentPadding: EdgeInsets.all(8),
+                                            counterText: ''
                                         ),
                                         style: TextStyle(
                                             fontSize: 20.0,
-                                            //height: 20,
                                             color: Colors.black
                                         )
                                     )
@@ -158,14 +188,16 @@ class _MainMenu extends State<MainMenu>{
                                   //width: 100.0,
                                     height: 30,
                                     child: TextField(
+                                        controller: _playerThree,
+                                        maxLength: 10,
                                         decoration: InputDecoration(
                                           icon: Icon(Icons.account_circle),
                                           isDense: true,
                                           contentPadding: EdgeInsets.all(8),
+                                            counterText: ''
                                         ),
                                         style: TextStyle(
                                             fontSize: 20.0,
-                                            //height: 20,
                                             color: Colors.black
                                         )
                                     )
@@ -174,14 +206,16 @@ class _MainMenu extends State<MainMenu>{
                                   //width: 100.0,
                                     height: 30,
                                     child: TextField(
+                                        controller: _playerFour,
+                                        maxLength: 10,
                                         decoration: InputDecoration(
                                           icon: Icon(Icons.account_circle),
                                           isDense: true,
                                           contentPadding: EdgeInsets.all(8),
+                                            counterText: ''
                                         ),
                                         style: TextStyle(
                                             fontSize: 20.0,
-                                            //height: 20,
                                             color: Colors.black
                                         )
                                     )
@@ -212,7 +246,10 @@ class _MainMenu extends State<MainMenu>{
                                           elevation: 0
                                       ),
                                       onPressed: () {
-
+                                        _setPlayerName();
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen())).then((value) async {});
+                                        setState(() {
+                                        });
                                       },
                                     ),
                                   ],
