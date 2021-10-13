@@ -9,6 +9,9 @@ class GameScreen extends StatefulWidget {
   _GameScreenState createState() => _GameScreenState();
 }
 
+//TODO - AppBar Summary and List Showing feature.
+//TODO - Turn and points logic. (Arrays can be usable)
+
 class _GameScreenState extends  State<GameScreen>{
   bool _nightMode = false;
   String _pageName = "game";

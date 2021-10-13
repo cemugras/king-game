@@ -13,6 +13,9 @@ class MainMenu extends StatefulWidget{
   _MainMenu createState() => _MainMenu();
 }
 
+//TODO - Form closing feature after submit to GameScreen.
+//TODO - Last Game screen and logic.
+
 class _MainMenu extends State<MainMenu>{
   bool _nightMode = false;
   String _pageName = "menu";
