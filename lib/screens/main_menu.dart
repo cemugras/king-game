@@ -59,6 +59,7 @@ class _MainMenu extends State<MainMenu>{
   }
 
   void _setPlayerName() {
+    List<String> _playerNameList = [""];
     if(_playerOne.text!="")
       _playerOneName = _playerOne.text;
     if(_playerTwo.text!="")
@@ -68,10 +69,13 @@ class _MainMenu extends State<MainMenu>{
     if(_playerFour.text!="")
       _playerFourName = _playerFour.text;
     setState(() {
-      GameService().setPlayerName(_playerOneName, "playerOne");
+      /*GameService().setPlayerName(_playerOneName, "playerOne");
       GameService().setPlayerName(_playerTwoName, "playerTwo");
       GameService().setPlayerName(_playerThreeName, "playerThree");
-      GameService().setPlayerName(_playerFourName, "playerFour");
+      GameService().setPlayerName(_playerFourName, "playerFour");*/
+      _playerNameList.clear();
+      _playerNameList.addAll([_playerOneName, _playerTwoName, _playerThreeName, _playerFourName]);
+      GameService().setPlayerNameList("PlayerList", _playerNameList);
       GameService().setGameTrue();
     });
   }

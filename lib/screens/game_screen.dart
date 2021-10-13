@@ -17,7 +17,6 @@ class _GameScreenState extends  State<GameScreen>{
   Color _appBarBackground = Colors.red, _bodyBackground = Colors.white, _text = Colors.black, _whiteText = Colors.white,
       _headingColor = Colors.blue, _heading = Colors.blue;
   String _playerOneName = "Player-1", _playerTwoName = "Player-2", _playerThreeName = "Player-3", _playerFourName = "Player-4";
-
   void _getLanguage() async {
     _language = await CacheService().getStringValue("language");
     setState(() {
@@ -36,16 +35,14 @@ class _GameScreenState extends  State<GameScreen>{
     });
   }
 
-  void _getPlayerData() async {
-    final playerOneName = await GameService().getPlayerName("playerOne");
-    final playerTwoName = await GameService().getPlayerName("playerTwo");
-    final playerThreeName = await GameService().getPlayerName("playerThree");
-    final playerFourName = await GameService().getPlayerName("playerFour");
+  void _getPlayerDataList() async {
+    List<String> playerList = await GameService().getPlayerNameList("PlayerList");
     setState(() {
-      _playerOneName = playerOneName;
-      _playerTwoName = playerTwoName;
-      _playerThreeName = playerThreeName;
-      _playerFourName = playerFourName;
+      if(playerList.length > 0)
+        _playerOneName = playerList[0];
+        _playerTwoName = playerList[1];
+        _playerThreeName = playerList[2];
+        _playerFourName = playerList[3];
     });
   }
 
@@ -54,7 +51,7 @@ class _GameScreenState extends  State<GameScreen>{
     super.initState();
     _getLanguage();
     _getDarkTheme();
-    _getPlayerData();
+    _getPlayerDataList();
   }
 
   @override

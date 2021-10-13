@@ -16,6 +16,12 @@ class CacheService{
     prefs.setBool(key, value);
   }
 
+  //Set string list value for given title to cache
+  void setStringList(String key, List<String> list) async {
+    prefs = await SharedPreferences.getInstance();
+    prefs.setStringList(key, list);
+  }
+
   //Get string value for given key from cache
   Future<String> getStringValue(String key) async {
     final myPrefs = await SharedPreferences.getInstance();
@@ -27,6 +33,13 @@ class CacheService{
   Future<bool> getBooleanValue(String key) async {
     final myPrefs = await SharedPreferences.getInstance();
     bool value = myPrefs.getBool(key) ?? false;
+    return value;
+  }
+
+  //Get string list value for given title from cache
+  Future<List<String>> getStringList(String key) async {
+    final myPrefs = await SharedPreferences.getInstance();
+    List<String>? value = myPrefs.getStringList(key) ?? ["null"];
     return value;
   }
 }
