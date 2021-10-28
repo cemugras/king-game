@@ -85,7 +85,6 @@ class _GameScreenState extends  State<GameScreen>{
                       border: Border.all(color: Colors.black38)
                   ),
                   child: ListTile(
-                    //leading: new Image.asset("./lib/assets/card_deck.png"),
                     title: Text(
                       _playerOneName,
                       style: TextStyle(

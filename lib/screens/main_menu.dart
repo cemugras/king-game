@@ -25,6 +25,7 @@ class _MainMenu extends State<MainMenu>{
       _newGameBackground = Colors.red, _lastGameBackground = Colors.orange, _rulesBackground = Colors.blueAccent, _settingsBackground = Colors.yellowAccent,
       _headingColor = Colors.blue, _heading = Colors.blue;
   String _playerOneName = "Player-1", _playerTwoName = "Player-2", _playerThreeName = "Player-3", _playerFourName = "Player-4";
+  bool _isGameExists = false;
   TextEditingController _playerOne = new TextEditingController();
   TextEditingController _playerTwo = new TextEditingController();
   TextEditingController _playerThree = new TextEditingController();
@@ -72,14 +73,17 @@ class _MainMenu extends State<MainMenu>{
     if(_playerFour.text!="")
       _playerFourName = _playerFour.text;
     setState(() {
-      /*GameService().setPlayerName(_playerOneName, "playerOne");
-      GameService().setPlayerName(_playerTwoName, "playerTwo");
-      GameService().setPlayerName(_playerThreeName, "playerThree");
-      GameService().setPlayerName(_playerFourName, "playerFour");*/
       _playerNameList.clear();
       _playerNameList.addAll([_playerOneName, _playerTwoName, _playerThreeName, _playerFourName]);
       GameService().setPlayerNameList("PlayerList", _playerNameList);
       GameService().setGameTrue();
+    });
+  }
+
+  void _getGameExists() async {
+    final isGameExists = await GameService().isGameExist();
+    setState(() {
+      _isGameExists = isGameExists;
     });
   }
 
@@ -88,6 +92,7 @@ class _MainMenu extends State<MainMenu>{
     super.initState();
     _getLanguage();
     _getDarkTheme();
+    _getGameExists();
   }
 
   @override
