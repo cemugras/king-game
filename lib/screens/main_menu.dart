@@ -13,8 +13,9 @@ class MainMenu extends StatefulWidget{
   _MainMenu createState() => _MainMenu();
 }
 
-//TODO - Form closing feature after submit to GameScreen.
+//TODO - New Game Creation logic. / isGameExists / playerScores / playedTurns
 //TODO - Last Game screen and logic.
+//TODO - Options for game rule changes.
 
 class _MainMenu extends State<MainMenu>{
   bool _nightMode = false;
@@ -30,6 +31,7 @@ class _MainMenu extends State<MainMenu>{
   TextEditingController _playerTwo = new TextEditingController();
   TextEditingController _playerThree = new TextEditingController();
   TextEditingController _playerFour = new TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   void _getLanguage() async {
     _language = await CacheService().getStringValue("language");
@@ -85,6 +87,13 @@ class _MainMenu extends State<MainMenu>{
     setState(() {
       _isGameExists = isGameExists;
     });
+  }
+
+  void _resetGameFormText() async {
+    _playerOne.text='';
+    _playerTwo.text='';
+    _playerThree.text='';
+    _playerFour.text='';
   }
 
   @override
@@ -158,6 +167,7 @@ class _MainMenu extends State<MainMenu>{
                           ),
                           Form(
                             child: Column(
+                              key: formKey,
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
                                 Container(
@@ -244,6 +254,7 @@ class _MainMenu extends State<MainMenu>{
                                       ),
                                       onPressed: () {
                                         Navigator.pop(context);
+                                        _resetGameFormText();
                                       },
                                     ),
                                     Container(
@@ -258,7 +269,9 @@ class _MainMenu extends State<MainMenu>{
                                           elevation: 0
                                       ),
                                       onPressed: () {
+                                        Navigator.of(context).pop();
                                         _setPlayerName();
+                                        _resetGameFormText();
                                         Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen())).then((value) async {});
                                         setState(() {
                                         });
