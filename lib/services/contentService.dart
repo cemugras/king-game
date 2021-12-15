@@ -86,6 +86,8 @@ class ContentService{
           return Constants.APPBAR_SETTINGS_TR;
         else if(pageName == "language")
           return Constants.APPBAR_LANG_TR;
+        else if(pageName == "game")
+          return Constants.APPBAR_GAME_TR;
         else
           return "ErrorPageName";
       case "EN":
@@ -97,6 +99,8 @@ class ContentService{
           return Constants.APPBAR_SETTINGS_EN;
         else if(pageName == "language")
           return Constants.APPBAR_LANG_EN;
+        else if(pageName == "game")
+          return Constants.APPBAR_GAME_EN;
         else
           return "ErrorPageName";
       case "null":

@@ -15,6 +15,8 @@ class Constants{
   static String APPBAR_SETTINGS_TR = "Ayarlar";
   static String APPBAR_LANG_EN = "Language";
   static String APPBAR_LANG_TR = "Dil";
+  static String APPBAR_GAME_EN = "Game";
+  static String APPBAR_GAME_TR = "Oyun";
 
   //Main menu constants.
   static String CONTENT_NEWGAME_TITLE_EN = "New Game";
