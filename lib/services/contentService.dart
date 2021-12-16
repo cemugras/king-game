@@ -161,6 +161,8 @@ class ContentService{
           return Constants.CONTENT_TRUMP_TR;
         else if(contentName == "trumpDescr")
           return Constants.CONTENT_TRUMP_DESCR_TR;
+        else if(contentName == "existingGameWarning")
+          return Constants.CONTENT_NEW_GAME_WARNING_TR;
         else
           return "ErrorContent";
       case "EN":
@@ -212,6 +214,8 @@ class ContentService{
           return Constants.CONTENT_TRUMP_EN;
         else if(contentName == "trumpDescr")
           return Constants.CONTENT_TRUMP_DESCR_EN;
+        else if(contentName == "existingGameWarning")
+          return Constants.CONTENT_NEW_GAME_WARNING_EN;
         else
           return "ErrorContent";
       case "null":

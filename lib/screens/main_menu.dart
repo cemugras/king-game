@@ -16,17 +16,19 @@ class MainMenu extends StatefulWidget{
 //TODO - New Game Creation logic. / isGameExists / playerScores / playedTurns
 //TODO - Last Game screen and logic.
 //TODO - Options for game rule changes.
+//TODO - End of all - Logcat issue fixes.
 
 class _MainMenu extends State<MainMenu>{
   bool _nightMode = false;
   String _pageName = "menu";
   String _language = "EN";
   String _appBarTitle = "";
+  String _existingGameWarning = "";
   Color _appBarBackground = Colors.red, _bodyBackground = Colors.white, _text = Colors.black, _whiteText = Colors.white,
       _newGameBackground = Colors.red, _lastGameBackground = Colors.orange, _rulesBackground = Colors.blueAccent, _settingsBackground = Colors.yellowAccent,
       _headingColor = Colors.blue, _heading = Colors.blue;
   String _playerOneName = "Player-1", _playerTwoName = "Player-2", _playerThreeName = "Player-3", _playerFourName = "Player-4";
-  bool _isGameExists = false;
+  bool _gameExists = false;
   TextEditingController _playerOne = new TextEditingController();
   TextEditingController _playerTwo = new TextEditingController();
   TextEditingController _playerThree = new TextEditingController();
@@ -37,6 +39,7 @@ class _MainMenu extends State<MainMenu>{
     _language = await CacheService().getStringValue("language");
     setState(() {
       _appBarTitle = ContentService().getAppBarTitle(_language.toString(), _pageName);
+      _existingGameWarning = ContentService().getContent(_language.toString(),"existingGameWarning");
     });
   }
 
@@ -82,10 +85,10 @@ class _MainMenu extends State<MainMenu>{
     });
   }
 
-  void _getGameExists() async {
+  void _isGameExists() async {
     final isGameExists = await GameService().isGameExist();
     setState(() {
-      _isGameExists = isGameExists;
+      _gameExists = isGameExists;
     });
   }
 
@@ -96,12 +99,174 @@ class _MainMenu extends State<MainMenu>{
     _playerFour.text='';
   }
 
+  AlertDialog _gameStartForm() {
+    return AlertDialog(
+      backgroundColor: _bodyBackground,
+      content: Stack(
+        children: <Widget>[
+          Positioned(
+            right: -30.0,
+            top: -30.0,
+            child: InkResponse(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: CircleAvatar(
+                child: Icon(Icons.close),
+                backgroundColor: _bodyBackground,
+              ),
+            ),
+          ),
+          Form(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Container(
+                  //width: 100.0,
+                    height: 30,
+                    child: TextField(
+                        controller: _playerOne,
+                        maxLength: 10,
+                        decoration: InputDecoration(
+                            icon: Icon(Icons.account_circle),
+                            isDense: true,
+                            contentPadding: EdgeInsets.all(8),
+                            counterText: ''
+                        ),
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.black
+                        )
+                    )
+                ),
+                Container(
+                  //width: 100.0,
+                    height: 30,
+                    child: TextField(
+                        controller: _playerTwo,
+                        maxLength: 10,
+                        decoration: InputDecoration(
+                            icon: Icon(Icons.account_circle),
+                            isDense: true,
+                            contentPadding: EdgeInsets.all(8),
+                            counterText: ''
+                        ),
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.black
+                        )
+                    )
+                ),
+                Container(
+                  //width: 100.0,
+                    height: 30,
+                    child: TextField(
+                        controller: _playerThree,
+                        maxLength: 10,
+                        decoration: InputDecoration(
+                            icon: Icon(Icons.account_circle),
+                            isDense: true,
+                            contentPadding: EdgeInsets.all(8),
+                            counterText: ''
+                        ),
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.black
+                        )
+                    )
+                ),
+                Container(
+                  //width: 100.0,
+                    height: 30,
+                    child: TextField(
+                        controller: _playerFour,
+                        maxLength: 10,
+                        decoration: InputDecoration(
+                            icon: Icon(Icons.account_circle),
+                            isDense: true,
+                            contentPadding: EdgeInsets.all(8),
+                            counterText: ''
+                        ),
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.black
+                        )
+                    )
+                ),
+                Wrap(
+                  children: <Widget>[
+                    ElevatedButton(
+                      child: Text(ContentService().getMenuTitleContent(_language, "cancelTitle")),
+                      style: ElevatedButton.styleFrom(
+                          primary: _bodyBackground,
+                          onPrimary: _newGameBackground,
+                          shadowColor: _bodyBackground,
+                          elevation: 0
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        _resetGameFormText();
+                      },
+                    ),
+                    Container(
+                      width: 5.0,
+                    ),
+                    ElevatedButton(
+                      child: Text(ContentService().getMenuTitleContent(_language, "submitTitle")),
+                      style: ElevatedButton.styleFrom(
+                          primary: _bodyBackground,
+                          onPrimary: _headingColor,
+                          shadowColor: _bodyBackground,
+                          elevation: 0
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        _setPlayerName();
+                        _resetGameFormText();
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen())).then((value) async {});
+                        setState(() {
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  AlertDialog _gameExistsForm() {
+    return AlertDialog(
+      content: Text(_existingGameWarning),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () => Navigator.pop(context, 'Cancel'),
+          child: const Text('Cancel'),
+        ),
+        TextButton(
+            onPressed: () {
+              Navigator.pop(context, 'OK');
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return _gameStartForm();
+                  });
+            },
+            child: const Text('OK')
+        )
+      ],
+    );
+  }
+
   @override
   void initState() {
     super.initState();
     _getLanguage();
     _getDarkTheme();
-    _getGameExists();
+    _isGameExists();
   }
 
   @override
@@ -148,143 +313,10 @@ class _MainMenu extends State<MainMenu>{
               showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return AlertDialog(
-                      backgroundColor: _bodyBackground,
-                      content: Stack(
-                        children: <Widget>[
-                          Positioned(
-                            right: -30.0,
-                            top: -30.0,
-                            child: InkResponse(
-                              onTap: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: CircleAvatar(
-                                child: Icon(Icons.close),
-                                backgroundColor: _bodyBackground,
-                              ),
-                            ),
-                          ),
-                          Form(
-                            child: Column(
-                              key: formKey,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Container(
-                                    //width: 100.0,
-                                    height: 30,
-                                    child: TextField(
-                                        controller: _playerOne,
-                                        maxLength: 10,
-                                        decoration: InputDecoration(
-                                          icon: Icon(Icons.account_circle),
-                                          isDense: true,
-                                          contentPadding: EdgeInsets.all(8),
-                                            counterText: ''
-                                        ),
-                                        style: TextStyle(
-                                            fontSize: 20.0,
-                                            color: Colors.black
-                                        )
-                                    )
-                                ),
-                                Container(
-                                  //width: 100.0,
-                                    height: 30,
-                                    child: TextField(
-                                        controller: _playerTwo,
-                                        maxLength: 10,
-                                        decoration: InputDecoration(
-                                          icon: Icon(Icons.account_circle),
-                                          isDense: true,
-                                          contentPadding: EdgeInsets.all(8),
-                                            counterText: ''
-                                        ),
-                                        style: TextStyle(
-                                            fontSize: 20.0,
-                                            color: Colors.black
-                                        )
-                                    )
-                                ),
-                                Container(
-                                  //width: 100.0,
-                                    height: 30,
-                                    child: TextField(
-                                        controller: _playerThree,
-                                        maxLength: 10,
-                                        decoration: InputDecoration(
-                                          icon: Icon(Icons.account_circle),
-                                          isDense: true,
-                                          contentPadding: EdgeInsets.all(8),
-                                            counterText: ''
-                                        ),
-                                        style: TextStyle(
-                                            fontSize: 20.0,
-                                            color: Colors.black
-                                        )
-                                    )
-                                ),
-                                Container(
-                                  //width: 100.0,
-                                    height: 30,
-                                    child: TextField(
-                                        controller: _playerFour,
-                                        maxLength: 10,
-                                        decoration: InputDecoration(
-                                          icon: Icon(Icons.account_circle),
-                                          isDense: true,
-                                          contentPadding: EdgeInsets.all(8),
-                                            counterText: ''
-                                        ),
-                                        style: TextStyle(
-                                            fontSize: 20.0,
-                                            color: Colors.black
-                                        )
-                                    )
-                                ),
-                                Wrap(
-                                  children: <Widget>[
-                                    ElevatedButton(
-                                      child: Text(ContentService().getMenuTitleContent(_language, "cancelTitle")),
-                                      style: ElevatedButton.styleFrom(
-                                        primary: _bodyBackground,
-                                          onPrimary: _newGameBackground,
-                                        shadowColor: _bodyBackground,
-                                        elevation: 0
-                                      ),
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                        _resetGameFormText();
-                                      },
-                                    ),
-                                    Container(
-                                      width: 5.0,
-                                    ),
-                                    ElevatedButton(
-                                      child: Text(ContentService().getMenuTitleContent(_language, "submitTitle")),
-                                      style: ElevatedButton.styleFrom(
-                                          primary: _bodyBackground,
-                                          onPrimary: _headingColor,
-                                          shadowColor: _bodyBackground,
-                                          elevation: 0
-                                      ),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                        _setPlayerName();
-                                        _resetGameFormText();
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen())).then((value) async {});
-                                        setState(() {
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
+                    if(_gameExists)
+                      return _gameExistsForm();
+                    else
+                      return _gameStartForm();
                   });
               }),
         ),
