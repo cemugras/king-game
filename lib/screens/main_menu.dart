@@ -13,9 +13,9 @@ class MainMenu extends StatefulWidget{
   _MainMenu createState() => _MainMenu();
 }
 
-//TODO - New Game Creation logic. / isGameExists / playerScores / playedTurns
 //TODO - Last Game screen and logic.
 //TODO - Options for game rule changes.
+//TODO - Reset feature for game data.
 //TODO - End of all - Logcat issue fixes.
 
 class _MainMenu extends State<MainMenu>{
@@ -23,7 +23,7 @@ class _MainMenu extends State<MainMenu>{
   String _pageName = "menu";
   String _language = "EN";
   String _appBarTitle = "";
-  String _existingGameWarning = "";
+  String _existingGameWarning = "", _gameNotExistWarning = "";
   Color _appBarBackground = Colors.red, _bodyBackground = Colors.white, _text = Colors.black, _whiteText = Colors.white,
       _newGameBackground = Colors.red, _lastGameBackground = Colors.orange, _rulesBackground = Colors.blueAccent, _settingsBackground = Colors.yellowAccent,
       _headingColor = Colors.blue, _heading = Colors.blue;
@@ -35,7 +35,7 @@ class _MainMenu extends State<MainMenu>{
   TextEditingController _playerFour = new TextEditingController();
   final formKey = GlobalKey<FormState>();
 
-  void _getLanguage() async {
+  void _getLanguageAndContent() async {
     _language = await CacheService().getStringValue("language");
     setState(() {
       _appBarTitle = ContentService().getAppBarTitle(_language.toString(), _pageName);
@@ -261,10 +261,22 @@ class _MainMenu extends State<MainMenu>{
     );
   }
 
+  AlertDialog _gameNotExistsForm() {
+    return AlertDialog(
+      content: Text(_gameNotExistWarning),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () => Navigator.pop(context, 'OK'),
+          child: const Text('OK'),
+        ),
+      ],
+    );
+  }
+
   @override
   void initState() {
     super.initState();
-    _getLanguage();
+    _getLanguageAndContent();
     _getDarkTheme();
     _isGameExists();
   }
@@ -341,6 +353,20 @@ class _MainMenu extends State<MainMenu>{
                 ContentService().getMenuSubtitleContent(_language, "lastGameSubtitle"),
                 style: TextStyle(color: _text)
             ),
+              onTap: () {
+                if (_gameExists) {
+                  //Navigator.of(context).pop();
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen())).then((value) async {});
+                  setState(() {
+                  });
+                } else {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return _gameNotExistsForm();
+                      });
+                }
+              }
           ),
         ),
         Container(
@@ -366,7 +392,7 @@ class _MainMenu extends State<MainMenu>{
             ),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) => RuleScreen())).then((value) async {
-                _getLanguage();
+                _getLanguageAndContent();
                 _getDarkTheme();
               });
               setState(() {
@@ -397,7 +423,7 @@ class _MainMenu extends State<MainMenu>{
             ),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen())).then((value) async {
-                _getLanguage();
+                _getLanguageAndContent();
                 _getDarkTheme();
               });
               setState(() {
