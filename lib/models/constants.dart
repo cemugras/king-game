@@ -51,6 +51,10 @@ class Constants{
   static String CONTENT_ENV_SUBTITLE_EN = "Production";
   static String CONTENT_DEV_LICENCE_TITLE_EN = "Developer Licences";
   static String CONTENT_DEV_LICENCE_TITLE_TR = "Geliştirici Lisansı";
+  static String CONTENT_RESET_DATA_TITLE_EN = "Reset Data";
+  static String CONTENT_RESET_DATA_TITLE_TR = "Veriyi Sıfırla";
+  static String CONTENT_RESET_DATA_SUBTITLE_EN = "Reset app and game data";
+  static String CONTENT_RESET_DATA_SUBTITLE_TR = "Uygulama ve oyun verisini sıfırla";
 
   static String CONTENT_SETTINGS_SECTION_COMMON_TR = "Genel";
   static String CONTENT_SETTINGS_SECTION_COMMON_EN = "Common";

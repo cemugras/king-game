@@ -161,6 +161,10 @@ class ContentService{
           return Constants.CONTENT_TRUMP_TR;
         else if(contentName == "trumpDescr")
           return Constants.CONTENT_TRUMP_DESCR_TR;
+        else if(contentName == "resetDataTitle")
+          return Constants.CONTENT_RESET_DATA_TITLE_TR;
+        else if(contentName == "resetDataSubtitle")
+          return Constants.CONTENT_RESET_DATA_SUBTITLE_TR;
         else if(contentName == "existingGameWarning")
           return Constants.CONTENT_NEW_GAME_WARNING_TR;
         else
@@ -214,6 +218,10 @@ class ContentService{
           return Constants.CONTENT_TRUMP_EN;
         else if(contentName == "trumpDescr")
           return Constants.CONTENT_TRUMP_DESCR_EN;
+        else if(contentName == "resetDataTitle")
+          return Constants.CONTENT_RESET_DATA_TITLE_EN;
+        else if(contentName == "resetDataSubtitle")
+          return Constants.CONTENT_RESET_DATA_SUBTITLE_EN;
         else if(contentName == "existingGameWarning")
           return Constants.CONTENT_NEW_GAME_WARNING_EN;
         else

@@ -17,11 +17,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
   String _appBarTitle = "",
       _languageTitle = "", _languageSubtitle = "",
       _nightModeTitle = "",
+      _resetDataTitle = "", _resetDataSubtitle = "",
       _envTitle = "", _envSubTitle = "",
       _devLicenceTitle = "",
       _settingsSectionCommon = "", _settingsSectionMisc = "",
       _versionTitle = "", _versionNumber = "";
   Color _appBarBackground = Colors.red, _bodyBackground = Colors.white, _heading = Colors.blue, _text = Colors.black;
+  static const IconData trashIcon = IconData(0xe535, fontFamily: 'MaterialIcons');
 
 
   @override
@@ -45,6 +47,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
       _settingsSectionMisc = ContentService().getContent(_language.toString(), "settingsSectionMisc");
       _versionTitle = ContentService().getContent(_language.toString(), "versionTitle");
       _versionNumber = ContentService().getContent(_language.toString(), "versionNumber");
+      _resetDataTitle = ContentService().getContent(_language.toString(), "resetDataTitle");
+      _resetDataSubtitle = ContentService().getContent(_language.toString(), "resetDataSubtitle");
     });
   }
 
@@ -114,6 +118,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onToggle: (bool value) {
                 setState(() {
                   _setTheme(value);
+                });
+              },
+            ),
+            SettingsTile(
+              title: '$_resetDataTitle',
+              titleTextStyle: TextStyle(color: _text, fontWeight: FontWeight.bold),
+              subtitle: '$_resetDataSubtitle',
+              subtitleTextStyle: TextStyle(color: _text),
+              leading: Icon(trashIcon, color: _text),
+              onPressed: (context) {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => LanguagesScreen())).then((value) async {
+                  _getLanguage();
                 });
               },
             ),
