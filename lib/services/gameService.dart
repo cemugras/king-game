@@ -18,8 +18,11 @@ class GameService {
     CacheService().setStringValue(playerNumber, playerName);
   }
 
-  void setPlayerNameList(String playerNumber, List<String> playerList) {
-    CacheService().setStringList(playerNumber, playerList);
+  void setPlayerNameList(String key, List<String> playerList) {
+    CacheService().setStringList(key, playerList);
+  }
+  void setTurnData(String key, List<String> turnData) {
+    CacheService().setStringList(key, turnData);
   }
 
   Future<String> getPlayerName(String playerNumber) async {
@@ -30,6 +33,11 @@ class GameService {
   Future<List<String>> getPlayerNameList(String playerNumber) async {
     List<String> playerName = await CacheService().getStringList(playerNumber);
     return playerName;
+  }
+
+  Future<List<String>> getTurnData(String key) async {
+    List<String> turnData = await CacheService().getStringList(key);
+    return turnData;
   }
 
 }

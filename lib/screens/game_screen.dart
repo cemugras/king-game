@@ -18,8 +18,17 @@ class _GameScreenState extends  State<GameScreen>{
   String _language = "EN";
   String _appBarTitle = "";
   Color _appBarBackground = Colors.red, _bodyBackground = Colors.white, _text = Colors.black, _whiteText = Colors.white,
-      _headingColor = Colors.blue, _heading = Colors.blue;
-  String _playerOneName = "Player-1", _playerTwoName = "Player-2", _playerThreeName = "Player-3", _playerFourName = "Player-4";
+      _headingColor = Colors.blue, _heading = Colors.blue,
+      _playerOneBorderColor = Colors.black38, _playerTwoBorderColor = Colors.black38, _playerThreeBorderColor = Colors.black38, _playerFourBorderColor = Colors.black38,
+      playerOneBorderColor = Colors.black38, playerTwoBorderColor = Colors.black38, playerThreeBorderColor = Colors.black38, playerFourBorderColor = Colors.black38;
+  String _playerOneName = "Player-1", _playerTwoName = "Player-2", _playerThreeName = "Player-3", _playerFourName = "Player-4",
+      _playerTurn = "Player-1";
+  int _turn = 1;
+  double _playerOneBorderWidth = 1, _playerTwoBorderWidth = 1, _playerThreeBorderWidth = 1, _playerFourBorderWidth = 1,
+      playerOneBorderWidth = 1, playerTwoBorderWidth = 1, playerThreeBorderWidth = 1, playerFourBorderWidth = 1;
+
+  static const IconData trashIcon = IconData(0xe535, fontFamily: 'MaterialIcons');
+
   void _getLanguage() async {
     _language = await CacheService().getStringValue("language");
     setState(() {
@@ -49,12 +58,80 @@ class _GameScreenState extends  State<GameScreen>{
     });
   }
 
+  String _getPlayerTurn() {
+    if (_turn % 4 == 0)
+      return "Player-4";
+    else if (_turn % 2 == 0)
+      return "Player-2";
+    else if (_turn == 3 || (_turn % 4) - 3 == 0)
+      return "Player-3";
+    else
+      return "Player-1";
+  }
+
+  void _refreshTurnData() {
+    String playerTurn = _getPlayerTurn();
+
+    if (playerTurn == "Player-1"){
+      playerOneBorderColor    = Colors.red;
+      playerTwoBorderColor    = Colors.black38;
+      playerThreeBorderColor  = Colors.black38;
+      playerFourBorderColor   = Colors.black38;
+      playerOneBorderWidth    = 3;
+      playerTwoBorderWidth    = 1;
+      playerThreeBorderWidth  = 1;
+      playerFourBorderWidth   = 1;
+    }
+    else if (playerTurn == "Player-2"){
+      playerOneBorderColor    = Colors.black38;
+      playerTwoBorderColor    = Colors.red;
+      playerThreeBorderColor  = Colors.black38;
+      playerFourBorderColor   = Colors.black38;
+      playerOneBorderWidth    = 1;
+      playerTwoBorderWidth    = 3;
+      playerThreeBorderWidth  = 1;
+      playerFourBorderWidth   = 1;
+    }
+    else if (playerTurn == "Player-3"){
+      playerOneBorderColor    = Colors.black38;
+      playerTwoBorderColor    = Colors.black38;
+      playerThreeBorderColor  = Colors.red;
+      playerFourBorderColor   = Colors.black38;
+      playerOneBorderWidth    = 1;
+      playerTwoBorderWidth    = 1;
+      playerThreeBorderWidth  = 3;
+      playerFourBorderWidth   = 1;
+    }
+    else if (playerTurn == "Player-4"){
+      playerOneBorderColor    = Colors.black38;
+      playerTwoBorderColor    = Colors.black38;
+      playerThreeBorderColor  = Colors.black38;
+      playerFourBorderColor   = Colors.red;
+      playerOneBorderWidth    = 1;
+      playerTwoBorderWidth    = 1;
+      playerThreeBorderWidth  = 1;
+      playerFourBorderWidth   = 3;
+    }
+    setState(() {
+      _playerTurn = playerTurn;
+      _playerOneBorderColor   = playerOneBorderColor;
+      _playerTwoBorderColor   = playerTwoBorderColor;
+      _playerThreeBorderColor = playerThreeBorderColor;
+      _playerFourBorderColor  = playerFourBorderColor;
+      _playerOneBorderWidth   = playerOneBorderWidth;
+      _playerTwoBorderWidth   = playerTwoBorderWidth;
+      _playerThreeBorderWidth = playerThreeBorderWidth;
+      _playerFourBorderWidth  = playerFourBorderWidth;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     _getLanguage();
     _getDarkTheme();
     _getPlayerDataList();
+    _refreshTurnData();
   }
 
   @override
@@ -73,6 +150,27 @@ class _GameScreenState extends  State<GameScreen>{
             fontSize: 28,
           ),
         ),
+        actions: <Widget>[
+          Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {},
+                child: Icon(
+                  trashIcon,
+                  size: 26.0,
+                ),
+              )
+          ),
+          Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {},
+                child: Icon(
+                    Icons.add_circle_outline_rounded
+                ),
+              )
+          ),
+        ],
       ),
         body: ListView(
             children: <Widget> [
@@ -82,7 +180,10 @@ class _GameScreenState extends  State<GameScreen>{
                   decoration: BoxDecoration(
                       color: _bodyBackground,
                       borderRadius: BorderRadius.circular(45.0),
-                      border: Border.all(color: Colors.black38)
+                    border: Border.all(
+                        color: _playerOneBorderColor,
+                        width: _playerOneBorderWidth
+                    ),
                   ),
                   child: ListTile(
                     title: Text(
@@ -100,7 +201,10 @@ class _GameScreenState extends  State<GameScreen>{
                   decoration: BoxDecoration(
                       color: _bodyBackground,
                       borderRadius: BorderRadius.circular(45.0),
-                      border: Border.all(color: Colors.black38)
+                    border: Border.all(
+                        color: _playerTwoBorderColor,
+                        width: _playerTwoBorderWidth
+                    ),
                   ),
                   child: ListTile(
                     //leading: new Image.asset("./lib/assets/card_deck.png"),
@@ -119,7 +223,10 @@ class _GameScreenState extends  State<GameScreen>{
                   decoration: BoxDecoration(
                       color: _bodyBackground,
                       borderRadius: BorderRadius.circular(45.0),
-                      border: Border.all(color: Colors.black38)
+                    border: Border.all(
+                        color: _playerThreeBorderColor,
+                        width: _playerThreeBorderWidth
+                    ),
                   ),
                   child: ListTile(
                     //leading: new Image.asset("./lib/assets/card_deck.png"),
@@ -138,7 +245,10 @@ class _GameScreenState extends  State<GameScreen>{
                   decoration: BoxDecoration(
                       color: _bodyBackground,
                       borderRadius: BorderRadius.circular(45.0),
-                      border: Border.all(color: Colors.black38)
+                    border: Border.all(
+                        color: _playerFourBorderColor,
+                        width: _playerFourBorderWidth
+                    ),
                   ),
                   child: ListTile(
                     //leading: new Image.asset("./lib/assets/card_deck.png"),
