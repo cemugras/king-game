@@ -70,6 +70,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
     });
   }
 
+  void _resetCache() async {
+    setState(() {
+    CacheService().cleanCache();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,9 +134,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               subtitleTextStyle: TextStyle(color: _text),
               leading: Icon(trashIcon, color: _text),
               onPressed: (context) {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => LanguagesScreen())).then((value) async {
-                  _getLanguage();
-                });
+                _resetCache();
+                _getDarkTheme();
+                _getLanguage();
               },
             ),
             SettingsTile(

@@ -4,6 +4,11 @@ class CacheService{
 
   late SharedPreferences prefs;
 
+  void cleanCache() async {
+    prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+  }
+
   //Set string value for given title to cache
   void setStringValue(String key, String value) async {
     prefs = await SharedPreferences.getInstance();

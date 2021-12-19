@@ -35,11 +35,20 @@ class _MainMenu extends State<MainMenu>{
   TextEditingController _playerFour = new TextEditingController();
   final formKey = GlobalKey<FormState>();
 
+  void refreshCacheData() async {
+    _getLanguageAndContent();
+    _getDarkTheme();
+    _isGameExists();
+  }
+
   void _getLanguageAndContent() async {
     _language = await CacheService().getStringValue("language");
+    if(_language == "null")
+      _language = "EN";
     setState(() {
       _appBarTitle = ContentService().getAppBarTitle(_language.toString(), _pageName);
       _existingGameWarning = ContentService().getContent(_language.toString(),"existingGameWarning");
+      _gameNotExistWarning = ContentService().getContent(_language.toString(),"gameNotExistWarning");
     });
   }
 
@@ -71,17 +80,26 @@ class _MainMenu extends State<MainMenu>{
     List<String> _playerNameList = [""];
     if(_playerOne.text!="")
       _playerOneName = _playerOne.text;
+    else
+      _playerOneName = "Player-1";
     if(_playerTwo.text!="")
       _playerTwoName = _playerTwo.text;
+    else
+      _playerTwoName = "Player-2";
     if(_playerThree.text!="")
       _playerThreeName = _playerThree.text;
+    else
+      _playerThreeName = "Player-3";
     if(_playerFour.text!="")
       _playerFourName = _playerFour.text;
+    else
+      _playerFourName = "Player-4";
     setState(() {
       _playerNameList.clear();
       _playerNameList.addAll([_playerOneName, _playerTwoName, _playerThreeName, _playerFourName]);
       GameService().setPlayerNameList("PlayerList", _playerNameList);
       GameService().setGameTrue();
+      _isGameExists();
     });
   }
 
@@ -354,8 +372,10 @@ class _MainMenu extends State<MainMenu>{
                 style: TextStyle(color: _text)
             ),
               onTap: () {
+                setState(() {
+                  _isGameExists();
+                });
                 if (_gameExists) {
-                  //Navigator.of(context).pop();
                   Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen())).then((value) async {});
                   setState(() {
                   });
@@ -423,8 +443,9 @@ class _MainMenu extends State<MainMenu>{
             ),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen())).then((value) async {
-                _getLanguageAndContent();
-                _getDarkTheme();
+                refreshCacheData();
+                /*_getLanguageAndContent();
+                _getDarkTheme();*/
               });
               setState(() {
               });

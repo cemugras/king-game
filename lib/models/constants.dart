@@ -37,6 +37,8 @@ class Constants{
   static String CONTENT_SETTINGS_SUBTITLE_TR = "   Ayarları düzenle.";
   static String CONTENT_NEW_GAME_WARNING_EN= "There is an existing game, still create a new one?";
   static String CONTENT_NEW_GAME_WARNING_TR = "Kayıtlı bir oyun var, yine de yeni oluşturulsun mu?";
+  static String CONTENT_GAME_NOT_EXIST_WARNING_EN = "There is not existing game.";
+  static String CONTENT_GAME_NOT_EXIST_WARNING_TR = "Kayıtlı bir oyun yok.";
 
   //Setting screen constants.
   static String CONTENT_LANG_TITLE_EN = "Language";

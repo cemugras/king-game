@@ -167,6 +167,8 @@ class ContentService{
           return Constants.CONTENT_RESET_DATA_SUBTITLE_TR;
         else if(contentName == "existingGameWarning")
           return Constants.CONTENT_NEW_GAME_WARNING_TR;
+        else if(contentName == "gameNotExistWarning")
+          return Constants.CONTENT_GAME_NOT_EXIST_WARNING_TR;
         else
           return "ErrorContent";
       case "EN":
@@ -224,6 +226,8 @@ class ContentService{
           return Constants.CONTENT_RESET_DATA_SUBTITLE_EN;
         else if(contentName == "existingGameWarning")
           return Constants.CONTENT_NEW_GAME_WARNING_EN;
+        else if(contentName == "gameNotExistWarning")
+          return Constants.CONTENT_GAME_NOT_EXIST_WARNING_EN;
         else
           return "ErrorContent";
       case "null":
