@@ -27,6 +27,13 @@ class _GameScreenState extends  State<GameScreen>{
   double _playerOneBorderWidth = 1, _playerTwoBorderWidth = 1, _playerThreeBorderWidth = 1, _playerFourBorderWidth = 1,
       playerOneBorderWidth = 1, playerTwoBorderWidth = 1, playerThreeBorderWidth = 1, playerFourBorderWidth = 1;
 
+  TextEditingController _playerOne = new TextEditingController();
+  TextEditingController _playerTwo = new TextEditingController();
+  TextEditingController _playerThree = new TextEditingController();
+  TextEditingController _playerFour = new TextEditingController();
+
+  bool firstValue = false;
+
   static const IconData circle_empty = IconData(0xf10c, fontFamily: 'Fonts', fontPackage: null);
   static const IconData circle = IconData(0xf111, fontFamily: 'Fonts', fontPackage: null);
 
@@ -129,6 +136,94 @@ class _GameScreenState extends  State<GameScreen>{
     });
   }
 
+  AlertDialog _newTurnForm() {
+    return AlertDialog(
+      backgroundColor: _bodyBackground,
+      content: Stack(
+        children: <Widget>[
+          Positioned(
+            right: -30.0,
+            top: -30.0,
+            child: InkResponse(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: CircleAvatar(
+                child: Icon(Icons.close),
+                backgroundColor: _bodyBackground,
+              ),
+            ),
+          ),
+          Form(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                StatefulBuilder(
+                    builder: (BuildContext context, StateSetter setState) {
+                      return CheckboxListTile(
+                        controlAffinity: ListTileControlAffinity.leading,
+                        value: firstValue,
+                        title: Text("user4"),
+
+                        onChanged: (bool? newValue){
+                          setState(() {
+                            firstValue = newValue!;
+                          });
+                        },
+                      );
+                    }),
+                Wrap(
+                  children: <Widget>[
+                    ElevatedButton(
+                      child: Text(ContentService().getMenuTitleContent(_language, "cancelTitle")),
+                      style: ElevatedButton.styleFrom(
+                          primary: _bodyBackground,
+                          onPrimary: _bodyBackground,
+                          shadowColor: _bodyBackground,
+                          elevation: 0
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        _resetGameFormText();
+                      },
+                    ),
+                    Container(
+                      width: 5.0,
+                    ),
+                    ElevatedButton(
+                      child: Text(ContentService().getMenuTitleContent(_language, "submitTitle")),
+                      style: ElevatedButton.styleFrom(
+                          primary: _bodyBackground,
+                          onPrimary: _headingColor,
+                          shadowColor: _bodyBackground,
+                          elevation: 0
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        //_setPlayerName();
+                        _resetGameFormText();
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen())).then((value) async {});
+                        setState(() {
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _resetGameFormText() async {
+    _playerOne.text='';
+    _playerTwo.text='';
+    _playerThree.text='';
+    _playerFour.text='';
+  }
+
   @override
   void initState() {
     super.initState();
@@ -168,7 +263,13 @@ class _GameScreenState extends  State<GameScreen>{
           Padding(
               padding: EdgeInsets.only(right: 20.0),
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return _newTurnForm();
+                      });
+                },
                 child: Icon(
                     Icons.add_circle_outline_rounded
                 ),
@@ -210,45 +311,33 @@ class _GameScreenState extends  State<GameScreen>{
                       width: _playerTwoBorderWidth
                   ),
                 ),
-                child: new ListTile(
-                  leading: new Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Icon(circle_empty, size: 14),
-                      Icon(circle_empty, size: 14),
-                      Icon(circle, size: 14),
-                    ],
-                  ),
-                  /*leading: new Row(
-                    children: <Widget>[
-                      Expanded(
-                          child: new Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              Icon(circle_empty, size: 14),
-                              Icon(circle_empty, size: 14),
-                              Icon(circle, size: 14),
-                            ],
-                          )),
-                      *//*Expanded(
-                            child: new Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: <Widget>[
-                                Icon(circle_empty, size: 14),
-                                Icon(circle_empty, size: 14),
-                                Icon(circle, size: 14),
-                              ],
-                            )
-                        )*//*
-                    ],
-                  ),*/
-              title: Text(
-                    _playerOneName,
-                    style: TextStyle(
-                      color: _text,
-                      fontWeight: FontWeight.bold,
+                child: new Row(
+                  children: <Widget>[
+                    SizedBox(width: 20),
+                    new Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(circle_empty, size: 14, color: Colors.red),
+                        Icon(circle_empty, size: 14, color: Colors.red),
+                        Icon(circle, size: 14, color: Colors.red)
+                      ],
                     ),
-                  ),
+                    new Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(circle_empty, size: 14, color: Colors.green),
+                        Icon(circle, size: 14, color: Colors.green)
+                      ],
+                    ),
+                    SizedBox(width: 20),
+                    Text(
+                      _playerOneName,
+                      style: TextStyle(
+                        color: _text,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Container(
