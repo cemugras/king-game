@@ -23,11 +23,15 @@ class _GameScreenState extends  State<GameScreen>{
       playerOneBorderColor = Colors.black38, playerTwoBorderColor = Colors.black38, playerThreeBorderColor = Colors.black38, playerFourBorderColor = Colors.black38;
   String _playerOneName = "Player-1", _playerTwoName = "Player-2", _playerThreeName = "Player-3", _playerFourName = "Player-4",
       _playerTurn = "Player-1";
-  int _turn = 1;
+  int _turn = 3;
   double _playerOneBorderWidth = 1, _playerTwoBorderWidth = 1, _playerThreeBorderWidth = 1, _playerFourBorderWidth = 1,
       playerOneBorderWidth = 1, playerTwoBorderWidth = 1, playerThreeBorderWidth = 1, playerFourBorderWidth = 1;
 
+  static const IconData circle_empty = IconData(0xf10c, fontFamily: 'Fonts', fontPackage: null);
+  static const IconData circle = IconData(0xf111, fontFamily: 'Fonts', fontPackage: null);
+
   static const IconData trashIcon = IconData(0xe535, fontFamily: 'MaterialIcons');
+
 
   void _getLanguage() async {
     _language = await CacheService().getStringValue("language");
@@ -174,7 +178,7 @@ class _GameScreenState extends  State<GameScreen>{
       ),
         body: ListView(
             children: <Widget> [
-              Container(
+              /*Container(
                   height: 70,
                   margin: EdgeInsets.all(6.0),
                   decoration: BoxDecoration(
@@ -194,6 +198,58 @@ class _GameScreenState extends  State<GameScreen>{
                       ),
                     ),
                   )
+              ),*/
+              Container(
+                height: 70,
+                margin: EdgeInsets.all(6.0),
+                decoration: BoxDecoration(
+                  color: _bodyBackground,
+                  borderRadius: BorderRadius.circular(45.0),
+                  border: Border.all(
+                      color: _playerTwoBorderColor,
+                      width: _playerTwoBorderWidth
+                  ),
+                ),
+                child: new ListTile(
+                  leading: new Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Icon(circle_empty, size: 14),
+                      Icon(circle_empty, size: 14),
+                      Icon(circle, size: 14),
+                    ],
+                  ),
+                  /*leading: new Row(
+                    children: <Widget>[
+                      Expanded(
+                          child: new Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              Icon(circle_empty, size: 14),
+                              Icon(circle_empty, size: 14),
+                              Icon(circle, size: 14),
+                            ],
+                          )),
+                      *//*Expanded(
+                            child: new Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                Icon(circle_empty, size: 14),
+                                Icon(circle_empty, size: 14),
+                                Icon(circle, size: 14),
+                              ],
+                            )
+                        )*//*
+                    ],
+                  ),*/
+              title: Text(
+                    _playerOneName,
+                    style: TextStyle(
+                      color: _text,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ),
               Container(
                   height: 70,
