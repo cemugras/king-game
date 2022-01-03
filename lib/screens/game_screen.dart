@@ -9,6 +9,8 @@ class GameScreen extends StatefulWidget {
   _GameScreenState createState() => _GameScreenState();
 }
 
+enum RadioButtons { firstRadio, secondRadio, thirdRadio, fourthRadio, fifthRadio, sixthRadio, nullRadio }
+
 //TODO - AppBar Summary and List Showing feature.
 //TODO - Turn and points logic. (Arrays can be usable)
 
@@ -17,7 +19,7 @@ class _GameScreenState extends  State<GameScreen>{
   String _pageName = "game";
   String _language = "EN";
   String _appBarTitle = "";
-  Color _appBarBackground = Colors.red, _bodyBackground = Colors.white, _text = Colors.black, _whiteText = Colors.white,
+  Color _appBarBackground = Colors.red, _bodyBackground = Colors.white, _text = Colors.black,
       _headingColor = Colors.blue, _heading = Colors.blue,
       _playerOneBorderColor = Colors.black38, _playerTwoBorderColor = Colors.black38, _playerThreeBorderColor = Colors.black38, _playerFourBorderColor = Colors.black38,
       playerOneBorderColor = Colors.black38, playerTwoBorderColor = Colors.black38, playerThreeBorderColor = Colors.black38, playerFourBorderColor = Colors.black38;
@@ -32,7 +34,8 @@ class _GameScreenState extends  State<GameScreen>{
   TextEditingController _playerThree = new TextEditingController();
   TextEditingController _playerFour = new TextEditingController();
 
-  bool firstValue = false;
+  bool tick = false, firstTick = false, secondTick = false, thirdTick = false, fourthTick = false, fifthTick = false, sixthTick = false;
+  RadioButtons _selectedRadio = RadioButtons.nullRadio;
 
   static const IconData circle_empty = IconData(0xf10c, fontFamily: 'Fonts', fontPackage: null);
   static const IconData circle = IconData(0xf111, fontFamily: 'Fonts', fontPackage: null);
@@ -63,9 +66,9 @@ class _GameScreenState extends  State<GameScreen>{
     setState(() {
       if(playerList.length > 0)
         _playerOneName = playerList[0];
-        _playerTwoName = playerList[1];
-        _playerThreeName = playerList[2];
-        _playerFourName = playerList[3];
+      _playerTwoName = playerList[1];
+      _playerThreeName = playerList[2];
+      _playerFourName = playerList[3];
     });
   }
 
@@ -141,80 +144,146 @@ class _GameScreenState extends  State<GameScreen>{
       backgroundColor: _bodyBackground,
       content: Stack(
         children: <Widget>[
-          Positioned(
-            right: -30.0,
-            top: -30.0,
-            child: InkResponse(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: CircleAvatar(
-                child: Icon(Icons.close),
-                backgroundColor: _bodyBackground,
-              ),
-            ),
-          ),
-          Form(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                StatefulBuilder(
-                    builder: (BuildContext context, StateSetter setState) {
-                      return CheckboxListTile(
-                        controlAffinity: ListTileControlAffinity.leading,
-                        value: firstValue,
-                        title: Text("user4"),
-
-                        onChanged: (bool? newValue){
-                          setState(() {
-                            firstValue = newValue!;
-                          });
-                        },
-                      );
-                    }),
-                Wrap(
-                  children: <Widget>[
-                    ElevatedButton(
-                      child: Text(ContentService().getMenuTitleContent(_language, "cancelTitle")),
-                      style: ElevatedButton.styleFrom(
-                          primary: _bodyBackground,
-                          onPrimary: _bodyBackground,
-                          shadowColor: _bodyBackground,
-                          elevation: 0
+          StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+                Positioned(
+                  right: -30.0,
+                  top: -30.0,
+                  child: InkResponse(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: CircleAvatar(
+                      child: Icon(Icons.close),
+                      backgroundColor: _bodyBackground,
+                    ),
+                  ),
+                );
+                return Form(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      ListTile(
+                        title: Text(ContentService().getContent(_language, "noTricksTitle")),
+                        leading: Radio(
+                          value: RadioButtons.firstRadio,
+                          groupValue: _selectedRadio,
+                          onChanged: (RadioButtons? value) {
+                            setState(() {
+                              _selectedRadio = value!;
+                            });
+                          },
+                        ),
                       ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                        _resetGameFormText();
-                      },
-                    ),
-                    Container(
-                      width: 5.0,
-                    ),
-                    ElevatedButton(
-                      child: Text(ContentService().getMenuTitleContent(_language, "submitTitle")),
-                      style: ElevatedButton.styleFrom(
-                          primary: _bodyBackground,
-                          onPrimary: _headingColor,
-                          shadowColor: _bodyBackground,
-                          elevation: 0
+                      ListTile(
+                        title: Text(ContentService().getContent(_language, "noManTitle")),
+                        leading: Radio(
+                          value: RadioButtons.secondRadio,
+                          groupValue: _selectedRadio,
+                          onChanged: (RadioButtons? value) {
+                            setState(() {
+                              _selectedRadio = value!;
+                            });
+                          },
+                        ),
                       ),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                        //_setPlayerName();
-                        _resetGameFormText();
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen())).then((value) async {});
-                        setState(() {
-                        });
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+                      ListTile(
+                        title: Text(ContentService().getContent(_language, "noQueenTitle")),
+                        leading: Radio(
+                          value: RadioButtons.thirdRadio,
+                          groupValue: _selectedRadio,
+                          onChanged: (RadioButtons? value) {
+                            setState(() {
+                              _selectedRadio = value!;
+                            });
+                          },
+                        ),
+                      ),
+                      ListTile(
+                        title: Text(ContentService().getContent(_language, "noHeartTitle")),
+                        leading: Radio(
+                          value: RadioButtons.fourthRadio,
+                          groupValue: _selectedRadio,
+                          onChanged: (RadioButtons? value) {
+                            setState(() {
+                              _selectedRadio = value!;
+                            });
+                          },
+                        ),
+                      ),
+                      ListTile(
+                        title: Text(ContentService().getContent(_language, "noHeartKingTitle")),
+                        leading: Radio(
+                          value: RadioButtons.fifthRadio,
+                          groupValue: _selectedRadio,
+                          onChanged: (RadioButtons? value) {
+                            setState(() {
+                              _selectedRadio = value!;
+                            });
+                          },
+                        ),
+                      ),
+                      ListTile(
+                        title: Text(ContentService().getContent(_language, "noLast2Title")),
+                        leading: Radio(
+                          value: RadioButtons.sixthRadio,
+                          groupValue: _selectedRadio,
+                          onChanged: (RadioButtons? value) {
+                            setState(() {
+                              _selectedRadio = value!;
+                            });
+                          },
+                        ),
+                      ),
+                      Wrap(
+                        children: <Widget>[
+                          ElevatedButton(
+                            child: Text(ContentService().getMenuTitleContent(_language, "cancelTitle")),
+                            style: ElevatedButton.styleFrom(
+                                primary: _bodyBackground,
+                                onPrimary: _heading,
+                                shadowColor: _bodyBackground,
+                                elevation: 0
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                              _resetGameFormText();
+                            },
+                          ),
+                          Container(
+                            width: 5.0,
+                          ),
+                          ElevatedButton(
+                            child: Text(ContentService().getMenuTitleContent(_language, "submitTitle")),
+                            style: ElevatedButton.styleFrom(
+                                primary: _bodyBackground,
+                                onPrimary: _headingColor,
+                                shadowColor: _bodyBackground,
+                                elevation: 0
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              //_setPlayerName();
+                              _resetGameFormText();
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen())).then((value) async {});
+                              setState(() {
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              }),
         ],
       ),
     );
+  }
+
+  void _resetAlertDialog(){
+    firstTick = false;
+    secondTick = false;
   }
 
   void _resetGameFormText() async {
@@ -236,47 +305,48 @@ class _GameScreenState extends  State<GameScreen>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: _bodyBackground,
-      appBar: AppBar(
-        backgroundColor: _appBarBackground,
-        centerTitle: true,
-        title: Text(
-          '$_appBarTitle',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 28,
+        backgroundColor: _bodyBackground,
+        appBar: AppBar(
+          backgroundColor: _appBarBackground,
+          centerTitle: true,
+          title: Text(
+            '$_appBarTitle',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 28,
+            ),
           ),
+          actions: <Widget>[
+            Padding(
+                padding: EdgeInsets.only(right: 20.0),
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Icon(
+                    trashIcon,
+                    size: 26.0,
+                  ),
+                )
+            ),
+            Padding(
+                padding: EdgeInsets.only(right: 20.0),
+                child: GestureDetector(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          _resetAlertDialog();
+                          return _newTurnForm();
+                        });
+                  },
+                  child: Icon(
+                      Icons.add_circle_outline_rounded
+                  ),
+                )
+            ),
+          ],
         ),
-        actions: <Widget>[
-          Padding(
-              padding: EdgeInsets.only(right: 20.0),
-              child: GestureDetector(
-                onTap: () {},
-                child: Icon(
-                  trashIcon,
-                  size: 26.0,
-                ),
-              )
-          ),
-          Padding(
-              padding: EdgeInsets.only(right: 20.0),
-              child: GestureDetector(
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return _newTurnForm();
-                      });
-                },
-                child: Icon(
-                    Icons.add_circle_outline_rounded
-                ),
-              )
-          ),
-        ],
-      ),
         body: ListView(
             children: <Widget> [
               /*Container(
@@ -307,8 +377,8 @@ class _GameScreenState extends  State<GameScreen>{
                   color: _bodyBackground,
                   borderRadius: BorderRadius.circular(45.0),
                   border: Border.all(
-                      color: _playerTwoBorderColor,
-                      width: _playerTwoBorderWidth
+                      color: _playerOneBorderColor,
+                      width: _playerOneBorderWidth
                   ),
                 ),
                 child: new Row(
@@ -344,8 +414,8 @@ class _GameScreenState extends  State<GameScreen>{
                   height: 70,
                   margin: EdgeInsets.all(6.0),
                   decoration: BoxDecoration(
-                      color: _bodyBackground,
-                      borderRadius: BorderRadius.circular(45.0),
+                    color: _bodyBackground,
+                    borderRadius: BorderRadius.circular(45.0),
                     border: Border.all(
                         color: _playerTwoBorderColor,
                         width: _playerTwoBorderWidth
@@ -366,8 +436,8 @@ class _GameScreenState extends  State<GameScreen>{
                   height: 70,
                   margin: EdgeInsets.all(6.0),
                   decoration: BoxDecoration(
-                      color: _bodyBackground,
-                      borderRadius: BorderRadius.circular(45.0),
+                    color: _bodyBackground,
+                    borderRadius: BorderRadius.circular(45.0),
                     border: Border.all(
                         color: _playerThreeBorderColor,
                         width: _playerThreeBorderWidth
@@ -388,8 +458,8 @@ class _GameScreenState extends  State<GameScreen>{
                   height: 70,
                   margin: EdgeInsets.all(6.0),
                   decoration: BoxDecoration(
-                      color: _bodyBackground,
-                      borderRadius: BorderRadius.circular(45.0),
+                    color: _bodyBackground,
+                    borderRadius: BorderRadius.circular(45.0),
                     border: Border.all(
                         color: _playerFourBorderColor,
                         width: _playerFourBorderWidth
