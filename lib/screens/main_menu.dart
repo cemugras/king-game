@@ -317,213 +317,144 @@ class _MainMenu extends State<MainMenu>{
           ),
         ),
       ),
-    body: ListView(
-      children: <Widget> [
-        Container(
-          height: 70,
-          margin: EdgeInsets.all(6.0),
-          decoration: BoxDecoration(
-              color: _newGameBackground,
-              borderRadius: BorderRadius.circular(45.0),
-              border: Border.all(color: Colors.black38)
-          ),
-          child: ListTile(
-            leading: new Image.asset("./lib/assets/card_deck.png"),
-            title: Text(
-              ContentService().getMenuTitleContent(_language, "newGameTitle"),
-              style: TextStyle(
-                color: _whiteText,
-                fontWeight: FontWeight.bold,
+      body: ListView(
+          children: <Widget> [
+            Container(
+              height: 70,
+              margin: EdgeInsets.all(6.0),
+              decoration: BoxDecoration(
+                  color: _newGameBackground,
+                  borderRadius: BorderRadius.circular(45.0),
+                  border: Border.all(color: Colors.black38)
               ),
-            ),
-            subtitle: Text(
-                ContentService().getMenuSubtitleContent(_language, "newGameSubtitle"),
-                style: TextStyle(color: _whiteText)
-            ),
-            onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    if(_gameExists)
-                      return _gameExistsForm();
-                    else
-                      return _gameStartForm();
-                  });
-              }),
-        ),
-        Container(
-          height: 70,
-          margin: EdgeInsets.all(6.0),
-          decoration: BoxDecoration(
-              color: _lastGameBackground,
-              borderRadius: BorderRadius.circular(45.0),
-              border: Border.all(color: Colors.black38)
-          ),
-          child: ListTile(
-            leading: new Image.asset("./lib/assets/prev_game.png"),
-            title: Text(
-              ContentService().getMenuTitleContent(_language, "lastGameTitle"),
-              style: TextStyle(
-                color: _text,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            subtitle: Text(
-                ContentService().getMenuSubtitleContent(_language, "lastGameSubtitle"),
-                style: TextStyle(color: _text)
-            ),
-              onTap: () {
-                setState(() {
-                  _isGameExists();
-                });
-                if (_gameExists) {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen())).then((value) async {});
-                  setState(() {
-                  });
-                } else {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return _gameNotExistsForm();
-                      });
-                }
-              }
-          ),
-        ),
-        Container(
-          height: 70,
-          margin: EdgeInsets.all(6.0),
-          decoration: BoxDecoration(
-              color: _rulesBackground,
-              borderRadius: BorderRadius.circular(45.0),
-              border: Border.all(color: Colors.black38)
-          ),
-          child: ListTile(
-            leading: new Image.asset('./lib/assets/rules.png'),
-            title: Text(
-              ContentService().getMenuTitleContent(_language, "rulesTitle"),
-              style: TextStyle(
-                color: _whiteText,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            subtitle: Text(
-                ContentService().getMenuSubtitleContent(_language, "rulesSubtitle"),
-                style: TextStyle(color: _whiteText)
-            ),
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => RuleScreen())).then((value) async {
-                _getLanguageAndContent();
-                _getDarkTheme();
-              });
-              setState(() {
-              });
-            },
-          ),
-        ),
-        Container(
-          height: 70,
-          margin: EdgeInsets.all(6.0),
-          decoration: BoxDecoration(
-              color: _settingsBackground,
-              borderRadius: BorderRadius.circular(45.0),
-              border: Border.all(color: Colors.black38)
-          ),
-          child: ListTile(
-            leading: new Image.asset('./lib/assets/settings.png'),
-            title: Text(
-              ContentService().getMenuTitleContent(_language, "settingsTitle"),
-              style: TextStyle(
-                color: _text,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            subtitle: Text(
-                ContentService().getMenuSubtitleContent(_language, "settingsSubtitle"),
-                style: TextStyle(color: _text)
-            ),
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen())).then((value) async {
-                refreshCacheData();
-                /*_getLanguageAndContent();
-                _getDarkTheme();*/
-              });
-              setState(() {
-              });
-            },
-          ),
-        ),
-      ]
-        /*itemCount: options.length + 2,
-        itemBuilder: (BuildContext context, int index) {
-          if (index == 0) {
-            return SizedBox(height: 15.0);
-          } else if (index == options.length + 1) {
-            return SizedBox(height: 100.0);
-          }
-          return Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.all(4.0),
-            *//*width: double.infinity,*//*
-            height: 70.0,
-            decoration: BoxDecoration(
-                color: options[index - 1].backgroundColor,
-                borderRadius: BorderRadius.circular(45.0),
-                border: Border.all(color: Colors.black38)
-            ),
               child: ListTile(
-                  leading: options[index - 1].icon,
+                  leading: new Image.asset("./lib/assets/card_deck.png"),
+                  title: Text(
+                    ContentService().getMenuTitleContent(_language, "newGameTitle"),
+                    style: TextStyle(
+                      color: _whiteText,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  subtitle: Text(
+                      ContentService().getMenuSubtitleContent(_language, "newGameSubtitle"),
+                      style: TextStyle(color: _whiteText)
+                  ),
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          if(_gameExists)
+                            return _gameExistsForm();
+                          else
+                            return _gameStartForm();
+                        });
+                  }),
+            ),
+            Container(
+              height: 70,
+              margin: EdgeInsets.all(6.0),
+              decoration: BoxDecoration(
+                  color: _lastGameBackground,
+                  borderRadius: BorderRadius.circular(45.0),
+                  border: Border.all(color: Colors.black38)
+              ),
+              child: ListTile(
+                  leading: new Image.asset("./lib/assets/prev_game.png"),
+                  title: Text(
+                    ContentService().getMenuTitleContent(_language, "lastGameTitle"),
+                    style: TextStyle(
+                      color: _text,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  subtitle: Text(
+                      ContentService().getMenuSubtitleContent(_language, "lastGameSubtitle"),
+                      style: TextStyle(color: _text)
+                  ),
+                  onTap: () {
+                    setState(() {
+                      _isGameExists();
+                    });
+                    if (_gameExists) {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen())).then((value) async {});
+                      setState(() {
+                      });
+                    } else {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return _gameNotExistsForm();
+                          });
+                    }
+                  }
+              ),
+            ),
+            Container(
+              height: 70,
+              margin: EdgeInsets.all(6.0),
+              decoration: BoxDecoration(
+                  color: _rulesBackground,
+                  borderRadius: BorderRadius.circular(45.0),
+                  border: Border.all(color: Colors.black38)
+              ),
+              child: ListTile(
+                leading: new Image.asset('./lib/assets/rules.png'),
                 title: Text(
-                  ContentService().getMenuTitle(_language, index),
+                  ContentService().getMenuTitleContent(_language, "rulesTitle"),
                   style: TextStyle(
-                    color: options[index - 1].textColor,
+                    color: _whiteText,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 subtitle: Text(
-                    ContentService().getMenuSubtitle(_language, index),
-                  style: TextStyle(color: options[index - 1].textColor)
+                    ContentService().getMenuSubtitleContent(_language, "rulesSubtitle"),
+                    style: TextStyle(color: _whiteText)
                 ),
-                selected: true, //icon showing active
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen())).then((value) async {
-                    _getLanguage();
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => RuleScreen())).then((value) async {
+                    _getLanguageAndContent();
                     _getDarkTheme();
                   });
-                    setState(() {
+                  setState(() {
                   });
                 },
               ),
-          );
-        }*/
-    ),
-      /*bottomSheet: Container(
-        width: double.infinity,
-        height: 200.0,
-        color: Colors.red,
-        child: Padding(
-          padding: EdgeInsets.only(right: 20.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Text(
-                'SAVE & CONTINUE',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18.0,
+            ),
+            Container(
+              height: 70,
+              margin: EdgeInsets.all(6.0),
+              decoration: BoxDecoration(
+                  color: _settingsBackground,
+                  borderRadius: BorderRadius.circular(45.0),
+                  border: Border.all(color: Colors.black38)
+              ),
+              child: ListTile(
+                leading: new Image.asset('./lib/assets/settings.png'),
+                title: Text(
+                  ContentService().getMenuTitleContent(_language, "settingsTitle"),
+                  style: TextStyle(
+                    color: _text,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
+                subtitle: Text(
+                    ContentService().getMenuSubtitleContent(_language, "settingsSubtitle"),
+                    style: TextStyle(color: _text)
+                ),
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen())).then((value) async {
+                    refreshCacheData();
+                    /*_getLanguageAndContent();
+                _getDarkTheme();*/
+                  });
+                  setState(() {
+                  });
+                },
               ),
-              SizedBox(width: 8.0),
-              Icon(
-                Icons.arrow_forward,
-                color: Colors.black,
-                size: 18.0,
-              ),
-            ],
-          ),
-        ),
-      ),*/
+            ),
+          ]
+      ),
     );
   }
 }

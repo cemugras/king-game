@@ -411,133 +411,307 @@ class _GameScreenState extends  State<GameScreen>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: _bodyBackground,
-        appBar: AppBar(
-          backgroundColor: _appBarBackground,
-          centerTitle: true,
-          title: Text(
-            '$_appBarTitle',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 28,
-            ),
+      backgroundColor: _bodyBackground,
+      appBar: AppBar(
+        backgroundColor: _appBarBackground,
+        centerTitle: true,
+        title: Text(
+          '$_appBarTitle',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 28,
           ),
-          actions: <Widget>[
-            Padding(
-                padding: EdgeInsets.only(right: 20.0),
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Icon(
-                    trashIcon,
-                    size: 26.0,
-                  ),
-                )
-            ),
-            Padding(
-                padding: EdgeInsets.only(right: 20.0),
-                child: GestureDetector(
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return _newTurnForm();
-                        });
-                  },
-                  child: Icon(
-                      Icons.add_circle_outline_rounded
-                  ),
-                )
-            ),
-          ],
         ),
-        body: ListView(
-            children: <Widget> [
-              Container(
-                height: 70,
-                margin: EdgeInsets.all(6.0),
-                decoration: BoxDecoration(
-                  color: _bodyBackground,
-                  borderRadius: BorderRadius.circular(45.0),
-                  border: Border.all(
-                      color: _playerOneBorderColor,
-                      width: _playerOneBorderWidth
-                  ),
+        actions: <Widget>[
+          Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {},
+                child: Icon(
+                  trashIcon,
+                  size: 26.0,
                 ),
-                child: new Row(
-                  children: <Widget>[
-                    SizedBox(width: 20),
-                    new Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(circle_empty, size: 14, color: Colors.red),
-                        Icon(circle_empty, size: 14, color: Colors.red),
-                        Icon(circle, size: 14, color: Colors.red)
-                      ],
+              )
+          ),
+          Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return _newTurnForm();
+                      });
+                },
+                child: Icon(
+                    Icons.add_circle_outline_rounded
+                ),
+              )
+          ),
+        ],
+      ),
+      body: ListView(
+          children: <Widget> [
+            Container(
+              height: 70,
+              margin: EdgeInsets.all(6.0),
+              decoration: BoxDecoration(
+                color: _bodyBackground,
+                borderRadius: BorderRadius.circular(45.0),
+                border: Border.all(
+                    color: _playerOneBorderColor,
+                    width: _playerOneBorderWidth
+                ),
+              ),
+              child: new Row(
+                children: <Widget>[
+                  SizedBox(width: 20),
+                  new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(circle_empty, size: 14, color: Colors.red),
+                      Icon(circle_empty, size: 14, color: Colors.red),
+                      Icon(circle, size: 14, color: Colors.red)
+                    ],
+                  ),
+                  new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(circle_empty, size: 14, color: Colors.green),
+                      Icon(circle, size: 14, color: Colors.green)
+                    ],
+                  ),
+                  SizedBox(width: 20),
+                  Text(
+                    _playerOneName,
+                    style: TextStyle(
+                      color: _text,
+                      fontWeight: FontWeight.bold,
                     ),
-                    new Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(circle_empty, size: 14, color: Colors.green),
-                        Icon(circle, size: 14, color: Colors.green)
-                      ],
-                    ),
-                    SizedBox(width: 20),
-                    Text(
-                      _playerOneName,
-                      style: TextStyle(
-                        color: _text,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          _pointPlayerOne.toString(),
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            color: _text,
-                            fontWeight: FontWeight.bold,
-                          ),
+                  ),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        _pointPlayerOne.toString(),
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          color: _text,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                    SizedBox(width: 50),
-                  ],
+                  ),
+                  SizedBox(width: 50),
+                ],
+              ),
+            ),
+            Container(
+              height: 70,
+              margin: EdgeInsets.all(6.0),
+              decoration: BoxDecoration(
+                color: _bodyBackground,
+                borderRadius: BorderRadius.circular(45.0),
+                border: Border.all(
+                    color: _playerTwoBorderColor,
+                    width: _playerTwoBorderWidth
                 ),
               ),
-              Container(
-                  height: 70,
-                  margin: EdgeInsets.all(6.0),
-                  decoration: BoxDecoration(
-                    color: _bodyBackground,
-                    borderRadius: BorderRadius.circular(45.0),
-                    border: Border.all(
-                        color: _playerTwoBorderColor,
-                        width: _playerTwoBorderWidth
+              child: new Row(
+                children: <Widget>[
+                  SizedBox(width: 20),
+                  new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(circle_empty, size: 14, color: Colors.red),
+                      Icon(circle_empty, size: 14, color: Colors.red),
+                      Icon(circle, size: 14, color: Colors.red)
+                    ],
+                  ),
+                  new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(circle_empty, size: 14, color: Colors.green),
+                      Icon(circle, size: 14, color: Colors.green)
+                    ],
+                  ),
+                  SizedBox(width: 20),
+                  Text(
+                    _playerTwoName,
+                    style: TextStyle(
+                      color: _text,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  child: new Row(
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        _pointPlayerTwo.toString(),
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          color: _text,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 50),
+                ],
+              ),
+            ),
+            Container(
+              height: 70,
+              margin: EdgeInsets.all(6.0),
+              decoration: BoxDecoration(
+                color: _bodyBackground,
+                borderRadius: BorderRadius.circular(45.0),
+                border: Border.all(
+                    color: _playerThreeBorderColor,
+                    width: _playerThreeBorderWidth
+                ),
+              ),
+              child: new Row(
+                children: <Widget>[
+                  SizedBox(width: 20),
+                  new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      SizedBox(width: 20),
-                      new Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(circle_empty, size: 14, color: Colors.red),
-                          Icon(circle_empty, size: 14, color: Colors.red),
-                          Icon(circle, size: 14, color: Colors.red)
-                        ],
+                      Icon(circle_empty, size: 14, color: Colors.red),
+                      Icon(circle_empty, size: 14, color: Colors.red),
+                      Icon(circle, size: 14, color: Colors.red)
+                    ],
+                  ),
+                  new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(circle_empty, size: 14, color: Colors.green),
+                      Icon(circle, size: 14, color: Colors.green)
+                    ],
+                  ),
+                  SizedBox(width: 20),
+                  Text(
+                    _playerThreeName,
+                    style: TextStyle(
+                      color: _text,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        _pointPlayerThree.toString(),
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          color: _text,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      new Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(circle_empty, size: 14, color: Colors.green),
-                          Icon(circle, size: 14, color: Colors.green)
-                        ],
+                    ),
+                  ),
+                  SizedBox(width: 50),
+                ],
+              ),
+            ),
+            Container(
+              height: 70,
+              margin: EdgeInsets.all(6.0),
+              decoration: BoxDecoration(
+                color: _bodyBackground,
+                borderRadius: BorderRadius.circular(45.0),
+                border: Border.all(
+                    color: _playerFourBorderColor,
+                    width: _playerFourBorderWidth
+                ),
+              ),
+              child: new Row(
+                children: <Widget>[
+                  SizedBox(width: 20),
+                  new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(circle_empty, size: 14, color: Colors.red),
+                      Icon(circle_empty, size: 14, color: Colors.red),
+                      Icon(circle, size: 14, color: Colors.red)
+                    ],
+                  ),
+                  new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(circle_empty, size: 14, color: Colors.green),
+                      Icon(circle, size: 14, color: Colors.green)
+                    ],
+                  ),
+                  SizedBox(width: 20),
+                  Text(
+                    _playerFourName,
+                    style: TextStyle(
+                      color: _text,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        _pointPlayerFour.toString(),
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          color: _text,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      SizedBox(width: 20),
+                    ),
+                  ),
+                  SizedBox(width: 50),
+                ],
+              ),
+            )
+          ]
+      ),
+      bottomSheet: Container(
+        width: double.infinity,
+        height: 75.0,
+        color: _appBarBackground,
+        child: Padding(
+          padding: EdgeInsets.only(right: 5.0, left: 5.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Expanded(
+                child: Align(
+                  alignment: Alignment.center,
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        _playerOneName,
+                        style: TextStyle(
+                          color: _text,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        _pointPlayerOne.toString(),
+                        style: TextStyle(
+                          color: _text,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.center,
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
                       Text(
                         _playerTwoName,
                         style: TextStyle(
@@ -545,133 +719,69 @@ class _GameScreenState extends  State<GameScreen>{
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Expanded(
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            _pointPlayerTwo.toString(),
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                              color: _text,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                      Text(
+                        _pointPlayerTwo.toString(),
+                        style: TextStyle(
+                          color: _text,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(width: 50),
                     ],
                   ),
-              ),
-              Container(
-                  height: 70,
-                  margin: EdgeInsets.all(6.0),
-                  decoration: BoxDecoration(
-                    color: _bodyBackground,
-                    borderRadius: BorderRadius.circular(45.0),
-                    border: Border.all(
-                        color: _playerThreeBorderColor,
-                        width: _playerThreeBorderWidth
-                    ),
-                  ),
-                child: new Row(
-                  children: <Widget>[
-                    SizedBox(width: 20),
-                    new Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(circle_empty, size: 14, color: Colors.red),
-                        Icon(circle_empty, size: 14, color: Colors.red),
-                        Icon(circle, size: 14, color: Colors.red)
-                      ],
-                    ),
-                    new Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(circle_empty, size: 14, color: Colors.green),
-                        Icon(circle, size: 14, color: Colors.green)
-                      ],
-                    ),
-                    SizedBox(width: 20),
-                    Text(
-                      _playerThreeName,
-                      style: TextStyle(
-                        color: _text,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          _pointPlayerThree.toString(),
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            color: _text,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 50),
-                  ],
                 ),
               ),
-              Container(
-                  height: 70,
-                  margin: EdgeInsets.all(6.0),
-                  decoration: BoxDecoration(
-                    color: _bodyBackground,
-                    borderRadius: BorderRadius.circular(45.0),
-                    border: Border.all(
-                        color: _playerFourBorderColor,
-                        width: _playerFourBorderWidth
-                    ),
-                  ),
-                child: new Row(
-                  children: <Widget>[
-                    SizedBox(width: 20),
-                    new Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(circle_empty, size: 14, color: Colors.red),
-                        Icon(circle_empty, size: 14, color: Colors.red),
-                        Icon(circle, size: 14, color: Colors.red)
-                      ],
-                    ),
-                    new Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(circle_empty, size: 14, color: Colors.green),
-                        Icon(circle, size: 14, color: Colors.green)
-                      ],
-                    ),
-                    SizedBox(width: 20),
-                    Text(
-                      _playerFourName,
-                      style: TextStyle(
-                        color: _text,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          _pointPlayerFour.toString(),
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            color: _text,
-                            fontWeight: FontWeight.bold,
-                          ),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.center,
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        _playerThreeName,
+                        style: TextStyle(
+                          color: _text,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ),
-                    SizedBox(width: 50),
-                  ],
+                      Text(
+                        _pointPlayerThree.toString(),
+                        style: TextStyle(
+                          color: _text,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              )
-            ]
-        )
+              ),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.center,
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        _playerFourName,
+                        style: TextStyle(
+                          color: _text,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        _pointPlayerFour.toString(),
+                        style: TextStyle(
+                          color: _text,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
