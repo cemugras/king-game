@@ -72,7 +72,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   void _resetCache() async {
     setState(() {
-    CacheService().cleanCache();
+      CacheService().cleanCache();
     });
   }
 
@@ -101,6 +101,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       sections: [
         SettingsSection(
           title: '$_settingsSectionCommon',
+          titlePadding: EdgeInsets.only(left: 5.0, top: 5),
           titleTextStyle: TextStyle(color:_heading, fontWeight: FontWeight.bold),
           tiles: [
             SettingsTile(
@@ -150,6 +151,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         SettingsSection(
           title: '$_settingsSectionMisc',
+          titlePadding: EdgeInsets.only(left: 5.0, top: 5),
           titleTextStyle: TextStyle(color: _heading, fontWeight: FontWeight.bold),
           tiles: [
             SettingsTile(
