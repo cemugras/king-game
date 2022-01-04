@@ -117,4 +117,12 @@ class Constants{
       "\n- Koz yükseltmek zorunludur.\n- Koz serisinden bir kart çıkılmadan ele koz serisi ile başlanılmaz.";
   static String CONTENT_TRUMP_DESCR_EN = "- The goal in this game is take maximum tricks.\n- Starting player determines the trump trick.\n- The player who is out of hand from the set of cards on the floor must first discard a card from trump trick."
       "\n- Raising trump is mandatory.\n- The game does not start with a trump card until a card from the trump group is discarded.";
+
+  static int POINT_NO_TRICKS      = -50;
+  static int POINT_NO_MAN         = -60;
+  static int POINT_NO_QUEEN       = -100;
+  static int POINT_NO_HEART       = -30;
+  static int POINT_NO_HEART_KING  = -320;
+  static int POINT_NO_LAST_2      = -180;
+  static int POINT_TRUMP          = 10;
 }

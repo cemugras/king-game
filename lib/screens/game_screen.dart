@@ -31,6 +31,8 @@ class _GameScreenState extends  State<GameScreen>{
 
   bool _firstRadio = true, _secondRadio = true, _thirdRadio = true, _fourthRadio = true, _fifthRadio = true, _sixthRadio = true, _seventhRadio = true;
 
+  int _pointPlayerOne = 0, _pointPlayerTwo = 0, _pointPlayerThree = 0, _pointPlayerFour = 0;
+
   TextEditingController _playerOne = new TextEditingController();
   TextEditingController _playerTwo = new TextEditingController();
   TextEditingController _playerThree = new TextEditingController();
@@ -191,7 +193,7 @@ class _GameScreenState extends  State<GameScreen>{
                                   _selectedRadio = RadioButtons.firstRadio;
                               });
                             },
-                            child: Text(ContentService().getContent(_language, "noLast2Title"))),
+                            child: Text(ContentService().getContent(_language, "noTricksTitle"))),
                         leading: Radio(
                           value: RadioButtons.firstRadio,
                           groupValue: _selectedRadio,
@@ -452,27 +454,6 @@ class _GameScreenState extends  State<GameScreen>{
         ),
         body: ListView(
             children: <Widget> [
-              /*Container(
-                  height: 70,
-                  margin: EdgeInsets.all(6.0),
-                  decoration: BoxDecoration(
-                      color: _bodyBackground,
-                      borderRadius: BorderRadius.circular(45.0),
-                    border: Border.all(
-                        color: _playerOneBorderColor,
-                        width: _playerOneBorderWidth
-                    ),
-                  ),
-                  child: ListTile(
-                    title: Text(
-                      _playerOneName,
-                      style: TextStyle(
-                        color: _text,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  )
-              ),*/
               Container(
                 height: 70,
                 margin: EdgeInsets.all(6.0),
@@ -510,6 +491,20 @@ class _GameScreenState extends  State<GameScreen>{
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          _pointPlayerOne.toString(),
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            color: _text,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 50),
                   ],
                 ),
               ),
@@ -524,16 +519,48 @@ class _GameScreenState extends  State<GameScreen>{
                         width: _playerTwoBorderWidth
                     ),
                   ),
-                  child: ListTile(
-                    //leading: new Image.asset("./lib/assets/card_deck.png"),
-                    title: Text(
-                      _playerTwoName,
-                      style: TextStyle(
-                        color: _text,
-                        fontWeight: FontWeight.bold,
+                  child: new Row(
+                    children: <Widget>[
+                      SizedBox(width: 20),
+                      new Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(circle_empty, size: 14, color: Colors.red),
+                          Icon(circle_empty, size: 14, color: Colors.red),
+                          Icon(circle, size: 14, color: Colors.red)
+                        ],
                       ),
-                    ),
-                  )
+                      new Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(circle_empty, size: 14, color: Colors.green),
+                          Icon(circle, size: 14, color: Colors.green)
+                        ],
+                      ),
+                      SizedBox(width: 20),
+                      Text(
+                        _playerTwoName,
+                        style: TextStyle(
+                          color: _text,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            _pointPlayerTwo.toString(),
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              color: _text,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 50),
+                    ],
+                  ),
               ),
               Container(
                   height: 70,
@@ -546,16 +573,48 @@ class _GameScreenState extends  State<GameScreen>{
                         width: _playerThreeBorderWidth
                     ),
                   ),
-                  child: ListTile(
-                    //leading: new Image.asset("./lib/assets/card_deck.png"),
-                    title: Text(
+                child: new Row(
+                  children: <Widget>[
+                    SizedBox(width: 20),
+                    new Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(circle_empty, size: 14, color: Colors.red),
+                        Icon(circle_empty, size: 14, color: Colors.red),
+                        Icon(circle, size: 14, color: Colors.red)
+                      ],
+                    ),
+                    new Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(circle_empty, size: 14, color: Colors.green),
+                        Icon(circle, size: 14, color: Colors.green)
+                      ],
+                    ),
+                    SizedBox(width: 20),
+                    Text(
                       _playerThreeName,
                       style: TextStyle(
                         color: _text,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  )
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          _pointPlayerThree.toString(),
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            color: _text,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 50),
+                  ],
+                ),
               ),
               Container(
                   height: 70,
@@ -568,16 +627,48 @@ class _GameScreenState extends  State<GameScreen>{
                         width: _playerFourBorderWidth
                     ),
                   ),
-                  child: ListTile(
-                    //leading: new Image.asset("./lib/assets/card_deck.png"),
-                    title: Text(
+                child: new Row(
+                  children: <Widget>[
+                    SizedBox(width: 20),
+                    new Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(circle_empty, size: 14, color: Colors.red),
+                        Icon(circle_empty, size: 14, color: Colors.red),
+                        Icon(circle, size: 14, color: Colors.red)
+                      ],
+                    ),
+                    new Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(circle_empty, size: 14, color: Colors.green),
+                        Icon(circle, size: 14, color: Colors.green)
+                      ],
+                    ),
+                    SizedBox(width: 20),
+                    Text(
                       _playerFourName,
                       style: TextStyle(
                         color: _text,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  )
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          _pointPlayerFour.toString(),
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            color: _text,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 50),
+                  ],
+                ),
               )
             ]
         )
