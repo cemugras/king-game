@@ -261,6 +261,8 @@ class ContentService{
           return Colors.black;
         if(value == "heading")
           return Colors.blue;
+        if(value == "headingV2")
+          return Colors.green;
         if(value == "mainBodyBackground")
           return Colors.white;
         break;
@@ -272,6 +274,8 @@ class ContentService{
         if(value == "text")
           return Colors.white;
         if(value == "heading")
+          return Colors.orangeAccent;
+        if(value == "headingV2")
           return Colors.orangeAccent;
         if(value == "mainBodyBackground")
           return Colors.grey;

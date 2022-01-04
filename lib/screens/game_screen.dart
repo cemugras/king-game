@@ -20,7 +20,7 @@ class _GameScreenState extends  State<GameScreen>{
   String _language = "EN";
   String _appBarTitle = "";
   Color _appBarBackground = Colors.red, _bodyBackground = Colors.white, _text = Colors.black,
-      _headingColor = Colors.blue, _heading = Colors.blue,
+      _headingColor = Colors.blue, _heading = Colors.blue, _headingV2 = Colors.green,
       _playerOneBorderColor = Colors.black38, _playerTwoBorderColor = Colors.black38, _playerThreeBorderColor = Colors.black38, _playerFourBorderColor = Colors.black38,
       playerOneBorderColor = Colors.black38, playerTwoBorderColor = Colors.black38, playerThreeBorderColor = Colors.black38, playerFourBorderColor = Colors.black38;
   String _playerOneName = "Player-1", _playerTwoName = "Player-2", _playerThreeName = "Player-3", _playerFourName = "Player-4",
@@ -61,6 +61,7 @@ class _GameScreenState extends  State<GameScreen>{
       _bodyBackground = ContentService().getContentColor("mainBodyBackground", _nightMode);
       _text = ContentService().getContentColor("text", _nightMode);
       _heading = ContentService().getContentColor("heading", _nightMode);
+      _headingV2 = ContentService().getContentColor("headingV2", _nightMode);
     });
   }
 
@@ -479,8 +480,8 @@ class _GameScreenState extends  State<GameScreen>{
                   new Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(circle_empty, size: 14, color: Colors.green),
-                      Icon(circle, size: 14, color: Colors.green)
+                      Icon(circle_empty, size: 14, color: _headingV2),
+                      Icon(circle, size: 14, color: _headingV2)
                     ],
                   ),
                   SizedBox(width: 20),
@@ -533,8 +534,8 @@ class _GameScreenState extends  State<GameScreen>{
                   new Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(circle_empty, size: 14, color: Colors.green),
-                      Icon(circle, size: 14, color: Colors.green)
+                      Icon(circle_empty, size: 14, color: _headingV2),
+                      Icon(circle, size: 14, color: _headingV2)
                     ],
                   ),
                   SizedBox(width: 20),
@@ -587,8 +588,8 @@ class _GameScreenState extends  State<GameScreen>{
                   new Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(circle_empty, size: 14, color: Colors.green),
-                      Icon(circle, size: 14, color: Colors.green)
+                      Icon(circle_empty, size: 14, color: _headingV2),
+                      Icon(circle, size: 14, color: _headingV2)
                     ],
                   ),
                   SizedBox(width: 20),
@@ -641,8 +642,8 @@ class _GameScreenState extends  State<GameScreen>{
                   new Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(circle_empty, size: 14, color: Colors.green),
-                      Icon(circle, size: 14, color: Colors.green)
+                      Icon(circle_empty, size: 14, color: _headingV2),
+                      Icon(circle, size: 14, color: _headingV2)
                     ],
                   ),
                   SizedBox(width: 20),
