@@ -29,6 +29,8 @@ class _GameScreenState extends  State<GameScreen>{
   double _playerOneBorderWidth = 1, _playerTwoBorderWidth = 1, _playerThreeBorderWidth = 1, _playerFourBorderWidth = 1,
       playerOneBorderWidth = 1, playerTwoBorderWidth = 1, playerThreeBorderWidth = 1, playerFourBorderWidth = 1;
 
+  bool _firstRadio = true, _secondRadio = true, _thirdRadio = true, _fourthRadio = true, _fifthRadio = true, _sixthRadio = true, _seventhRadio = true;
+
   TextEditingController _playerOne = new TextEditingController();
   TextEditingController _playerTwo = new TextEditingController();
   TextEditingController _playerThree = new TextEditingController();
@@ -164,11 +166,13 @@ class _GameScreenState extends  State<GameScreen>{
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       ListTile(
+                        enabled: _firstRadio,
                         title: InkWell(
                             borderRadius: BorderRadius.circular(40),
                             onTap: () {
                               setState(() {
-                                _selectedRadio = RadioButtons.firstRadio;
+                                if(_firstRadio)
+                                  _selectedRadio = RadioButtons.firstRadio;
                               });
                             },
                             child: Text(ContentService().getContent(_language, "noLast2Title"))),
@@ -177,17 +181,20 @@ class _GameScreenState extends  State<GameScreen>{
                           groupValue: _selectedRadio,
                           onChanged: (RadioButtons? value) {
                             setState(() {
-                              _selectedRadio = value!;
+                              if(_firstRadio)
+                                _selectedRadio = value!;
                             });
                           },
                         ),
                       ),
                       ListTile(
+                        enabled: _secondRadio,
                         title: InkWell(
                             borderRadius: BorderRadius.circular(40),
                             onTap: () {
                               setState(() {
-                                _selectedRadio = RadioButtons.secondRadio;
+                                if(_secondRadio)
+                                  _selectedRadio = RadioButtons.secondRadio;
                               });
                             },
                             child: Text(ContentService().getContent(_language, "noManTitle"))),
@@ -196,17 +203,20 @@ class _GameScreenState extends  State<GameScreen>{
                           groupValue: _selectedRadio,
                           onChanged: (RadioButtons? value) {
                             setState(() {
-                              _selectedRadio = value!;
+                              if(_secondRadio)
+                                _selectedRadio = value!;
                             });
                           },
                         ),
                       ),
                       ListTile(
+                        enabled: _thirdRadio,
                         title: InkWell(
                             borderRadius: BorderRadius.circular(40),
                             onTap: () {
                               setState(() {
-                                _selectedRadio = RadioButtons.thirdRadio;
+                                if(_thirdRadio)
+                                  _selectedRadio = RadioButtons.thirdRadio;
                               });
                             },
                             child: Text(ContentService().getContent(_language, "noQueenTitle"))),
@@ -215,17 +225,20 @@ class _GameScreenState extends  State<GameScreen>{
                           groupValue: _selectedRadio,
                           onChanged: (RadioButtons? value) {
                             setState(() {
-                              _selectedRadio = value!;
+                              if(_thirdRadio)
+                                _selectedRadio = value!;
                             });
                           },
                         ),
                       ),
                       ListTile(
+                        enabled: _fourthRadio,
                         title: InkWell(
                             borderRadius: BorderRadius.circular(40),
                             onTap: () {
                               setState(() {
-                                _selectedRadio = RadioButtons.fourthRadio;
+                                if(_fourthRadio)
+                                  _selectedRadio = RadioButtons.fourthRadio;
                               });
                             },
                             child: Text(ContentService().getContent(_language, "noHeartTitle"))),
@@ -234,17 +247,20 @@ class _GameScreenState extends  State<GameScreen>{
                           groupValue: _selectedRadio,
                           onChanged: (RadioButtons? value) {
                             setState(() {
-                              _selectedRadio = value!;
+                              if(_fourthRadio)
+                                _selectedRadio = value!;
                             });
                           },
                         ),
                       ),
                       ListTile(
+                        enabled: _fifthRadio,
                         title: InkWell(
                             borderRadius: BorderRadius.circular(40),
                             onTap: () {
                               setState(() {
-                                _selectedRadio = RadioButtons.fifthRadio;
+                                if(_fifthRadio)
+                                  _selectedRadio = RadioButtons.fifthRadio;
                               });
                             },
                             child: Text(ContentService().getContent(_language, "noHeartKingTitle"))),
@@ -253,17 +269,20 @@ class _GameScreenState extends  State<GameScreen>{
                           groupValue: _selectedRadio,
                           onChanged: (RadioButtons? value) {
                             setState(() {
-                              _selectedRadio = value!;
+                              if(_fifthRadio)
+                                _selectedRadio = value!;
                             });
                           },
                         ),
                       ),
                       ListTile(
+                        enabled: _sixthRadio,
                         title: InkWell(
                             borderRadius: BorderRadius.circular(40),
                             onTap: () {
                               setState(() {
-                                _selectedRadio = RadioButtons.sixthRadio;
+                                if(_sixthRadio)
+                                  _selectedRadio = RadioButtons.sixthRadio;
                               });
                             },
                             child: Text(ContentService().getContent(_language, "noLast2Title"))),
@@ -272,17 +291,20 @@ class _GameScreenState extends  State<GameScreen>{
                           groupValue: _selectedRadio,
                           onChanged: (RadioButtons? value) {
                             setState(() {
-                              _selectedRadio = value!;
+                              if(_sixthRadio)
+                                _selectedRadio = value!;
                             });
                           },
                         ),
                       ),
                       ListTile(
+                        enabled: _seventhRadio,
                         title: InkWell(
                             borderRadius: BorderRadius.circular(40),
                             onTap: () {
                               setState(() {
-                                _selectedRadio = RadioButtons.seventhRadio;
+                                if(_seventhRadio)
+                                  _selectedRadio = RadioButtons.seventhRadio;
                               });
                             },
                             child: Text(ContentService().getContent(_language, "trumpTitle"))),
@@ -291,7 +313,8 @@ class _GameScreenState extends  State<GameScreen>{
                           groupValue: _selectedRadio,
                           onChanged: (RadioButtons? value) {
                             setState(() {
-                              _selectedRadio = value!;
+                              if(_seventhRadio)
+                                _selectedRadio = value!;
                             });
                           },
                         ),
@@ -324,12 +347,14 @@ class _GameScreenState extends  State<GameScreen>{
                                 elevation: 0
                             ),
                             onPressed: () {
-                              Navigator.of(context).pop();
+                              if(_selectedRadio != RadioButtons.nullRadio){
+                                Navigator.of(context).pop();
 
-                              _resetGameFormText();
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen())).then((value) async {});
-                              setState(() {
-                              });
+                                _resetGameFormText();
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen())).then((value) async {});
+                                setState(() {
+                                });
+                              }
                             },
                           ),
                         ],
