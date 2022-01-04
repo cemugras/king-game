@@ -239,6 +239,7 @@ class _MainMenu extends State<MainMenu>{
                       ),
                       onPressed: () {
                         Navigator.of(context).pop();
+                        GameService().setTurnCount(1);
                         _setPlayerName();
                         _resetGameFormText();
                         Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen())).then((value) async {});

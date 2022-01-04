@@ -25,7 +25,7 @@ class _GameScreenState extends  State<GameScreen>{
       playerOneBorderColor = Colors.black38, playerTwoBorderColor = Colors.black38, playerThreeBorderColor = Colors.black38, playerFourBorderColor = Colors.black38;
   String _playerOneName = "Player-1", _playerTwoName = "Player-2", _playerThreeName = "Player-3", _playerFourName = "Player-4",
       _playerTurn = "Player-1";
-  int _turn = 3;
+  int _turn = 1;
   double _playerOneBorderWidth = 1, _playerTwoBorderWidth = 1, _playerThreeBorderWidth = 1, _playerFourBorderWidth = 1,
       playerOneBorderWidth = 1, playerTwoBorderWidth = 1, playerThreeBorderWidth = 1, playerFourBorderWidth = 1;
 
@@ -83,7 +83,8 @@ class _GameScreenState extends  State<GameScreen>{
       return "Player-1";
   }
 
-  void _refreshTurnData() {
+  void _refreshTurnData() async {
+    _turn = await GameService().getTurnCount();
     String playerTurn = _getPlayerTurn();
 
     if (playerTurn == "Player-1"){
