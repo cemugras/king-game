@@ -169,6 +169,8 @@ class ContentService{
           return Constants.CONTENT_NEW_GAME_WARNING_TR;
         else if(contentName == "gameNotExistWarning")
           return Constants.CONTENT_GAME_NOT_EXIST_WARNING_TR;
+        else if(contentName == "alertPlayingTurn")
+          return Constants.CONTENT_ALERT_PLAYING_TURN_TR;
         else
           return "ErrorContent";
       case "EN":
@@ -228,6 +230,8 @@ class ContentService{
           return Constants.CONTENT_NEW_GAME_WARNING_EN;
         else if(contentName == "gameNotExistWarning")
           return Constants.CONTENT_GAME_NOT_EXIST_WARNING_EN;
+        else if(contentName == "alertPlayingTurn")
+          return Constants.CONTENT_ALERT_PLAYING_TURN_EN;
         else
           return "ErrorContent";
       case "null":

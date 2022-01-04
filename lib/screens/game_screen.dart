@@ -89,6 +89,7 @@ class _GameScreenState extends  State<GameScreen>{
     String playerTurn = _getPlayerTurn();
 
     if (playerTurn == "Player-1"){
+      _playerTurn             = _playerOneName;
       playerOneBorderColor    = Colors.red;
       playerTwoBorderColor    = Colors.black38;
       playerThreeBorderColor  = Colors.black38;
@@ -99,6 +100,7 @@ class _GameScreenState extends  State<GameScreen>{
       playerFourBorderWidth   = 1;
     }
     else if (playerTurn == "Player-2"){
+      _playerTurn             = _playerTwoName;
       playerOneBorderColor    = Colors.black38;
       playerTwoBorderColor    = Colors.red;
       playerThreeBorderColor  = Colors.black38;
@@ -109,6 +111,7 @@ class _GameScreenState extends  State<GameScreen>{
       playerFourBorderWidth   = 1;
     }
     else if (playerTurn == "Player-3"){
+      _playerTurn             = _playerThreeName;
       playerOneBorderColor    = Colors.black38;
       playerTwoBorderColor    = Colors.black38;
       playerThreeBorderColor  = Colors.red;
@@ -119,6 +122,7 @@ class _GameScreenState extends  State<GameScreen>{
       playerFourBorderWidth   = 1;
     }
     else if (playerTurn == "Player-4"){
+      _playerTurn             = _playerFourName;
       playerOneBorderColor    = Colors.black38;
       playerTwoBorderColor    = Colors.black38;
       playerThreeBorderColor  = Colors.black38;
@@ -129,7 +133,6 @@ class _GameScreenState extends  State<GameScreen>{
       playerFourBorderWidth   = 3;
     }
     setState(() {
-      _playerTurn = playerTurn;
       _playerOneBorderColor   = playerOneBorderColor;
       _playerTwoBorderColor   = playerTwoBorderColor;
       _playerThreeBorderColor = playerThreeBorderColor;
@@ -165,6 +168,19 @@ class _GameScreenState extends  State<GameScreen>{
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
+                      ListTile(
+                        enabled: false,
+                        title: InkWell(
+                          borderRadius: BorderRadius.circular(40),
+                          onTap: () {
+                            setState(() {
+                              if(_firstRadio)
+                                _selectedRadio = RadioButtons.firstRadio;
+                            });
+                          },
+                          child: Text(_turn.toString() + " " + ContentService().getContent(_language, "alertPlayingTurn") + _playerTurn, textAlign: TextAlign.center),
+                        ),
+                      ),
                       ListTile(
                         enabled: _firstRadio,
                         title: InkWell(
@@ -368,6 +384,11 @@ class _GameScreenState extends  State<GameScreen>{
     );
   }
 
+  void _refreshFormData() async {
+    if(_turn < 5)
+      _seventhRadio = false;
+  }
+
   void _resetGameFormText() async {
     _playerOne.text='';
     _playerTwo.text='';
@@ -382,6 +403,7 @@ class _GameScreenState extends  State<GameScreen>{
     _getDarkTheme();
     _getPlayerDataList();
     _refreshTurnData();
+    _refreshFormData();
   }
 
   @override
