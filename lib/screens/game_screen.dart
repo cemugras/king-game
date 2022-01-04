@@ -9,7 +9,7 @@ class GameScreen extends StatefulWidget {
   _GameScreenState createState() => _GameScreenState();
 }
 
-enum RadioButtons { firstRadio, secondRadio, thirdRadio, fourthRadio, fifthRadio, sixthRadio, nullRadio }
+enum RadioButtons { firstRadio, secondRadio, thirdRadio, fourthRadio, fifthRadio, sixthRadio, seventhRadio, nullRadio }
 
 //TODO - AppBar Summary and List Showing feature.
 //TODO - Turn and points logic. (Arrays can be usable)
@@ -34,7 +34,6 @@ class _GameScreenState extends  State<GameScreen>{
   TextEditingController _playerThree = new TextEditingController();
   TextEditingController _playerFour = new TextEditingController();
 
-  bool tick = false, firstTick = false, secondTick = false, thirdTick = false, fourthTick = false, fifthTick = false, sixthTick = false;
   RadioButtons _selectedRadio = RadioButtons.nullRadio;
 
   static const IconData circle_empty = IconData(0xf10c, fontFamily: 'Fonts', fontPackage: null);
@@ -165,7 +164,14 @@ class _GameScreenState extends  State<GameScreen>{
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       ListTile(
-                        title: Text(ContentService().getContent(_language, "noTricksTitle")),
+                        title: InkWell(
+                            borderRadius: BorderRadius.circular(40),
+                            onTap: () {
+                              setState(() {
+                                _selectedRadio = RadioButtons.firstRadio;
+                              });
+                            },
+                            child: Text(ContentService().getContent(_language, "noLast2Title"))),
                         leading: Radio(
                           value: RadioButtons.firstRadio,
                           groupValue: _selectedRadio,
@@ -177,7 +183,14 @@ class _GameScreenState extends  State<GameScreen>{
                         ),
                       ),
                       ListTile(
-                        title: Text(ContentService().getContent(_language, "noManTitle")),
+                        title: InkWell(
+                            borderRadius: BorderRadius.circular(40),
+                            onTap: () {
+                              setState(() {
+                                _selectedRadio = RadioButtons.secondRadio;
+                              });
+                            },
+                            child: Text(ContentService().getContent(_language, "noManTitle"))),
                         leading: Radio(
                           value: RadioButtons.secondRadio,
                           groupValue: _selectedRadio,
@@ -189,7 +202,14 @@ class _GameScreenState extends  State<GameScreen>{
                         ),
                       ),
                       ListTile(
-                        title: Text(ContentService().getContent(_language, "noQueenTitle")),
+                        title: InkWell(
+                            borderRadius: BorderRadius.circular(40),
+                            onTap: () {
+                              setState(() {
+                                _selectedRadio = RadioButtons.thirdRadio;
+                              });
+                            },
+                            child: Text(ContentService().getContent(_language, "noQueenTitle"))),
                         leading: Radio(
                           value: RadioButtons.thirdRadio,
                           groupValue: _selectedRadio,
@@ -201,7 +221,14 @@ class _GameScreenState extends  State<GameScreen>{
                         ),
                       ),
                       ListTile(
-                        title: Text(ContentService().getContent(_language, "noHeartTitle")),
+                        title: InkWell(
+                            borderRadius: BorderRadius.circular(40),
+                            onTap: () {
+                              setState(() {
+                                _selectedRadio = RadioButtons.fourthRadio;
+                              });
+                            },
+                            child: Text(ContentService().getContent(_language, "noHeartTitle"))),
                         leading: Radio(
                           value: RadioButtons.fourthRadio,
                           groupValue: _selectedRadio,
@@ -213,7 +240,14 @@ class _GameScreenState extends  State<GameScreen>{
                         ),
                       ),
                       ListTile(
-                        title: Text(ContentService().getContent(_language, "noHeartKingTitle")),
+                        title: InkWell(
+                            borderRadius: BorderRadius.circular(40),
+                            onTap: () {
+                              setState(() {
+                                _selectedRadio = RadioButtons.fifthRadio;
+                              });
+                            },
+                            child: Text(ContentService().getContent(_language, "noHeartKingTitle"))),
                         leading: Radio(
                           value: RadioButtons.fifthRadio,
                           groupValue: _selectedRadio,
@@ -225,9 +259,35 @@ class _GameScreenState extends  State<GameScreen>{
                         ),
                       ),
                       ListTile(
-                        title: Text(ContentService().getContent(_language, "noLast2Title")),
+                        title: InkWell(
+                            borderRadius: BorderRadius.circular(40),
+                            onTap: () {
+                              setState(() {
+                                _selectedRadio = RadioButtons.sixthRadio;
+                              });
+                            },
+                            child: Text(ContentService().getContent(_language, "noLast2Title"))),
                         leading: Radio(
                           value: RadioButtons.sixthRadio,
+                          groupValue: _selectedRadio,
+                          onChanged: (RadioButtons? value) {
+                            setState(() {
+                              _selectedRadio = value!;
+                            });
+                          },
+                        ),
+                      ),
+                      ListTile(
+                        title: InkWell(
+                            borderRadius: BorderRadius.circular(40),
+                            onTap: () {
+                              setState(() {
+                                _selectedRadio = RadioButtons.seventhRadio;
+                              });
+                            },
+                            child: Text(ContentService().getContent(_language, "trumpTitle"))),
+                        leading: Radio(
+                          value: RadioButtons.seventhRadio,
                           groupValue: _selectedRadio,
                           onChanged: (RadioButtons? value) {
                             setState(() {
@@ -248,6 +308,7 @@ class _GameScreenState extends  State<GameScreen>{
                             ),
                             onPressed: () {
                               Navigator.pop(context);
+                              _selectedRadio = RadioButtons.nullRadio;
                               _resetGameFormText();
                             },
                           ),
@@ -264,7 +325,7 @@ class _GameScreenState extends  State<GameScreen>{
                             ),
                             onPressed: () {
                               Navigator.of(context).pop();
-                              //_setPlayerName();
+
                               _resetGameFormText();
                               Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen())).then((value) async {});
                               setState(() {
@@ -280,11 +341,6 @@ class _GameScreenState extends  State<GameScreen>{
         ],
       ),
     );
-  }
-
-  void _resetAlertDialog(){
-    firstTick = false;
-    secondTick = false;
   }
 
   void _resetGameFormText() async {
@@ -337,7 +393,6 @@ class _GameScreenState extends  State<GameScreen>{
                     showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          _resetAlertDialog();
                           return _newTurnForm();
                         });
                   },
