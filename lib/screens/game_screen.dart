@@ -33,6 +33,9 @@ class _GameScreenState extends  State<GameScreen>{
 
   int _pointPlayerOne = 0, _pointPlayerTwo = 0, _pointPlayerThree = 0, _pointPlayerFour = 0;
 
+  String _selectedGame = "null",
+      _firstRadioName = "noTricksTitle", _secondRadioName = "noManTitle", _thirdRadioName = "noQueenTitle", _fourthRadioName = "noHeartTitle", _fifthRadioName = "noHeartKingTitle", _sixthRadioName = "noLast2Title", _seventhRadioName = "trumpTitle";
+
   TextEditingController _playerOne = new TextEditingController();
   TextEditingController _playerTwo = new TextEditingController();
   TextEditingController _playerThree = new TextEditingController();
@@ -154,19 +157,6 @@ class _GameScreenState extends  State<GameScreen>{
         children: <Widget>[
           StatefulBuilder(
               builder: (BuildContext context, StateSetter setState) {
-                Positioned(
-                  right: -30.0,
-                  top: -30.0,
-                  child: InkResponse(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: CircleAvatar(
-                      child: Icon(Icons.close),
-                      backgroundColor: _bodyBackground,
-                    ),
-                  ),
-                );
                 return Form(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -182,6 +172,253 @@ class _GameScreenState extends  State<GameScreen>{
                             });
                           },
                           child: Text(_turn.toString() + " " + ContentService().getContent(_language, "alertPlayingTurn") + _playerTurn, textAlign: TextAlign.center),
+                        ),
+                      ),
+                      ListTile(
+                        enabled: _firstRadio,
+                        title: InkWell(
+                            borderRadius: BorderRadius.circular(40),
+                            onTap: () {
+                              setState(() {
+                                if(_firstRadio)
+                                  _selectedRadio = RadioButtons.firstRadio;
+                              });
+                            },
+                            child: Text(ContentService().getContent(_language, "noTricksTitle"))),
+                        leading: Radio(
+                          value: RadioButtons.firstRadio,
+                          groupValue: _selectedRadio,
+                          onChanged: (RadioButtons? value) {
+                            setState(() {
+                              if(_firstRadio) {
+                                _selectedRadio = value!;
+                                _selectedGame = _firstRadioName;
+                              }
+                            });
+                          },
+                        ),
+                      ),
+                      ListTile(
+                        enabled: _secondRadio,
+                        title: InkWell(
+                            borderRadius: BorderRadius.circular(40),
+                            onTap: () {
+                              setState(() {
+                                if(_secondRadio)
+                                  _selectedRadio = RadioButtons.secondRadio;
+                              });
+                            },
+                            child: Text(ContentService().getContent(_language, "noManTitle"))),
+                        leading: Radio(
+                          value: RadioButtons.secondRadio,
+                          groupValue: _selectedRadio,
+                          onChanged: (RadioButtons? value) {
+                            setState(() {
+                              if(_secondRadio) {
+                                _selectedRadio = value!;
+                                _selectedGame = _secondRadioName;
+                              }
+
+                            });
+                          },
+                        ),
+                      ),
+                      ListTile(
+                        enabled: _thirdRadio,
+                        title: InkWell(
+                            borderRadius: BorderRadius.circular(40),
+                            onTap: () {
+                              setState(() {
+                                if(_thirdRadio)
+                                  _selectedRadio = RadioButtons.thirdRadio;
+                              });
+                            },
+                            child: Text(ContentService().getContent(_language, "noQueenTitle"))),
+                        leading: Radio(
+                          value: RadioButtons.thirdRadio,
+                          groupValue: _selectedRadio,
+                          onChanged: (RadioButtons? value) {
+                            setState(() {
+                              if(_thirdRadio) {
+                                _selectedRadio = value!;
+                                _selectedGame = _thirdRadioName;
+                              }
+                            });
+                          },
+                        ),
+                      ),
+                      ListTile(
+                        enabled: _fourthRadio,
+                        title: InkWell(
+                            borderRadius: BorderRadius.circular(40),
+                            onTap: () {
+                              setState(() {
+                                if(_fourthRadio)
+                                  _selectedRadio = RadioButtons.fourthRadio;
+                              });
+                            },
+                            child: Text(ContentService().getContent(_language, "noHeartTitle"))),
+                        leading: Radio(
+                          value: RadioButtons.fourthRadio,
+                          groupValue: _selectedRadio,
+                          onChanged: (RadioButtons? value) {
+                            setState(() {
+                              if(_fourthRadio) {
+                                _selectedRadio = value!;
+                                _selectedGame = _fourthRadioName;
+                              }
+                            });
+                          },
+                        ),
+                      ),
+                      ListTile(
+                        enabled: _fifthRadio,
+                        title: InkWell(
+                            borderRadius: BorderRadius.circular(40),
+                            onTap: () {
+                              setState(() {
+                                if(_fifthRadio)
+                                  _selectedRadio = RadioButtons.fifthRadio;
+                              });
+                            },
+                            child: Text(ContentService().getContent(_language, "noHeartKingTitle"))),
+                        leading: Radio(
+                          value: RadioButtons.fifthRadio,
+                          groupValue: _selectedRadio,
+                          onChanged: (RadioButtons? value) {
+                            setState(() {
+                              if(_fifthRadio) {
+                                _selectedRadio = value!;
+                                _selectedGame = _fifthRadioName;
+                              }
+                            });
+                          },
+                        ),
+                      ),
+                      ListTile(
+                        enabled: _sixthRadio,
+                        title: InkWell(
+                            borderRadius: BorderRadius.circular(40),
+                            onTap: () {
+                              setState(() {
+                                if(_sixthRadio)
+                                  _selectedRadio = RadioButtons.sixthRadio;
+                              });
+                            },
+                            child: Text(ContentService().getContent(_language, "noLast2Title"))),
+                        leading: Radio(
+                          value: RadioButtons.sixthRadio,
+                          groupValue: _selectedRadio,
+                          onChanged: (RadioButtons? value) {
+                            setState(() {
+                              if(_sixthRadio) {
+                                _selectedRadio = value!;
+                                _selectedGame = _sixthRadioName;
+                              }
+                            });
+                          },
+                        ),
+                      ),
+                      ListTile(
+                        enabled: _seventhRadio,
+                        title: InkWell(
+                            borderRadius: BorderRadius.circular(40),
+                            onTap: () {
+                              setState(() {
+                                if(_seventhRadio)
+                                  _selectedRadio = RadioButtons.seventhRadio;
+                              });
+                            },
+                            child: Text(ContentService().getContent(_language, "trumpTitle"))),
+                        leading: Radio(
+                          value: RadioButtons.seventhRadio,
+                          groupValue: _selectedRadio,
+                          onChanged: (RadioButtons? value) {
+                            setState(() {
+                              if(_seventhRadio) {
+                                _selectedRadio = value!;
+                                _selectedGame = _seventhRadioName;
+                              }
+                            });
+                          },
+                        ),
+                      ),
+                      Wrap(
+                        children: <Widget>[
+                          ElevatedButton(
+                            child: Text(ContentService().getMenuTitleContent(_language, "cancelTitle")),
+                            style: ElevatedButton.styleFrom(
+                                primary: _bodyBackground,
+                                onPrimary: _heading,
+                                shadowColor: _bodyBackground,
+                                elevation: 0
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                              _selectedRadio = RadioButtons.nullRadio;
+                              _resetGameFormText();
+                            },
+                          ),
+                          Container(
+                            width: 5.0,
+                          ),
+                          ElevatedButton(
+                            child: Text(ContentService().getMenuTitleContent(_language, "submitTitle")),
+                            style: ElevatedButton.styleFrom(
+                                primary: _bodyBackground,
+                                onPrimary: _headingColor,
+                                shadowColor: _bodyBackground,
+                                elevation: 0
+                            ),
+                            onPressed: () {
+                              if(_selectedRadio != RadioButtons.nullRadio){
+                                Navigator.of(context).pop();
+
+                                _resetGameFormText();
+                                //Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen())).then((value) async {});
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return _newTurnFormV2();
+                                    });
+                                setState(() {
+                                });
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              }),
+        ],
+      ),
+    );
+  }
+
+  AlertDialog _newTurnFormV2() {
+    return AlertDialog(
+      backgroundColor: _bodyBackground,
+      content: Stack(
+        children: <Widget>[
+          StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+                return Form(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      ListTile(
+                        enabled: false,
+                        title: InkWell(
+                          borderRadius: BorderRadius.circular(40),
+                          onTap: () {
+                            setState(() {
+                              if(_firstRadio)
+                                _selectedRadio = RadioButtons.firstRadio;
+                            });
+                          },
+                          child: Text(ContentService().getContent(_language, "alertSelectedGame") + ContentService().getContent(_language, _selectedGame), textAlign: TextAlign.center),
                         ),
                       ),
                       ListTile(

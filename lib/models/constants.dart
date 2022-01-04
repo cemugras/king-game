@@ -41,6 +41,8 @@ class Constants{
   static String CONTENT_GAME_NOT_EXIST_WARNING_TR = "Kayıtlı bir oyun yok.";
   static String CONTENT_ALERT_PLAYING_TURN_EN = "turn. Playing: ";
   static String CONTENT_ALERT_PLAYING_TURN_TR = "el. Oyuncu: ";
+  static String CONTENT_ALERT_SELECTED_GAME_EN = "Selected Game: ";
+  static String CONTENT_ALERT_SELECTED_GAME_TR = "Seçilen Oyun: ";
 
   //Setting screen constants.
   static String CONTENT_LANG_TITLE_EN = "Language";
