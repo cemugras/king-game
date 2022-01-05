@@ -50,7 +50,7 @@ class CacheService{
   //Get integer value for given key from cache
   Future<int> getIntValue(String key) async {
     final myPrefs = await SharedPreferences.getInstance();
-    int value = myPrefs.getInt(key) ?? 1;
+    int value = myPrefs.getInt(key) ?? 0;
     return value;
   }
 
