@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:king_game/models/constants.dart';
@@ -36,6 +38,10 @@ class _GameScreenState extends  State<GameScreen>{
   int _pointPlayerOne = 0, _pointPlayerTwo = 0, _pointPlayerThree = 0, _pointPlayerFour = 0,
       pointPlayerOne = 0, pointPlayerTwo = 0, pointPlayerThree = 0, pointPlayerFour = 0;
   int _playerOneTrick = 0, _playerTwoTrick = 0, _playerThreeTrick = 0, _playerFourTrick = 0, _totalTrickCount = 0, _maxTrickCount = 0;
+  int _noTricksMax = 2, _noManMax = 2, _noQueenMax = 2, _noHeartMax = 2, _noHeartKingMax = 2, _noLast2Max = 2,
+      _noTricksRemain = 2, _noManRemain = 2, _noQueenRemain = 2, _noHeartRemain = 2, _noHeartKingRemain = 2, _noLast2Remain = 2,
+      _firstPlayerTrumpMax = 2, _secondPlayerTrumpMax = 2, _thirdPlayerTrumpMax = 2, _fourthPlayerTrumpMax = 2,
+      _firstPlayerTrumpRemain = 2, _secondPlayerTrumpRemain = 2, _thirdPlayerTrumpRemain = 2, _fourthPlayerTrumpRemain = 2;
 
   String _selectedGame = "null",
       _firstGameName = "noTricksTitle", _secondGameName = "noManTitle", _thirdGameName = "noQueenTitle", _fourthGameName = "noHeartTitle", _fifthGameName = "noHeartKingTitle", _sixthGameName = "noLast2Title", _seventhGameName = "trumpTitle";
@@ -1053,6 +1059,43 @@ class _GameScreenState extends  State<GameScreen>{
                     ),
                   ),
                   SizedBox(width: 50),
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.all(6.0),
+              decoration: BoxDecoration(
+                color: _bodyBackground,
+                borderRadius: BorderRadius.circular(25.0),
+                border: Border.all(
+                    color: _headingV2,
+                    width: 2
+                ),
+              ),
+              child: new Row(
+                children: <Widget>[
+                  SizedBox(width: 20),
+                  new Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      Text(ContentService().getContent(_language, "noTricksTitle")      + " : " + _noTricksRemain.toString()),
+                      Text(ContentService().getContent(_language, "noManTitle")         + " : " + _noManRemain.toString()),
+                      Text(ContentService().getContent(_language, "noQueenTitle")       + " : " + _noQueenRemain.toString()),
+                      Text(ContentService().getContent(_language, "noHeartTitle")       + " : " + _noHeartRemain.toString()),
+                      Text(ContentService().getContent(_language, "noHeartKingTitle")   + " : " + _noHeartKingRemain.toString()),
+                      Text(ContentService().getContent(_language, "noLast2Title")       + " : " + _noLast2Remain.toString())
+                    ],
+                  ),
+                  SizedBox(width: 50),
+                  new Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      Text(_playerOneName     + " " + ContentService().getContent(_language, "trumpTitle") + " : " + _firstPlayerTrumpRemain.toString()),
+                      Text(_playerTwoName     + " " + ContentService().getContent(_language, "trumpTitle") + " : " + _secondPlayerTrumpRemain.toString()),
+                      Text(_playerThreeName   + " " + ContentService().getContent(_language, "trumpTitle") + " : " + _thirdPlayerTrumpRemain.toString()),
+                      Text(_playerFourName    + " " + ContentService().getContent(_language, "trumpTitle") + " : " + _fourthPlayerTrumpRemain.toString()),
+                    ],
+                  ),
                 ],
               ),
             )
