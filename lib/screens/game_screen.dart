@@ -28,8 +28,8 @@ class _GameScreenState extends  State<GameScreen>{
       playerOneBorderColor = Colors.black38, playerTwoBorderColor = Colors.black38, playerThreeBorderColor = Colors.black38, playerFourBorderColor = Colors.black38;
   String _playerOneName = "Player-1", _playerTwoName = "Player-2", _playerThreeName = "Player-3", _playerFourName = "Player-4",
       _playerTurn = "Player-1",
-  _playerOnePointName = "PointPlayer-1", _playerTwoPointName = "PointPlayer-2", _playerThreePointName = "PointPlayer-3", _playerFourPointName = "PointPlayer-4";
-      int _turn = 1;
+      _playerOnePointName = "PointPlayer-1", _playerTwoPointName = "PointPlayer-2", _playerThreePointName = "PointPlayer-3", _playerFourPointName = "PointPlayer-4";
+  int _turn = 1;
   double _playerOneBorderWidth = 1, _playerTwoBorderWidth = 1, _playerThreeBorderWidth = 1, _playerFourBorderWidth = 1,
       playerOneBorderWidth = 1, playerTwoBorderWidth = 1, playerThreeBorderWidth = 1, playerFourBorderWidth = 1;
 
@@ -80,11 +80,12 @@ class _GameScreenState extends  State<GameScreen>{
   void _getPlayerDataList() async {
     List<String> playerList = await GameService().getPlayerNameList("PlayerList");
     setState(() {
-      if(playerList.length > 0)
+      if(playerList.length > 0) {
         _playerOneName = playerList[0];
-      _playerTwoName = playerList[1];
-      _playerThreeName = playerList[2];
-      _playerFourName = playerList[3];
+        _playerTwoName = playerList[1];
+        _playerThreeName = playerList[2];
+        _playerFourName = playerList[3];
+      }
     });
   }
 
@@ -102,6 +103,7 @@ class _GameScreenState extends  State<GameScreen>{
   void _refreshTurnData() async {
     _turn = await GameService().getTurnCount();
     String playerTurn = _getPlayerTurn();
+    _refreshFormData();
     pointPlayerOne = await GameService().getPlayerTotalPoint(_playerOnePointName);
     pointPlayerTwo = await GameService().getPlayerTotalPoint(_playerTwoPointName);
     pointPlayerThree = await GameService().getPlayerTotalPoint(_playerThreePointName);
@@ -371,7 +373,6 @@ class _GameScreenState extends  State<GameScreen>{
                                     elevation: 0
                                 ),
                                 onPressed: () {
-                                  _selectedRadio = RadioButtons.nullRadio;
                                   _resetGameFormText();
                                   Navigator.pop(context);
                                 },
@@ -679,7 +680,6 @@ class _GameScreenState extends  State<GameScreen>{
                                     elevation: 0
                                 ),
                                 onPressed: () {
-                                  _selectedRadio = RadioButtons.nullRadio;
                                   _resetGameFormText();
                                   Navigator.pop(context);
                                 },
@@ -698,8 +698,10 @@ class _GameScreenState extends  State<GameScreen>{
                                 onPressed: () {
                                   if(_selectedRadio != RadioButtons.nullRadio){
                                     Navigator.of(context).pop();
-                                    _resetGameFormText();
                                     _insertPlayerPoints();
+                                    _resetGameFormText();
+                                    _refreshTurnData();
+                                    //_refreshFormData();
                                   }
                                 },
                               ),
@@ -717,8 +719,39 @@ class _GameScreenState extends  State<GameScreen>{
   }
 
   void _refreshFormData() async {
+    _selectedRadio = RadioButtons.nullRadio;
     if(_turn < 5)
       _seventhRadio = false;
+    else
+      _seventhRadio = true;
+    if(_noTricksRemain == 0)
+      _firstRadio = false;
+    if(_noManRemain == 0)
+      _secondRadio = false;
+    if(_noQueenRemain == 0)
+      _thirdRadio = false;
+    if(_noHeartRemain == 0)
+      _fourthRadio = false;
+    if(_noHeartKingRemain == 0)
+      _fifthRadio = false;
+    if(_noLast2Remain == 0)
+      _sixthRadio = false;
+    if (_playerTurn == "Player-1"){
+      if(_firstPlayerTrumpRemain == 0)
+        _seventhRadio = false;
+    }
+    else if (_playerTurn == "Player-2"){
+      if(_secondPlayerTrumpRemain == 0)
+        _seventhRadio = false;
+    }
+    else if (_playerTurn == "Player-3"){
+      if(_thirdPlayerTrumpRemain == 0)
+        _seventhRadio = false;
+    }
+    else if (_playerTurn == "Player-4"){
+      if(_fourthPlayerTrumpRemain == 0)
+        _seventhRadio = false;
+    }
   }
 
   void _resetGameFormText() async {
@@ -726,6 +759,10 @@ class _GameScreenState extends  State<GameScreen>{
     _playerTwo.text='';
     _playerThree.text='';
     _playerFour.text='';
+    _playerOneTrick = 0;
+    _playerTwoTrick = 0;
+    _playerThreeTrick = 0;
+    _playerFourTrick = 0;
   }
 
   void _insertPlayerPoints() async {
@@ -735,26 +772,31 @@ class _GameScreenState extends  State<GameScreen>{
         _pointPlayerTwo     = _pointPlayerTwo       + (_playerTwoTrick    * Constants.POINT_NO_TRICKS);
         _pointPlayerThree   = _pointPlayerThree     + (_playerThreeTrick  * Constants.POINT_NO_TRICKS);
         _pointPlayerFour    = _pointPlayerFour      + (_playerFourTrick   * Constants.POINT_NO_TRICKS);
+        _noTricksRemain = _noTricksRemain - 1;
       }else if(_selectedGame == _secondGameName) {
         _pointPlayerOne     = _pointPlayerOne       + (_playerOneTrick    * Constants.POINT_NO_MAN);
         _pointPlayerTwo     = _pointPlayerTwo       + (_playerTwoTrick    * Constants.POINT_NO_MAN);
         _pointPlayerThree   = _pointPlayerThree     + (_playerThreeTrick  * Constants.POINT_NO_MAN);
         _pointPlayerFour    = _pointPlayerFour      + (_playerFourTrick   * Constants.POINT_NO_MAN);
+        _noManRemain = _noManRemain - 1;
       }else if(_selectedGame == _thirdGameName) {
         _pointPlayerOne     = _pointPlayerOne       + (_playerOneTrick    * Constants.POINT_NO_QUEEN);
         _pointPlayerTwo     = _pointPlayerTwo       + (_playerTwoTrick    * Constants.POINT_NO_QUEEN);
         _pointPlayerThree   = _pointPlayerThree     + (_playerThreeTrick  * Constants.POINT_NO_QUEEN);
         _pointPlayerFour    = _pointPlayerFour      + (_playerFourTrick   * Constants.POINT_NO_QUEEN);
+        _noQueenRemain = _noQueenRemain - 1;
       }else if(_selectedGame == _fourthGameName) {
         _pointPlayerOne     = _pointPlayerOne       + (_playerOneTrick    * Constants.POINT_NO_HEART);
         _pointPlayerTwo     = _pointPlayerTwo       + (_playerTwoTrick    * Constants.POINT_NO_HEART);
         _pointPlayerThree   = _pointPlayerThree     + (_playerThreeTrick  * Constants.POINT_NO_HEART);
         _pointPlayerFour    = _pointPlayerFour      + (_playerFourTrick   * Constants.POINT_NO_HEART);
+        _noHeartRemain = _noHeartRemain - 1;
       }else if(_selectedGame == _fifthGameName) {
         _pointPlayerOne     = _pointPlayerOne       + (_playerOneTrick    * Constants.POINT_NO_HEART_KING);
         _pointPlayerTwo     = _pointPlayerTwo       + (_playerTwoTrick    * Constants.POINT_NO_HEART_KING);
         _pointPlayerThree   = _pointPlayerThree     + (_playerThreeTrick  * Constants.POINT_NO_HEART_KING);
         _pointPlayerFour    = _pointPlayerFour      + (_playerFourTrick   * Constants.POINT_NO_HEART_KING);
+        _noHeartKingRemain = _noHeartKingRemain - 1;
       }else if(_selectedGame == _sixthGameName) {
         _pointPlayerOne     = _pointPlayerOne       + (_playerOneTrick    * Constants.POINT_NO_LAST_2);
         _pointPlayerTwo     = _pointPlayerTwo       + (_playerTwoTrick    * Constants.POINT_NO_LAST_2);
@@ -765,6 +807,15 @@ class _GameScreenState extends  State<GameScreen>{
         _pointPlayerTwo     = _pointPlayerTwo       + (_playerTwoTrick    * Constants.POINT_TRUMP);
         _pointPlayerThree   = _pointPlayerThree     + (_playerThreeTrick  * Constants.POINT_TRUMP);
         _pointPlayerFour    = _pointPlayerFour      + (_playerFourTrick   * Constants.POINT_TRUMP);
+        if (_playerTurn == "Player-1"){
+          _firstPlayerTrumpRemain = _firstPlayerTrumpRemain - 1;
+        } else if (_playerTurn == "Player-2"){
+          _secondPlayerTrumpRemain = _secondPlayerTrumpRemain - 1;
+        } else if (_playerTurn == "Player-3"){
+          _secondPlayerTrumpRemain = _secondPlayerTrumpRemain - 1;
+        } else if (_playerTurn == "Player-4"){
+          _secondPlayerTrumpRemain = _secondPlayerTrumpRemain - 1;
+        }
       }
       _turn = _turn + 1;
       GameService().setTurnCount(_turn);
@@ -801,7 +852,7 @@ class _GameScreenState extends  State<GameScreen>{
     _getDarkTheme();
     _getPlayerDataList();
     _refreshTurnData();
-    _refreshFormData();
+    //_refreshFormData();
   }
 
   @override
