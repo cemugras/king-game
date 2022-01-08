@@ -53,10 +53,15 @@ class _GameScreenState extends  State<GameScreen>{
 
   RadioButtons _selectedRadio = RadioButtons.nullRadio;
 
+  //Icons with logic variables
   static const IconData circle_empty = IconData(0xf10c, fontFamily: 'Fonts', fontPackage: null);
   static const IconData circle = IconData(0xf111, fontFamily: 'Fonts', fontPackage: null);
-
   static const IconData trashIcon = IconData(0xe535, fontFamily: 'MaterialIcons');
+  IconData _pOneIcon1 = circle_empty, _pOneIcon2 = circle_empty, _pOneIcon3 = circle_empty, _pOneIcon4 = circle_empty, _pOneIcon5 = circle_empty,
+      _pTwoIcon1 = circle_empty, _pTwoIcon2 = circle_empty, _pTwoIcon3 = circle_empty, _pTwoIcon4 = circle_empty, _pTwoIcon5 = circle_empty,
+      _pThreeIcon1 = circle_empty, _pThreeIcon2 = circle_empty, _pThreeIcon3 = circle_empty, _pThreeIcon4 = circle_empty, _pThreeIcon5 = circle_empty,
+      _pFourIcon1 = circle_empty, _pFourIcon2 = circle_empty, _pFourIcon3 = circle_empty, _pFourIcon4 = circle_empty, _pFourIcon5 = circle_empty;
+  int _pOneRedCounter = 0, _pOneCounter = 0, _pTwoRedCounter = 0, _pTwoCounter = 0, _pThreeRedCounter = 0, _pThreeCounter = 0, _pFourRedCounter = 0, _pFourCounter = 0;
 
   void _getLanguage() async {
     _language = await CacheService().getStringValue("language");
@@ -155,16 +160,24 @@ class _GameScreenState extends  State<GameScreen>{
     }
 
     if(_turn>1) {
-      _noTricksRemain = 2;
-      _noManRemain = 2;
-      _noQueenRemain = 2;
-      _noHeartRemain = 2;
-      _noHeartKingRemain = 2;
-      _noLast2Remain = 2;
-      _firstPlayerTrumpRemain = 2;
-      _secondPlayerTrumpRemain = 2;
-      _thirdPlayerTrumpRemain = 2;
-      _fourthPlayerTrumpRemain = 2;
+      _noTricksRemain           = 2;
+      _noManRemain              = 2;
+      _noQueenRemain            = 2;
+      _noHeartRemain            = 2;
+      _noHeartKingRemain        = 2;
+      _noLast2Remain            = 2;
+      _firstPlayerTrumpRemain   = 2;
+      _secondPlayerTrumpRemain  = 2;
+      _thirdPlayerTrumpRemain   = 2;
+      _fourthPlayerTrumpRemain  = 2;
+      _pOneRedCounter           = 0;
+      _pOneCounter              = 0;
+      _pTwoRedCounter           = 0;
+      _pTwoCounter              = 0;
+      _pThreeRedCounter         = 0;
+      _pThreeCounter            = 0;
+      _pFourRedCounter          = 0;
+      _pFourCounter             = 0;
       for(int i=1; i<_turn; i++){
         _turnName = "Turn-";
         _turnName = _turnName + "$i";
@@ -185,17 +198,37 @@ class _GameScreenState extends  State<GameScreen>{
         }else {
           if (_playerTurn == "Player-1"){
             _firstPlayerTrumpRemain = _firstPlayerTrumpRemain - 1;
+            if (_pOneCounter == 0) //Icon Logic Player One
+              _pOneIcon4 = circle;
+            else
+              _pOneIcon5 = circle;
+            _pOneCounter = _pOneCounter + 1;
           } else if (_playerTurn == "Player-2"){
             _secondPlayerTrumpRemain = _secondPlayerTrumpRemain - 1;
+            if (_pTwoCounter == 0) //Icon Logic Player Two
+              _pTwoIcon4 = circle;
+            else
+              _pTwoIcon5 = circle;
+            _pTwoCounter = _pTwoCounter + 1;
           } else if (_playerTurn == "Player-3"){
             _thirdPlayerTrumpRemain = _thirdPlayerTrumpRemain - 1;
+            if (_pThreeCounter == 0) //Icon Logic Player Three
+              _pThreeIcon4 = circle;
+            else
+              _pThreeIcon5 = circle;
+            _pThreeCounter = _pThreeCounter + 1;
           } else if (_playerTurn == "Player-4"){
             _fourthPlayerTrumpRemain = _fourthPlayerTrumpRemain - 1;
+            if (_pFourCounter == 0) //Icon Logic Player Four
+              _pFourIcon4 = circle;
+            else
+              _pFourIcon5 = circle;
+            _pFourCounter = _pFourCounter + 1;
           }
         }
       }
-      _refreshFormData();
     }
+    _refreshFormData();
     setState(() {
       _playerOneBorderColor   = playerOneBorderColor;
       _playerTwoBorderColor   = playerTwoBorderColor;
@@ -994,8 +1027,8 @@ class _GameScreenState extends  State<GameScreen>{
                   new Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(circle_empty, size: 14, color: _headingV2),
-                      Icon(circle, size: 14, color: _headingV2)
+                      Icon(_pOneIcon4, size: 14, color: _headingV2),
+                      Icon(_pOneIcon5, size: 14, color: _headingV2)
                     ],
                   ),
                   SizedBox(width: 20),
@@ -1048,8 +1081,8 @@ class _GameScreenState extends  State<GameScreen>{
                   new Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(circle_empty, size: 14, color: _headingV2),
-                      Icon(circle, size: 14, color: _headingV2)
+                      Icon(_pTwoIcon4, size: 14, color: _headingV2),
+                      Icon(_pTwoIcon5, size: 14, color: _headingV2)
                     ],
                   ),
                   SizedBox(width: 20),
@@ -1102,8 +1135,8 @@ class _GameScreenState extends  State<GameScreen>{
                   new Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(circle_empty, size: 14, color: _headingV2),
-                      Icon(circle, size: 14, color: _headingV2)
+                      Icon(_pThreeIcon4, size: 14, color: _headingV2),
+                      Icon(_pThreeIcon5, size: 14, color: _headingV2)
                     ],
                   ),
                   SizedBox(width: 20),
@@ -1156,8 +1189,8 @@ class _GameScreenState extends  State<GameScreen>{
                   new Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(circle_empty, size: 14, color: _headingV2),
-                      Icon(circle, size: 14, color: _headingV2)
+                      Icon(_pFourIcon4, size: 14, color: _headingV2),
+                      Icon(_pFourIcon5, size: 14, color: _headingV2)
                     ],
                   ),
                   SizedBox(width: 20),
