@@ -22,6 +22,10 @@ class GameService {
     CacheService().setStringList(key, playerList);
   }
 
+  void setTurnDataList(String key, List<String> dataList) {
+    CacheService().setStringList(key, dataList);
+  }
+
   void setTurnData(String key, List<String> turnData) {
     CacheService().setStringList(key, turnData);
   }
@@ -42,6 +46,11 @@ class GameService {
   Future<List<String>> getPlayerNameList(String playerNumber) async {
     List<String> playerName = await CacheService().getStringList(playerNumber);
     return playerName;
+  }
+
+  Future<List<String>> getTurnDataList(String turn) async {
+    List<String> turnData = await CacheService().getStringList(turn);
+    return turnData;
   }
 
   Future<List<String>> getTurnData(String key) async {

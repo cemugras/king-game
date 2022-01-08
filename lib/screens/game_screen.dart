@@ -29,21 +29,21 @@ class _GameScreenState extends  State<GameScreen>{
   String _playerOneName = "Player-1", _playerTwoName = "Player-2", _playerThreeName = "Player-3", _playerFourName = "Player-4",
       _playerTurn = "Player-1",
       _playerOnePointName = "PointPlayer-1", _playerTwoPointName = "PointPlayer-2", _playerThreePointName = "PointPlayer-3", _playerFourPointName = "PointPlayer-4";
-  int _turn = 1;
+  int _turn = 1, _turnPrev = 1;
   double _playerOneBorderWidth = 1, _playerTwoBorderWidth = 1, _playerThreeBorderWidth = 1, _playerFourBorderWidth = 1,
       playerOneBorderWidth = 1, playerTwoBorderWidth = 1, playerThreeBorderWidth = 1, playerFourBorderWidth = 1;
 
   bool _firstRadio = true, _secondRadio = true, _thirdRadio = true, _fourthRadio = true, _fifthRadio = true, _sixthRadio = true, _seventhRadio = true;
 
   int _pointPlayerOne = 0, _pointPlayerTwo = 0, _pointPlayerThree = 0, _pointPlayerFour = 0,
-      pointPlayerOne = 0, pointPlayerTwo = 0, pointPlayerThree = 0, pointPlayerFour = 0;
+      _totalPointPlayerOne = 0, _totalPointPlayerTwo = 0, _totalPointPlayerThree = 0, _totalPointPlayerFour = 0;
   int _playerOneTrick = 0, _playerTwoTrick = 0, _playerThreeTrick = 0, _playerFourTrick = 0, _totalTrickCount = 0, _maxTrickCount = 0;
   int _noTricksMax = 2, _noManMax = 2, _noQueenMax = 2, _noHeartMax = 2, _noHeartKingMax = 2, _noLast2Max = 2,
       _noTricksRemain = 2, _noManRemain = 2, _noQueenRemain = 2, _noHeartRemain = 2, _noHeartKingRemain = 2, _noLast2Remain = 2,
       _firstPlayerTrumpMax = 2, _secondPlayerTrumpMax = 2, _thirdPlayerTrumpMax = 2, _fourthPlayerTrumpMax = 2,
       _firstPlayerTrumpRemain = 2, _secondPlayerTrumpRemain = 2, _thirdPlayerTrumpRemain = 2, _fourthPlayerTrumpRemain = 2;
 
-  String _selectedGame = "null",
+  String _selectedGame = "null", _turnName = "Turn-",
       _firstGameName = "noTricksTitle", _secondGameName = "noManTitle", _thirdGameName = "noQueenTitle", _fourthGameName = "noHeartTitle", _fifthGameName = "noHeartKingTitle", _sixthGameName = "noLast2Title", _seventhGameName = "trumpTitle";
 
   TextEditingController _playerOne = new TextEditingController();
@@ -103,11 +103,11 @@ class _GameScreenState extends  State<GameScreen>{
   void _refreshTurnData() async {
     _turn = await GameService().getTurnCount();
     String playerTurn = _getPlayerTurn();
-    _refreshFormData();
-    pointPlayerOne = await GameService().getPlayerTotalPoint(_playerOnePointName);
-    pointPlayerTwo = await GameService().getPlayerTotalPoint(_playerTwoPointName);
-    pointPlayerThree = await GameService().getPlayerTotalPoint(_playerThreePointName);
-    pointPlayerFour = await GameService().getPlayerTotalPoint(_playerFourPointName);
+    //_refreshFormData();
+    int _playerOnePoint = await GameService().getPlayerTotalPoint(_playerOnePointName);
+    int _playerTwoPoint = await GameService().getPlayerTotalPoint(_playerTwoPointName);
+    int _playerThreePoint = await GameService().getPlayerTotalPoint(_playerThreePointName);
+    int _playerFourPoint = await GameService().getPlayerTotalPoint(_playerFourPointName);
 
     if (playerTurn == "Player-1"){
       _playerTurn             = _playerOneName;
@@ -153,6 +153,49 @@ class _GameScreenState extends  State<GameScreen>{
       playerThreeBorderWidth  = 1;
       playerFourBorderWidth   = 3;
     }
+
+    if(_turn>1) {
+      _noTricksRemain = 2;
+      _noManRemain = 2;
+      _noQueenRemain = 2;
+      _noHeartRemain = 2;
+      _noHeartKingRemain = 2;
+      _noLast2Remain = 2;
+      _firstPlayerTrumpRemain = 2;
+      _secondPlayerTrumpRemain = 2;
+      _thirdPlayerTrumpRemain = 2;
+      _fourthPlayerTrumpRemain = 2;
+      for(int i=1; i<_turn; i++){
+        _turnName = "Turn-";
+        _turnName = _turnName + "$i";
+        List<String> dataList = await GameService().getTurnDataList(_turnName);
+        String _gameName = dataList[0];
+        if(_gameName == _firstGameName) {
+          _noTricksRemain = _noTricksRemain - 1;
+        }else if(_gameName == _secondGameName) {
+          _noManRemain = _noManRemain - 1;
+        }else if(_gameName == _thirdGameName) {
+          _noQueenRemain = _noQueenRemain - 1;
+        }else if(_gameName == _fourthGameName) {
+          _noHeartRemain = _noHeartRemain - 1;
+        }else if(_gameName == _fifthGameName) {
+          _noHeartKingRemain = _noHeartKingRemain - 1;
+        }else if(_gameName == _sixthGameName) {
+          _noLast2Remain = _noLast2Remain - 1;
+        }else {
+          if (_playerTurn == "Player-1"){
+            _firstPlayerTrumpRemain = _firstPlayerTrumpRemain - 1;
+          } else if (_playerTurn == "Player-2"){
+            _secondPlayerTrumpRemain = _secondPlayerTrumpRemain - 1;
+          } else if (_playerTurn == "Player-3"){
+            _thirdPlayerTrumpRemain = _thirdPlayerTrumpRemain - 1;
+          } else if (_playerTurn == "Player-4"){
+            _fourthPlayerTrumpRemain = _fourthPlayerTrumpRemain - 1;
+          }
+        }
+      }
+      _refreshFormData();
+    }
     setState(() {
       _playerOneBorderColor   = playerOneBorderColor;
       _playerTwoBorderColor   = playerTwoBorderColor;
@@ -163,10 +206,10 @@ class _GameScreenState extends  State<GameScreen>{
       _playerThreeBorderWidth = playerThreeBorderWidth;
       _playerFourBorderWidth  = playerFourBorderWidth;
 
-      _pointPlayerOne = pointPlayerOne;
-      _pointPlayerTwo = pointPlayerTwo;
-      _pointPlayerThree = pointPlayerThree;
-      _pointPlayerFour = pointPlayerFour;
+      _totalPointPlayerOne = _playerOnePoint;
+      _totalPointPlayerTwo = _playerTwoPoint;
+      _totalPointPlayerThree = _playerThreePoint;
+      _totalPointPlayerFour = _playerFourPoint;
 
     });
   }
@@ -199,8 +242,10 @@ class _GameScreenState extends  State<GameScreen>{
                                 borderRadius: BorderRadius.circular(40),
                                 onTap: () {
                                   setState(() {
-                                    if(_firstRadio)
+                                    if(_firstRadio){
                                       _selectedRadio = RadioButtons.firstRadio;
+                                      _selectedGame = _firstGameName;
+                                    }
                                   });
                                 },
                                 child: Text(ContentService().getContent(_language, "noTricksTitle"))),
@@ -223,8 +268,10 @@ class _GameScreenState extends  State<GameScreen>{
                                 borderRadius: BorderRadius.circular(40),
                                 onTap: () {
                                   setState(() {
-                                    if(_secondRadio)
+                                    if(_secondRadio){
                                       _selectedRadio = RadioButtons.secondRadio;
+                                      _selectedGame = _secondGameName;
+                                    }
                                   });
                                 },
                                 child: Text(ContentService().getContent(_language, "noManTitle"))),
@@ -237,7 +284,6 @@ class _GameScreenState extends  State<GameScreen>{
                                     _selectedRadio = value!;
                                     _selectedGame = _secondGameName;
                                   }
-
                                 });
                               },
                             ),
@@ -248,8 +294,10 @@ class _GameScreenState extends  State<GameScreen>{
                                 borderRadius: BorderRadius.circular(40),
                                 onTap: () {
                                   setState(() {
-                                    if(_thirdRadio)
+                                    if(_thirdRadio){
                                       _selectedRadio = RadioButtons.thirdRadio;
+                                      _selectedGame = _thirdGameName;
+                                    }
                                   });
                                 },
                                 child: Text(ContentService().getContent(_language, "noQueenTitle"))),
@@ -272,8 +320,10 @@ class _GameScreenState extends  State<GameScreen>{
                                 borderRadius: BorderRadius.circular(40),
                                 onTap: () {
                                   setState(() {
-                                    if(_fourthRadio)
+                                    if(_fourthRadio){
                                       _selectedRadio = RadioButtons.fourthRadio;
+                                      _selectedGame = _fourthGameName;
+                                    }
                                   });
                                 },
                                 child: Text(ContentService().getContent(_language, "noHeartTitle"))),
@@ -296,8 +346,10 @@ class _GameScreenState extends  State<GameScreen>{
                                 borderRadius: BorderRadius.circular(40),
                                 onTap: () {
                                   setState(() {
-                                    if(_fifthRadio)
+                                    if(_fifthRadio){
                                       _selectedRadio = RadioButtons.fifthRadio;
+                                      _selectedGame = _fifthGameName;
+                                    }
                                   });
                                 },
                                 child: Text(ContentService().getContent(_language, "noHeartKingTitle"))),
@@ -320,8 +372,10 @@ class _GameScreenState extends  State<GameScreen>{
                                 borderRadius: BorderRadius.circular(40),
                                 onTap: () {
                                   setState(() {
-                                    if(_sixthRadio)
+                                    if(_sixthRadio){
                                       _selectedRadio = RadioButtons.sixthRadio;
+                                      _selectedGame = _sixthGameName;
+                                    }
                                   });
                                 },
                                 child: Text(ContentService().getContent(_language, "noLast2Title"))),
@@ -344,8 +398,10 @@ class _GameScreenState extends  State<GameScreen>{
                                 borderRadius: BorderRadius.circular(40),
                                 onTap: () {
                                   setState(() {
-                                    if(_seventhRadio)
+                                    if(_seventhRadio){
                                       _selectedRadio = RadioButtons.seventhRadio;
+                                      _selectedGame = _seventhGameName;
+                                    }
                                   });
                                 },
                                 child: Text(ContentService().getContent(_language, "trumpTitle"))),
@@ -755,6 +811,7 @@ class _GameScreenState extends  State<GameScreen>{
   }
 
   void _resetGameFormText() async {
+    //_selectedRadio = RadioButtons.nullRadio;
     _playerOne.text='';
     _playerTwo.text='';
     _playerThree.text='';
@@ -767,47 +824,52 @@ class _GameScreenState extends  State<GameScreen>{
 
   void _insertPlayerPoints() async {
     setState(() {
+      _pointPlayerOne     = 0;
+      _pointPlayerTwo     = 0;
+      _pointPlayerThree   = 0;
+      _pointPlayerFour    = 0;
       if(_selectedGame == _firstGameName) {
-        _pointPlayerOne     = _pointPlayerOne       + (_playerOneTrick    * Constants.POINT_NO_TRICKS);
-        _pointPlayerTwo     = _pointPlayerTwo       + (_playerTwoTrick    * Constants.POINT_NO_TRICKS);
-        _pointPlayerThree   = _pointPlayerThree     + (_playerThreeTrick  * Constants.POINT_NO_TRICKS);
-        _pointPlayerFour    = _pointPlayerFour      + (_playerFourTrick   * Constants.POINT_NO_TRICKS);
-        _noTricksRemain = _noTricksRemain - 1;
+        _pointPlayerOne   = _playerOneTrick    * Constants.POINT_NO_TRICKS;
+        _pointPlayerTwo   = _playerTwoTrick    * Constants.POINT_NO_TRICKS;
+        _pointPlayerThree = _playerThreeTrick  * Constants.POINT_NO_TRICKS;
+        _pointPlayerFour  = _playerFourTrick   * Constants.POINT_NO_TRICKS;
+        //_noTricksRemain = _noTricksRemain - 1;
       }else if(_selectedGame == _secondGameName) {
-        _pointPlayerOne     = _pointPlayerOne       + (_playerOneTrick    * Constants.POINT_NO_MAN);
-        _pointPlayerTwo     = _pointPlayerTwo       + (_playerTwoTrick    * Constants.POINT_NO_MAN);
-        _pointPlayerThree   = _pointPlayerThree     + (_playerThreeTrick  * Constants.POINT_NO_MAN);
-        _pointPlayerFour    = _pointPlayerFour      + (_playerFourTrick   * Constants.POINT_NO_MAN);
-        _noManRemain = _noManRemain - 1;
+        _pointPlayerOne   = _playerOneTrick    * Constants.POINT_NO_MAN;
+        _pointPlayerTwo   = _playerTwoTrick    * Constants.POINT_NO_MAN;
+        _pointPlayerThree = _playerThreeTrick  * Constants.POINT_NO_MAN;
+        _pointPlayerFour  = _playerFourTrick   * Constants.POINT_NO_MAN;
+        //_noManRemain = _noManRemain - 1;
       }else if(_selectedGame == _thirdGameName) {
-        _pointPlayerOne     = _pointPlayerOne       + (_playerOneTrick    * Constants.POINT_NO_QUEEN);
-        _pointPlayerTwo     = _pointPlayerTwo       + (_playerTwoTrick    * Constants.POINT_NO_QUEEN);
-        _pointPlayerThree   = _pointPlayerThree     + (_playerThreeTrick  * Constants.POINT_NO_QUEEN);
-        _pointPlayerFour    = _pointPlayerFour      + (_playerFourTrick   * Constants.POINT_NO_QUEEN);
-        _noQueenRemain = _noQueenRemain - 1;
+        _pointPlayerOne   = _playerOneTrick    * Constants.POINT_NO_QUEEN;
+        _pointPlayerTwo   = _playerTwoTrick    * Constants.POINT_NO_QUEEN;
+        _pointPlayerThree = _playerThreeTrick  * Constants.POINT_NO_QUEEN;
+        _pointPlayerFour  = _playerFourTrick   * Constants.POINT_NO_QUEEN;
+        //_noQueenRemain = _noQueenRemain - 1;
       }else if(_selectedGame == _fourthGameName) {
-        _pointPlayerOne     = _pointPlayerOne       + (_playerOneTrick    * Constants.POINT_NO_HEART);
-        _pointPlayerTwo     = _pointPlayerTwo       + (_playerTwoTrick    * Constants.POINT_NO_HEART);
-        _pointPlayerThree   = _pointPlayerThree     + (_playerThreeTrick  * Constants.POINT_NO_HEART);
-        _pointPlayerFour    = _pointPlayerFour      + (_playerFourTrick   * Constants.POINT_NO_HEART);
-        _noHeartRemain = _noHeartRemain - 1;
+        _pointPlayerOne   = _playerOneTrick    * Constants.POINT_NO_HEART;
+        _pointPlayerTwo   = _playerTwoTrick    * Constants.POINT_NO_HEART;
+        _pointPlayerThree = _playerThreeTrick  * Constants.POINT_NO_HEART;
+        _pointPlayerFour  = _playerFourTrick   * Constants.POINT_NO_HEART;
+        //_noHeartRemain = _noHeartRemain - 1;
       }else if(_selectedGame == _fifthGameName) {
-        _pointPlayerOne     = _pointPlayerOne       + (_playerOneTrick    * Constants.POINT_NO_HEART_KING);
-        _pointPlayerTwo     = _pointPlayerTwo       + (_playerTwoTrick    * Constants.POINT_NO_HEART_KING);
-        _pointPlayerThree   = _pointPlayerThree     + (_playerThreeTrick  * Constants.POINT_NO_HEART_KING);
-        _pointPlayerFour    = _pointPlayerFour      + (_playerFourTrick   * Constants.POINT_NO_HEART_KING);
-        _noHeartKingRemain = _noHeartKingRemain - 1;
+        _pointPlayerOne   = _playerOneTrick    * Constants.POINT_NO_HEART_KING;
+        _pointPlayerTwo   = _playerTwoTrick    * Constants.POINT_NO_HEART_KING;
+        _pointPlayerThree = _playerThreeTrick  * Constants.POINT_NO_HEART_KING;
+        _pointPlayerFour  = _playerFourTrick   * Constants.POINT_NO_HEART_KING;
+        //_noHeartKingRemain = _noHeartKingRemain - 1;
       }else if(_selectedGame == _sixthGameName) {
-        _pointPlayerOne     = _pointPlayerOne       + (_playerOneTrick    * Constants.POINT_NO_LAST_2);
-        _pointPlayerTwo     = _pointPlayerTwo       + (_playerTwoTrick    * Constants.POINT_NO_LAST_2);
-        _pointPlayerThree   = _pointPlayerThree     + (_playerThreeTrick  * Constants.POINT_NO_LAST_2);
-        _pointPlayerFour    = _pointPlayerFour      + (_playerFourTrick   * Constants.POINT_NO_LAST_2);
+        _pointPlayerOne   = _playerOneTrick    * Constants.POINT_NO_LAST_2;
+        _pointPlayerTwo   = _playerTwoTrick    * Constants.POINT_NO_LAST_2;
+        _pointPlayerThree = _playerThreeTrick  * Constants.POINT_NO_LAST_2;
+        _pointPlayerFour  = _playerFourTrick   * Constants.POINT_NO_LAST_2;
+        _noLast2Remain = _noLast2Remain - 1;
       }else {
-        _pointPlayerOne     = _pointPlayerOne       + (_playerOneTrick    * Constants.POINT_TRUMP);
-        _pointPlayerTwo     = _pointPlayerTwo       + (_playerTwoTrick    * Constants.POINT_TRUMP);
-        _pointPlayerThree   = _pointPlayerThree     + (_playerThreeTrick  * Constants.POINT_TRUMP);
-        _pointPlayerFour    = _pointPlayerFour      + (_playerFourTrick   * Constants.POINT_TRUMP);
-        if (_playerTurn == "Player-1"){
+        _pointPlayerOne   = _playerOneTrick    * Constants.POINT_TRUMP;
+        _pointPlayerTwo   = _playerTwoTrick    * Constants.POINT_TRUMP;
+        _pointPlayerThree = _playerThreeTrick  * Constants.POINT_TRUMP;
+        _pointPlayerFour  = _playerFourTrick   * Constants.POINT_TRUMP;
+        /*if (_playerTurn == "Player-1"){
           _firstPlayerTrumpRemain = _firstPlayerTrumpRemain - 1;
         } else if (_playerTurn == "Player-2"){
           _secondPlayerTrumpRemain = _secondPlayerTrumpRemain - 1;
@@ -815,14 +877,24 @@ class _GameScreenState extends  State<GameScreen>{
           _secondPlayerTrumpRemain = _secondPlayerTrumpRemain - 1;
         } else if (_playerTurn == "Player-4"){
           _secondPlayerTrumpRemain = _secondPlayerTrumpRemain - 1;
-        }
+        }*/
       }
+      _totalPointPlayerOne     = _totalPointPlayerOne       + _pointPlayerOne;
+      _totalPointPlayerTwo     = _totalPointPlayerTwo       + _pointPlayerTwo;
+      _totalPointPlayerThree   = _totalPointPlayerThree     + _pointPlayerThree;
+      _totalPointPlayerFour    = _totalPointPlayerFour      + _pointPlayerFour;
+
+      _turnName = "Turn-";
+      _turnName = _turnName + "$_turn";
+      List<String> dataList = [_selectedGame, _pointPlayerOne.toString(), _pointPlayerTwo.toString(), _pointPlayerThree.toString(), _pointPlayerFour.toString()];
+      GameService().setTurnData(_turnName, dataList);
+
       _turn = _turn + 1;
       GameService().setTurnCount(_turn);
-      GameService().setPlayerTotalPoint(_playerOnePointName, _pointPlayerOne);
-      GameService().setPlayerTotalPoint(_playerTwoPointName, _pointPlayerTwo);
-      GameService().setPlayerTotalPoint(_playerThreePointName, _pointPlayerThree);
-      GameService().setPlayerTotalPoint(_playerFourPointName, _pointPlayerFour);
+      GameService().setPlayerTotalPoint(_playerOnePointName, _totalPointPlayerOne);
+      GameService().setPlayerTotalPoint(_playerTwoPointName, _totalPointPlayerTwo);
+      GameService().setPlayerTotalPoint(_playerThreePointName, _totalPointPlayerThree);
+      GameService().setPlayerTotalPoint(_playerFourPointName, _totalPointPlayerFour);
     });
   }
 
@@ -938,7 +1010,7 @@ class _GameScreenState extends  State<GameScreen>{
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: Text(
-                        _pointPlayerOne.toString(),
+                        _totalPointPlayerOne.toString(),
                         textAlign: TextAlign.start,
                         style: TextStyle(
                           color: _text,
@@ -992,7 +1064,7 @@ class _GameScreenState extends  State<GameScreen>{
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: Text(
-                        _pointPlayerTwo.toString(),
+                        _totalPointPlayerTwo.toString(),
                         textAlign: TextAlign.start,
                         style: TextStyle(
                           color: _text,
@@ -1046,7 +1118,7 @@ class _GameScreenState extends  State<GameScreen>{
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: Text(
-                        _pointPlayerThree.toString(),
+                        _totalPointPlayerThree.toString(),
                         textAlign: TextAlign.start,
                         style: TextStyle(
                           color: _text,
@@ -1100,7 +1172,7 @@ class _GameScreenState extends  State<GameScreen>{
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: Text(
-                        _pointPlayerFour.toString(),
+                        _totalPointPlayerFour.toString(),
                         textAlign: TextAlign.start,
                         style: TextStyle(
                           color: _text,
@@ -1176,7 +1248,7 @@ class _GameScreenState extends  State<GameScreen>{
                         ),
                       ),
                       Text(
-                        _pointPlayerOne.toString(),
+                        _totalPointPlayerOne.toString(),
                         style: TextStyle(
                           color: _text,
                           fontWeight: FontWeight.bold,
@@ -1200,7 +1272,7 @@ class _GameScreenState extends  State<GameScreen>{
                         ),
                       ),
                       Text(
-                        _pointPlayerTwo.toString(),
+                        _totalPointPlayerTwo.toString(),
                         style: TextStyle(
                           color: _text,
                           fontWeight: FontWeight.bold,
@@ -1224,7 +1296,7 @@ class _GameScreenState extends  State<GameScreen>{
                         ),
                       ),
                       Text(
-                        _pointPlayerThree.toString(),
+                        _totalPointPlayerThree.toString(),
                         style: TextStyle(
                           color: _text,
                           fontWeight: FontWeight.bold,
@@ -1248,7 +1320,7 @@ class _GameScreenState extends  State<GameScreen>{
                         ),
                       ),
                       Text(
-                        _pointPlayerFour.toString(),
+                        _totalPointPlayerFour.toString(),
                         style: TextStyle(
                           color: _text,
                           fontWeight: FontWeight.bold,
