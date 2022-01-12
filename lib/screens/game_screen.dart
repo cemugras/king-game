@@ -108,7 +108,6 @@ class _GameScreenState extends  State<GameScreen>{
   void _refreshTurnData() async {
     _turn = await GameService().getTurnCount();
     String playerTurn = _getPlayerTurn();
-    //_refreshFormData();
     int _playerOnePoint = await GameService().getPlayerTotalPoint(_playerOnePointName);
     int _playerTwoPoint = await GameService().getPlayerTotalPoint(_playerTwoPointName);
     int _playerThreePoint = await GameService().getPlayerTotalPoint(_playerThreePointName);
@@ -183,41 +182,258 @@ class _GameScreenState extends  State<GameScreen>{
         _turnName = _turnName + "$i";
         List<String> dataList = await GameService().getTurnDataList(_turnName);
         String _gameName = dataList[0];
+        String _player = dataList[5];
         if(_gameName == _firstGameName) {
+          if (_player == "Player-1"){ //Icon Logic Player One
+            if (_pOneRedCounter == 0)
+              _pOneIcon1 = circle;
+            else if (_pOneRedCounter == 1)
+              _pOneIcon2 = circle;
+            else
+              _pOneIcon3 = circle;
+            _pOneRedCounter = _pOneRedCounter + 1;
+          }
+          if (_player == "Player-2"){ //Icon Logic Player Two
+            if (_pTwoRedCounter == 0)
+              _pTwoIcon1 = circle;
+            else if (_pTwoRedCounter == 1)
+              _pTwoIcon2 = circle;
+            else
+              _pTwoIcon3 = circle;
+            _pTwoRedCounter = _pTwoRedCounter + 1;
+          }
+          if (_player == "Player-3"){ //Icon Logic Player One
+            if (_pThreeRedCounter == 0)
+              _pThreeIcon1 = circle;
+            else if (_pThreeRedCounter == 1)
+              _pThreeIcon2 = circle;
+            else
+              _pThreeIcon3 = circle;
+            _pThreeRedCounter = _pThreeRedCounter + 1;
+          }
+          if (_player == "Player-4"){ //Icon Logic Player One
+            if (_pFourRedCounter == 0)
+              _pFourIcon1 = circle;
+            else if (_pFourRedCounter == 1)
+              _pFourIcon2 = circle;
+            else
+              _pFourIcon3 = circle;
+            _pFourRedCounter = _pFourRedCounter + 1;
+          }
           _noTricksRemain = _noTricksRemain - 1;
         }else if(_gameName == _secondGameName) {
+          if (_player == "Player-1"){ //Icon Logic Player One
+            if (_pOneRedCounter == 0)
+              _pOneIcon1 = circle;
+            else if (_pOneRedCounter == 1)
+              _pOneIcon2 = circle;
+            else
+              _pOneIcon3 = circle;
+            _pOneRedCounter = _pOneRedCounter + 1;
+          }
+          if (_player == "Player-2"){ //Icon Logic Player Two
+            if (_pTwoRedCounter == 0)
+              _pTwoIcon1 = circle;
+            else if (_pTwoRedCounter == 1)
+              _pTwoIcon2 = circle;
+            else
+              _pTwoIcon3 = circle;
+            _pTwoRedCounter = _pTwoRedCounter + 1;
+          }
+          if (_player == "Player-3"){ //Icon Logic Player One
+            if (_pThreeRedCounter == 0)
+              _pThreeIcon1 = circle;
+            else if (_pThreeRedCounter == 1)
+              _pThreeIcon2 = circle;
+            else
+              _pThreeIcon3 = circle;
+            _pThreeRedCounter = _pThreeRedCounter + 1;
+          }
+          if (_player == "Player-4"){ //Icon Logic Player One
+            if (_pFourRedCounter == 0)
+              _pFourIcon1 = circle;
+            else if (_pFourRedCounter == 1)
+              _pFourIcon2 = circle;
+            else
+              _pFourIcon3 = circle;
+            _pFourRedCounter = _pFourRedCounter + 1;
+          }
           _noManRemain = _noManRemain - 1;
         }else if(_gameName == _thirdGameName) {
+          if (_player == "Player-1"){ //Icon Logic Player One
+            if (_pOneRedCounter == 0)
+              _pOneIcon1 = circle;
+            else if (_pOneRedCounter == 1)
+              _pOneIcon2 = circle;
+            else
+              _pOneIcon3 = circle;
+            _pOneRedCounter = _pOneRedCounter + 1;
+          }
+          if (_player == "Player-2"){ //Icon Logic Player Two
+            if (_pTwoRedCounter == 0)
+              _pTwoIcon1 = circle;
+            else if (_pTwoRedCounter == 1)
+              _pTwoIcon2 = circle;
+            else
+              _pTwoIcon3 = circle;
+            _pTwoRedCounter = _pTwoRedCounter + 1;
+          }
+          if (_player == "Player-3"){ //Icon Logic Player One
+            if (_pThreeRedCounter == 0)
+              _pThreeIcon1 = circle;
+            else if (_pThreeRedCounter == 1)
+              _pThreeIcon2 = circle;
+            else
+              _pThreeIcon3 = circle;
+            _pThreeRedCounter = _pThreeRedCounter + 1;
+          }
+          if (_player == "Player-4"){ //Icon Logic Player One
+            if (_pFourRedCounter == 0)
+              _pFourIcon1 = circle;
+            else if (_pFourRedCounter == 1)
+              _pFourIcon2 = circle;
+            else
+              _pFourIcon3 = circle;
+            _pFourRedCounter = _pFourRedCounter + 1;
+          }
           _noQueenRemain = _noQueenRemain - 1;
         }else if(_gameName == _fourthGameName) {
+          if (_player == "Player-1"){ //Icon Logic Player One
+            if (_pOneRedCounter == 0)
+              _pOneIcon1 = circle;
+            else if (_pOneRedCounter == 1)
+              _pOneIcon2 = circle;
+            else
+              _pOneIcon3 = circle;
+            _pOneRedCounter = _pOneRedCounter + 1;
+          }
+          if (_player == "Player-2"){ //Icon Logic Player Two
+            if (_pTwoRedCounter == 0)
+              _pTwoIcon1 = circle;
+            else if (_pTwoRedCounter == 1)
+              _pTwoIcon2 = circle;
+            else
+              _pTwoIcon3 = circle;
+            _pTwoRedCounter = _pTwoRedCounter + 1;
+          }
+          if (_player == "Player-3"){ //Icon Logic Player One
+            if (_pThreeRedCounter == 0)
+              _pThreeIcon1 = circle;
+            else if (_pThreeRedCounter == 1)
+              _pThreeIcon2 = circle;
+            else
+              _pThreeIcon3 = circle;
+            _pThreeRedCounter = _pThreeRedCounter + 1;
+          }
+          if (_player == "Player-4"){ //Icon Logic Player One
+            if (_pFourRedCounter == 0)
+              _pFourIcon1 = circle;
+            else if (_pFourRedCounter == 1)
+              _pFourIcon2 = circle;
+            else
+              _pFourIcon3 = circle;
+            _pFourRedCounter = _pFourRedCounter + 1;
+          }
           _noHeartRemain = _noHeartRemain - 1;
         }else if(_gameName == _fifthGameName) {
+          if (_player == "Player-1"){ //Icon Logic Player One
+            if (_pOneRedCounter == 0)
+              _pOneIcon1 = circle;
+            else if (_pOneRedCounter == 1)
+              _pOneIcon2 = circle;
+            else
+              _pOneIcon3 = circle;
+            _pOneRedCounter = _pOneRedCounter + 1;
+          }
+          if (_player == "Player-2"){ //Icon Logic Player Two
+            if (_pTwoRedCounter == 0)
+              _pTwoIcon1 = circle;
+            else if (_pTwoRedCounter == 1)
+              _pTwoIcon2 = circle;
+            else
+              _pTwoIcon3 = circle;
+            _pTwoRedCounter = _pTwoRedCounter + 1;
+          }
+          if (_player == "Player-3"){ //Icon Logic Player One
+            if (_pThreeRedCounter == 0)
+              _pThreeIcon1 = circle;
+            else if (_pThreeRedCounter == 1)
+              _pThreeIcon2 = circle;
+            else
+              _pThreeIcon3 = circle;
+            _pThreeRedCounter = _pThreeRedCounter + 1;
+          }
+          if (_player == "Player-4"){ //Icon Logic Player One
+            if (_pFourRedCounter == 0)
+              _pFourIcon1 = circle;
+            else if (_pFourRedCounter == 1)
+              _pFourIcon2 = circle;
+            else
+              _pFourIcon3 = circle;
+            _pFourRedCounter = _pFourRedCounter + 1;
+          }
           _noHeartKingRemain = _noHeartKingRemain - 1;
         }else if(_gameName == _sixthGameName) {
+          if (_player == "Player-1"){ //Icon Logic Player One
+            if (_pOneRedCounter == 0)
+              _pOneIcon1 = circle;
+            else if (_pOneRedCounter == 1)
+              _pOneIcon2 = circle;
+            else
+              _pOneIcon3 = circle;
+            _pOneRedCounter = _pOneRedCounter + 1;
+          }
+          if (_player == "Player-2"){ //Icon Logic Player Two
+            if (_pTwoRedCounter == 0)
+              _pTwoIcon1 = circle;
+            else if (_pTwoRedCounter == 1)
+              _pTwoIcon2 = circle;
+            else
+              _pTwoIcon3 = circle;
+            _pTwoRedCounter = _pTwoRedCounter + 1;
+          }
+          if (_player == "Player-3"){ //Icon Logic Player One
+            if (_pThreeRedCounter == 0)
+              _pThreeIcon1 = circle;
+            else if (_pThreeRedCounter == 1)
+              _pThreeIcon2 = circle;
+            else
+              _pThreeIcon3 = circle;
+            _pThreeRedCounter = _pThreeRedCounter + 1;
+          }
+          if (_player == "Player-4"){ //Icon Logic Player One
+            if (_pFourRedCounter == 0)
+              _pFourIcon1 = circle;
+            else if (_pFourRedCounter == 1)
+              _pFourIcon2 = circle;
+            else
+              _pFourIcon3 = circle;
+            _pFourRedCounter = _pFourRedCounter + 1;
+          }
           _noLast2Remain = _noLast2Remain - 1;
         }else {
-          if (_playerTurn == "Player-1"){
+          if (_player == "Player-1"){
             _firstPlayerTrumpRemain = _firstPlayerTrumpRemain - 1;
             if (_pOneCounter == 0) //Icon Logic Player One
               _pOneIcon4 = circle;
             else
               _pOneIcon5 = circle;
             _pOneCounter = _pOneCounter + 1;
-          } else if (_playerTurn == "Player-2"){
+          } else if (_player == "Player-2"){
             _secondPlayerTrumpRemain = _secondPlayerTrumpRemain - 1;
             if (_pTwoCounter == 0) //Icon Logic Player Two
               _pTwoIcon4 = circle;
             else
               _pTwoIcon5 = circle;
             _pTwoCounter = _pTwoCounter + 1;
-          } else if (_playerTurn == "Player-3"){
+          } else if (_player == "Player-3"){
             _thirdPlayerTrumpRemain = _thirdPlayerTrumpRemain - 1;
             if (_pThreeCounter == 0) //Icon Logic Player Three
               _pThreeIcon4 = circle;
             else
               _pThreeIcon5 = circle;
             _pThreeCounter = _pThreeCounter + 1;
-          } else if (_playerTurn == "Player-4"){
+          } else if (_player == "Player-4"){
             _fourthPlayerTrumpRemain = _fourthPlayerTrumpRemain - 1;
             if (_pFourCounter == 0) //Icon Logic Player Four
               _pFourIcon4 = circle;
@@ -785,7 +1001,7 @@ class _GameScreenState extends  State<GameScreen>{
                                     elevation: 0
                                 ),
                                 onPressed: () {
-                                  if(_selectedRadio != RadioButtons.nullRadio){
+                                  if(_totalTrickCount == _maxTrickCount && _selectedRadio != RadioButtons.nullRadio){
                                     Navigator.of(context).pop();
                                     _insertPlayerPoints();
                                     _resetGameFormText();
@@ -866,31 +1082,26 @@ class _GameScreenState extends  State<GameScreen>{
         _pointPlayerTwo   = _playerTwoTrick    * Constants.POINT_NO_TRICKS;
         _pointPlayerThree = _playerThreeTrick  * Constants.POINT_NO_TRICKS;
         _pointPlayerFour  = _playerFourTrick   * Constants.POINT_NO_TRICKS;
-        //_noTricksRemain = _noTricksRemain - 1;
       }else if(_selectedGame == _secondGameName) {
         _pointPlayerOne   = _playerOneTrick    * Constants.POINT_NO_MAN;
         _pointPlayerTwo   = _playerTwoTrick    * Constants.POINT_NO_MAN;
         _pointPlayerThree = _playerThreeTrick  * Constants.POINT_NO_MAN;
         _pointPlayerFour  = _playerFourTrick   * Constants.POINT_NO_MAN;
-        //_noManRemain = _noManRemain - 1;
       }else if(_selectedGame == _thirdGameName) {
         _pointPlayerOne   = _playerOneTrick    * Constants.POINT_NO_QUEEN;
         _pointPlayerTwo   = _playerTwoTrick    * Constants.POINT_NO_QUEEN;
         _pointPlayerThree = _playerThreeTrick  * Constants.POINT_NO_QUEEN;
         _pointPlayerFour  = _playerFourTrick   * Constants.POINT_NO_QUEEN;
-        //_noQueenRemain = _noQueenRemain - 1;
       }else if(_selectedGame == _fourthGameName) {
         _pointPlayerOne   = _playerOneTrick    * Constants.POINT_NO_HEART;
         _pointPlayerTwo   = _playerTwoTrick    * Constants.POINT_NO_HEART;
         _pointPlayerThree = _playerThreeTrick  * Constants.POINT_NO_HEART;
         _pointPlayerFour  = _playerFourTrick   * Constants.POINT_NO_HEART;
-        //_noHeartRemain = _noHeartRemain - 1;
       }else if(_selectedGame == _fifthGameName) {
         _pointPlayerOne   = _playerOneTrick    * Constants.POINT_NO_HEART_KING;
         _pointPlayerTwo   = _playerTwoTrick    * Constants.POINT_NO_HEART_KING;
         _pointPlayerThree = _playerThreeTrick  * Constants.POINT_NO_HEART_KING;
         _pointPlayerFour  = _playerFourTrick   * Constants.POINT_NO_HEART_KING;
-        //_noHeartKingRemain = _noHeartKingRemain - 1;
       }else if(_selectedGame == _sixthGameName) {
         _pointPlayerOne   = _playerOneTrick    * Constants.POINT_NO_LAST_2;
         _pointPlayerTwo   = _playerTwoTrick    * Constants.POINT_NO_LAST_2;
@@ -919,7 +1130,7 @@ class _GameScreenState extends  State<GameScreen>{
 
       _turnName = "Turn-";
       _turnName = _turnName + "$_turn";
-      List<String> dataList = [_selectedGame, _pointPlayerOne.toString(), _pointPlayerTwo.toString(), _pointPlayerThree.toString(), _pointPlayerFour.toString()];
+      List<String> dataList = [_selectedGame, _pointPlayerOne.toString(), _pointPlayerTwo.toString(), _pointPlayerThree.toString(), _pointPlayerFour.toString(),_playerTurn];
       GameService().setTurnData(_turnName, dataList);
 
       _turn = _turn + 1;
@@ -1019,9 +1230,9 @@ class _GameScreenState extends  State<GameScreen>{
                   new Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(circle_empty, size: 14, color: Colors.red),
-                      Icon(circle_empty, size: 14, color: Colors.red),
-                      Icon(circle, size: 14, color: Colors.red)
+                      Icon(_pOneIcon1, size: 14, color: Colors.red),
+                      Icon(_pOneIcon2, size: 14, color: Colors.red),
+                      Icon(_pOneIcon3, size: 14, color: Colors.red)
                     ],
                   ),
                   new Column(
@@ -1073,9 +1284,9 @@ class _GameScreenState extends  State<GameScreen>{
                   new Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(circle_empty, size: 14, color: Colors.red),
-                      Icon(circle_empty, size: 14, color: Colors.red),
-                      Icon(circle, size: 14, color: Colors.red)
+                      Icon(_pTwoIcon1, size: 14, color: Colors.red),
+                      Icon(_pTwoIcon2, size: 14, color: Colors.red),
+                      Icon(_pTwoIcon3, size: 14, color: Colors.red)
                     ],
                   ),
                   new Column(
@@ -1127,9 +1338,9 @@ class _GameScreenState extends  State<GameScreen>{
                   new Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(circle_empty, size: 14, color: Colors.red),
-                      Icon(circle_empty, size: 14, color: Colors.red),
-                      Icon(circle, size: 14, color: Colors.red)
+                      Icon(_pThreeIcon1, size: 14, color: Colors.red),
+                      Icon(_pThreeIcon2, size: 14, color: Colors.red),
+                      Icon(_pThreeIcon3, size: 14, color: Colors.red)
                     ],
                   ),
                   new Column(
@@ -1181,9 +1392,9 @@ class _GameScreenState extends  State<GameScreen>{
                   new Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(circle_empty, size: 14, color: Colors.red),
-                      Icon(circle_empty, size: 14, color: Colors.red),
-                      Icon(circle, size: 14, color: Colors.red)
+                      Icon(_pFourIcon1, size: 14, color: Colors.red),
+                      Icon(_pFourIcon2, size: 14, color: Colors.red),
+                      Icon(_pFourIcon3, size: 14, color: Colors.red)
                     ],
                   ),
                   new Column(
