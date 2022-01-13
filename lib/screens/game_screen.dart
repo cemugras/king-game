@@ -1025,6 +1025,7 @@ class _GameScreenState extends  State<GameScreen>{
 
   void _refreshFormData() async {
     _selectedRadio = RadioButtons.nullRadio;
+    _setRadios(true);
     if(_turn < 5)
       _seventhRadio = false;
     else
@@ -1044,19 +1045,40 @@ class _GameScreenState extends  State<GameScreen>{
     if (_playerTurn == "Player-1"){
       if(_firstPlayerTrumpRemain == 0)
         _seventhRadio = false;
+      if(_pOneIcon3 == circle){
+        _setRadios(false);
+      }
     }
     else if (_playerTurn == "Player-2"){
       if(_secondPlayerTrumpRemain == 0)
         _seventhRadio = false;
+      if(_pTwoIcon3 == circle){
+        _setRadios(false);
+      }
     }
     else if (_playerTurn == "Player-3"){
       if(_thirdPlayerTrumpRemain == 0)
         _seventhRadio = false;
+      if(_pThreeIcon3 == circle){
+        _setRadios(false);
+      }
     }
     else if (_playerTurn == "Player-4"){
       if(_fourthPlayerTrumpRemain == 0)
         _seventhRadio = false;
+      if(_pFourIcon3 == circle){
+        _setRadios(false);
+      }
     }
+  }
+
+  void _setRadios(bool value) {
+    _firstRadio = value;
+    _secondRadio = value;
+    _thirdRadio = value;
+    _fourthRadio = value;
+    _fifthRadio = value;
+    _sixthRadio = value;
   }
 
   void _resetGameFormText() async {
