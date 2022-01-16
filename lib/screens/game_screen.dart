@@ -33,7 +33,8 @@ class _GameScreenState extends  State<GameScreen>{
   double _playerOneBorderWidth = 1, _playerTwoBorderWidth = 1, _playerThreeBorderWidth = 1, _playerFourBorderWidth = 1,
       playerOneBorderWidth = 1, playerTwoBorderWidth = 1, playerThreeBorderWidth = 1, playerFourBorderWidth = 1;
 
-  bool _firstRadio = true, _secondRadio = true, _thirdRadio = true, _fourthRadio = true, _fifthRadio = true, _sixthRadio = true, _seventhRadio = true;
+  bool _firstRadio = true, _secondRadio = true, _thirdRadio = true, _fourthRadio = true, _fifthRadio = true, _sixthRadio = true, _seventhRadio = true,
+      _endTextVisibility = false;
 
   int _pointPlayerOne = 0, _pointPlayerTwo = 0, _pointPlayerThree = 0, _pointPlayerFour = 0,
       _totalPointPlayerOne = 0, _totalPointPlayerTwo = 0, _totalPointPlayerThree = 0, _totalPointPlayerFour = 0;
@@ -95,7 +96,9 @@ class _GameScreenState extends  State<GameScreen>{
   }
 
   String _getPlayerTurn() {
-    if (_turn % 4 == 0)
+    if(_turn == 21)
+      return "EndGame";
+    else if (_turn % 4 == 0)
       return "Player-4";
     else if (_turn % 2 == 0)
       return "Player-2";
@@ -156,6 +159,18 @@ class _GameScreenState extends  State<GameScreen>{
       playerTwoBorderWidth    = 1;
       playerThreeBorderWidth  = 1;
       playerFourBorderWidth   = 3;
+    }
+    else if (playerTurn == "EndGame"){
+      _playerTurn             = _playerFourName;
+      playerOneBorderColor    = Colors.black38;
+      playerTwoBorderColor    = Colors.black38;
+      playerThreeBorderColor  = Colors.black38;
+      playerFourBorderColor   = Colors.black38;
+      playerOneBorderWidth    = 1;
+      playerTwoBorderWidth    = 1;
+      playerThreeBorderWidth  = 1;
+      playerFourBorderWidth   = 1;
+      _endTextVisibility      = true;
     }
 
     if(_turn>1) {
@@ -1006,7 +1021,6 @@ class _GameScreenState extends  State<GameScreen>{
                                     _insertPlayerPoints();
                                     _resetGameFormText();
                                     _refreshTurnData();
-                                    //_refreshFormData();
                                   }
                                 },
                               ),
@@ -1224,7 +1238,8 @@ class _GameScreenState extends  State<GameScreen>{
               padding: EdgeInsets.only(right: 20.0),
               child: GestureDetector(
                 onTap: () {
-                  _gameSelectionDialog(context);
+                  if(_turn<21)
+                    _gameSelectionDialog(context);
                 },
                 child: Icon(
                     Icons.add_circle_outline_rounded
@@ -1486,6 +1501,30 @@ class _GameScreenState extends  State<GameScreen>{
                     ],
                   ),
                 ],
+              ),
+            ),
+            Container(
+              height: 70,
+              margin: EdgeInsets.all(6.0),
+              /*decoration: BoxDecoration(
+                color: _bodyBackground,
+                borderRadius: BorderRadius.circular(45.0),
+                border: Border.all(
+                    color: _playerFourBorderColor,
+                    width: _playerFourBorderWidth
+                ),
+              ),*/
+              child: Visibility(
+                child: Text(ContentService().getContent(_language, "endGameText"),
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,),
+                maintainSize: true,
+                maintainAnimation: true,
+                maintainState: true,
+                visible: _endTextVisibility,
               ),
             )
           ]
