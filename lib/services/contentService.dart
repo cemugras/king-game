@@ -175,6 +175,8 @@ class ContentService{
           return Constants.CONTENT_ALERT_SELECTED_GAME_TR;
         else if(contentName == "endGameText")
           return Constants.CONTENT_END_GAME_TR;
+        else if(contentName == "deleteLastTurn")
+          return Constants.CONTENT_DELETE_LAST_TURN_TR;
         else
           return "ErrorContent";
       case "EN":
@@ -240,6 +242,8 @@ class ContentService{
           return Constants.CONTENT_ALERT_SELECTED_GAME_EN;
         else if(contentName == "endGameText")
           return Constants.CONTENT_END_GAME_EN;
+        else if(contentName == "deleteLastTurn")
+          return Constants.CONTENT_DELETE_LAST_TURN_EN;
         else
           return "ErrorContent";
       case "null":

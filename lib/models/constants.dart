@@ -45,6 +45,8 @@ class Constants{
   static String CONTENT_ALERT_SELECTED_GAME_TR = "Seçilen Oyun: ";
   static String CONTENT_END_GAME_EN = "Game is ended..";
   static String CONTENT_END_GAME_TR = "Oyun bitti..";
+  static String CONTENT_DELETE_LAST_TURN_EN = "Last turn will be deleted.";
+  static String CONTENT_DELETE_LAST_TURN_TR = "Son tur silinecek.";
 
   //Setting screen constants.
   static String CONTENT_LANG_TITLE_EN = "Language";

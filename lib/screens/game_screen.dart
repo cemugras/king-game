@@ -29,7 +29,7 @@ class _GameScreenState extends  State<GameScreen>{
   String _playerOneName = "Player-1", _playerTwoName = "Player-2", _playerThreeName = "Player-3", _playerFourName = "Player-4",
       _playerTurn = "Player-1",
       _playerOnePointName = "PointPlayer-1", _playerTwoPointName = "PointPlayer-2", _playerThreePointName = "PointPlayer-3", _playerFourPointName = "PointPlayer-4";
-  int _turn = 1, _turnPrev = 1;
+  int _turn = 1;
   double _playerOneBorderWidth = 1, _playerTwoBorderWidth = 1, _playerThreeBorderWidth = 1, _playerFourBorderWidth = 1,
       playerOneBorderWidth = 1, playerTwoBorderWidth = 1, playerThreeBorderWidth = 1, playerFourBorderWidth = 1;
 
@@ -1037,6 +1037,81 @@ class _GameScreenState extends  State<GameScreen>{
     );
   }
 
+  void _deleteTurnDialog(BuildContext context) {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: _bodyBackground,
+          content: Stack(
+            children: <Widget>[
+              StatefulBuilder(
+                  builder: (BuildContext context, StateSetter setState) {
+                    return Form(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          ListTile(
+                              enabled: false,
+                              title: Text(ContentService().getContent(_language, "deleteLastTurn"), textAlign: TextAlign.center)
+                          ),
+                          Wrap(
+                            children: <Widget>[
+                              ElevatedButton(
+                                child: Text(ContentService().getMenuTitleContent(_language, "cancelTitle")),
+                                style: ElevatedButton.styleFrom(
+                                    primary: _bodyBackground,
+                                    onPrimary: _heading,
+                                    shadowColor: _bodyBackground,
+                                    elevation: 0
+                                ),
+                                onPressed: () {
+                                  _resetGameFormText();
+                                  Navigator.pop(context);
+                                },
+                              ),
+                              Container(
+                                width: 5.0,
+                              ),
+                              ElevatedButton(
+                                child: Text(ContentService().getMenuTitleContent(_language, "submitTitle")),
+                                style: ElevatedButton.styleFrom(
+                                    primary: _bodyBackground,
+                                    onPrimary: _headingColor,
+                                    shadowColor: _bodyBackground,
+                                    elevation: 0
+                                ),
+                                onPressed: () {
+                                  if(_turn > 1){
+                                    Navigator.of(context).pop();
+                                    //_insertPlayerPoints();
+                                    _turn = _turn - 1;
+                                    GameService().setTurnCount(_turn);
+                                    _resetGameFormText();
+                                    _refreshTurnData();
+                                  }
+                                  /*if(_totalTrickCount == _maxTrickCount && _selectedRadio != RadioButtons.nullRadio){
+                                    Navigator.of(context).pop();
+                                    _insertPlayerPoints();
+                                    _resetGameFormText();
+                                    _refreshTurnData();
+                                  }*/
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   void _refreshFormData() async {
     _selectedRadio = RadioButtons.nullRadio;
     _setRadios(true);
@@ -1096,7 +1171,6 @@ class _GameScreenState extends  State<GameScreen>{
   }
 
   void _resetGameFormText() async {
-    //_selectedRadio = RadioButtons.nullRadio;
     _playerOne.text='';
     _playerTwo.text='';
     _playerThree.text='';
@@ -1227,7 +1301,9 @@ class _GameScreenState extends  State<GameScreen>{
           Padding(
               padding: EdgeInsets.only(right: 20.0),
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  _deleteTurnDialog(context);
+                },
                 child: Icon(
                   trashIcon,
                   size: 26.0,
